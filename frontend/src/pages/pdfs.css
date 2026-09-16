@@ -2,5 +2,32 @@
 .pdf-page .explore__card { border-top: 4px solid var(--primary-color); }
 .pdf-page .explore__card > span:first-child { color: #07111f; }
 .pdf-page .explore__card .resource-category { color: #07111f; background: var(--primary-color); }
+.pdf-thumbnail { width: 100%; height: 120px; object-fit: cover; margin: -.25rem 0 1rem; border-radius: 8px; }
+.pdf-state { grid-column: 1 / -1; padding: 2rem; color: var(--text-light); text-align: center; background: var(--surface); border: 1px dashed var(--line); border-radius: 10px; }
+.pdf-error { color: #ff9b9b; }
+.pdf-detail-page { padding: 4rem 1rem 6rem; }
+.pdf-back-link { display: inline-block; margin-bottom: 2rem; color: var(--secondary-color); font-weight: 700; }
+.pdf-detail-header { max-width: 850px; }
+.pdf-detail-header h1 { margin: .45rem 0 1rem; color: var(--text-dark); font-size: clamp(2rem, 5vw, 4rem); line-height: 1.1; }
+.pdf-detail-meta { display: flex; flex-wrap: wrap; gap: .55rem; color: var(--text-light); }
+.pdf-detail-meta span { padding: .35rem .7rem; background: #102a48; border: 1px solid #315170; border-radius: 999px; }
+.pdf-detail-ad-slot { width: 100%; min-height: 90px; margin: 1.5rem 0; overflow: hidden; text-align: center; }
+.pdf-detail-ad-slot ins { display: block !important; min-height: 90px; }
+.pdf-content-panel { max-width: 900px; margin-top: 2rem; padding: clamp(1.1rem, 4vw, 2.5rem); color: var(--text-dark); background: var(--surface); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); }
+.pdf-content-panel h2 { margin-top: 0; color: var(--text-dark); }
+.pdf-description, .pdf-tags { color: var(--text-light); line-height: 1.8; white-space: pre-wrap; }
+.pdf-course-content { margin: 1.5rem 0; color: var(--text-light); line-height: 1.85; }
+.pdf-course-content h1, .pdf-course-content h2, .pdf-course-content h3, .pdf-course-content h4 { margin: 1.5rem 0 .6rem; color: var(--text-dark); }
+.pdf-course-content p { margin: .75rem 0; }
+.pdf-course-content ul, .pdf-course-content ol { padding-left: 1.4rem; }
+.pdf-course-content a { color: var(--secondary-color); text-decoration: underline; }
+.pdf-course-content pre, .pdf-course-content code { max-width: 100%; overflow-x: auto; }
+.pdf-course-content pre { padding: 1rem; color: #d9edff; background: #07111f; border: 1px solid #315170; border-radius: 8px; }
+.pdf-preview { margin-top: 1.75rem; overflow: hidden; border: 1px solid #315170; border-radius: 9px; background: #07111f; }
+.pdf-preview iframe { width: 100%; height: min(75vh, 780px); border: 0; }
+.pdf-download-area { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--line); text-align: center; }
+.pdf-download-area p { color: var(--text-light); }
+.pdf-download-button { min-width: min(100%, 240px); }
+@media (max-width: 600px) { .pdf-detail-page { padding: 3rem .75rem 4rem; } .pdf-preview iframe { height: 65vh; } .pdf-download-button { width: 100%; } }
 .pdfs-ad-slot { width: 100%; min-height: 90px; margin: 1.5rem 0 2rem; overflow: hidden; text-align: center; }
 .pdfs-ad-slot ins { display: block !important; min-height: 90px; }

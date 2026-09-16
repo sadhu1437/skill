@@ -7,6 +7,7 @@ const JobsPage = lazy(() => import('./pages/JobsPage'))
 const JobDetailPage = lazy(() => import('./pages/JobDetailPage'))
 const AIPage = lazy(() => import('./pages/AIPage'))
 const PDFsPage = lazy(() => import('./pages/PDFsPage'))
+const PDFDetailPage = lazy(() => import('./pages/PDFDetailPage'))
 const PrivacyPage = lazy(() => import('./pages/PrivacyPage'))
 const DisclaimerPage = lazy(() => import('./pages/DisclaimerPage'))
 const ContactPage = lazy(() => import('./pages/ContactPage'))
@@ -42,6 +43,7 @@ export default function App() {
         <Route path="/jobs/:slug" element={<JobDetailPage />} />
         <Route path="/ai-tech" element={<AIPage />} />
         <Route path="/pdfs" element={<PDFsPage />} />
+        <Route path="/pdfs/:slug" element={<PDFDetailPage />} />
         <Route path="/interview" element={<InterviewPage />} />
         <Route path="/interview/:topicSlug/:questionSlug" element={<InterviewQuestionPage />} />
         <Route path="/interview/:topicSlug" element={<InterviewTopicPage />} />

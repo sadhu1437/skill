@@ -95,6 +95,12 @@ class JobSerializer(serializers.ModelSerializer):
         job = Job.objects.create(company=company, **validated_data)
         return job
 
+    def update(self, instance, validated_data):
+        company_name = validated_data.pop("company_name", None)
+        if company_name is not None and company_name.strip():
+            instance.company, _ = Company.objects.get_or_create(name=company_name.strip())
+        return super().update(instance, validated_data)
+
 
 class JobListSerializer(JobSerializer):
     pass

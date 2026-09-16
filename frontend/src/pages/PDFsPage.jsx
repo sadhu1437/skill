@@ -1,21 +1,19 @@
 import './pdfs.css'
 import AdSlot from '../components/AdSlot'
-
-const pdfs = [
-  { title: 'Aptitude Practice Set', category: 'Aptitude', description: 'Quantitative aptitude with solutions - Beginner to Advanced', path: '/source-site/assets/pdfs/100_aptitude_trick.pdf' },
-  { title: 'C Programming', category: 'C', description: 'A comprehensive C programming guide suitable for beginners, developers, and professionals alike', path: '/source-site/assets/library/c.html' },
-  { title: 'Java Programming', category: 'Java', description: 'A comprehensive Java programming guide suitable for beginners, developers, and professionals alike', path: '/source-site/assets/library/java.html' },
-  { title: 'Python Programming', category: 'Python', description: 'A comprehensive Python programming guide suitable for beginners, developers, and professionals alike', path: '/source-site/assets/library/python.html' },
-  { title: 'C++ Programming', category: 'C++', description: 'A comprehensive C++ programming guide suitable for beginners, developers, and professionals alike', path: '/source-site/assets/library/cpp.html' },
-  { title: 'C# Programming', category: 'C#', description: 'A comprehensive C# programming guide suitable for beginners, developers, and professionals alike', path: '/source-site/assets/library/csharp.html' },
-  { title: 'Bootstrap Programming', category: 'Bootstrap', description: 'A comprehensive Bootstrap programming guide suitable for beginners, developers, and professionals alike', path: '/source-site/assets/library/bootstrap.html' },
-  { title: 'HTML', category: 'HTML', description: 'A comprehensive HTML guide suitable for beginners, developers, and professionals alike', path: '/source-site/assets/library/html.html' },
-  { title: 'CSS', category: 'CSS', description: 'A comprehensive CSS guide suitable for beginners, developers, and professionals alike', path: '/source-site/assets/library/css.html' },
-  { title: 'JAVASCRIPT', category: 'JavaScript', description: 'A comprehensive JAVASCRIPT guide suitable for beginners, developers, and professionals alike', path: '/source-site/assets/library/javascript.html' },
-  { title: 'React JS', category: 'React', description: 'A comprehensive React JS guide suitable for beginners, developers, and professionals alike', path: '/source-site/assets/library/reactjs.html' },
-]
+import { useEffect, useState } from 'react'
+import { fetchJson } from '../api/client'
+import { Link } from 'react-router-dom'
 
 export default function PDFsPage() {
+  const [pdfs, setPdfs] = useState([])
+  const [state, setState] = useState('loading')
+
+  useEffect(() => {
+    fetchJson('/resources/')
+      .then((data) => { setPdfs(Array.isArray(data) ? data : data.results || []); setState('ready') })
+      .catch(() => setState('error'))
+  }, [])
+
   return (
     <div className="section__container resource-page pdf-page">
       <h2 className="section__header"><span>Learning</span> PDFs</h2>
@@ -23,14 +21,18 @@ export default function PDFsPage() {
 
       <AdSlot slot="content_slot" className="pdfs-ad-slot" />
 
+      {state === 'loading' && <p className="pdf-state">Loading published resources...</p>}
+      {state === 'error' && <p className="pdf-state pdf-error">Learning resources could not be loaded.</p>}
+      {state === 'ready' && !pdfs.length && <p className="pdf-state">No published PDFs available yet. Check back soon.</p>}
+
       <div className="explore__grid">
         {pdfs.map((pdf) => (
           <div key={pdf.title} className="explore__card">
-            <span>📄</span>
+            {pdf.thumbnail ? <img className="pdf-thumbnail" src={pdf.thumbnail} alt="" loading="lazy" /> : <span>📄</span>}
             <h4>{pdf.title}</h4>
             <span className="resource-category">{pdf.category}</span>
             <p>{pdf.description}</p>
-            <a href={pdf.path} className="resource-link">Download PDF</a>
+            <Link to={`/pdfs/${pdf.slug}`} className="resource-link">View course content</Link>
           </div>
         ))}
       </div>

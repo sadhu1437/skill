@@ -22,6 +22,7 @@ class PDFResource(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, max_length=255)
     description = models.TextField(blank=True)
+    content = models.TextField(blank=True)
     category = models.CharField(max_length=40, choices=CATEGORY_CHOICES, default="Other")
     tags = models.CharField(max_length=500, blank=True)
     author = models.CharField(max_length=255, blank=True)

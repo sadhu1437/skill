@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.core.security import safe_upload_filename, validate_file_upload
+from apps.core.security import safe_upload_filename, sanitize_html, validate_file_upload
 from .models import PDFResource
 
 
@@ -12,6 +12,7 @@ class PDFResourceSerializer(serializers.ModelSerializer):
             "title",
             "slug",
             "description",
+            "content",
             "category",
             "tags",
             "author",
@@ -24,6 +25,9 @@ class PDFResourceSerializer(serializers.ModelSerializer):
             "created_at",
         )
         read_only_fields = ("id", "slug", "download_count", "published_at", "created_at")
+
+    def validate_content(self, value):
+        return sanitize_html(value)
 
     def validate_pdf(self, value):
         is_valid, error_message = validate_file_upload(value, ["pdf"], 10 * 1024 * 1024)

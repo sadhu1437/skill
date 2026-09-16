@@ -114,6 +114,22 @@ class JobCreateView(generics.CreateAPIView):
         return Response(response_serializer.data, status=status.HTTP_201_CREATED)
 
 
+class JobManageDetailView(generics.RetrieveUpdateAPIView):
+    queryset = Job.objects.all().select_related("company")
+    serializer_class = JobCreateSerializer
+    lookup_field = "slug"
+    permission_classes = (permissions.IsAdminUser,)
+
+    def get_object(self):
+        return get_object_or_404(Job, slug=self.kwargs.get("slug"))
+
+    def perform_update(self, serializer):
+        job = serializer.save()
+        if job.is_published and not job.published_at:
+            job.published_at = timezone.now()
+            job.save(update_fields=["published_at"])
+
+
 class JobDeleteView(generics.DestroyAPIView):
     queryset = Job.objects.all()
     serializer_class = JobSerializer

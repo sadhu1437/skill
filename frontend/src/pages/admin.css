@@ -10,6 +10,7 @@
 .admin-help { color: #607089; }
 .admin-form, .admin-login-card { padding: clamp(1.25rem, 4vw, 2.25rem); background: white; border: 1px solid #dbe4ef; border-radius: 14px; box-shadow: 0 12px 30px rgba(33, 65, 104, .08); }
 .admin-section { padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid #e6edf5; }
+.admin-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .admin-section h2 { margin-top: 0; font-size: 1.15rem; }
 .admin-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 .admin-form label, .admin-login-card label { display: flex; flex-direction: column; gap: .4rem; margin-bottom: 1rem; color: #43536b; font-size: .9rem; font-weight: 700; }
@@ -40,6 +41,7 @@
 .admin-login-card { max-width: 460px; }
 .admin-login-card form { margin-top: 1.5rem; }
 .jobs-list-table { display: grid; gap: .9rem; }
+.job-row-actions { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
 @media (max-width: 640px) { .admin-page { padding: 1.5rem .75rem; } .admin-header { flex-direction: column; } .admin-header-actions { justify-content: flex-start; } .admin-grid { grid-template-columns: 1fr; gap: 0; } .admin-form { padding: 1rem; border-radius: 10px; } .admin-submit { position: sticky; bottom: .75rem; z-index: 2; width: 100%; box-shadow: 0 6px 18px rgba(7, 17, 31, .18); } .admin-interview-coding { margin-inline: -.2rem; padding: .8rem; } }
 .job-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .9rem 1rem; border: 1px solid #dfeaf3; border-radius: 10px; background: #f9fbff; }
 .job-row p { margin: .2rem 0 0; color: #607089; }
