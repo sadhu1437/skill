@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Prepare for your JavaScript interview with our comprehensive guide featuring top JavaScript interview questions and answers for freshers and experienced candidates.">
+  <meta name="keywords" content="JavaScript, JavaScript interview questions, JavaScript programming, JavaScript interview preparation, JavaScript coding, JavaScript for beginners, JavaScript for experienced">
+  <title>JavaScript Interview Questions - Styled Content</title>
+
+  <!-- Google AdSense Auto Ads Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687126461256058" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/pdfs.css">
+</head>
+<body>
+
+    <nav style="position: relative;">
+        <div class="nav__header">
+          <div class="nav__logo">
+          <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+          </div>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+              </svg>
+            </i>          
+          </div>
+        </div>
+        <ul class="nav__links" id="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../pdf.html">Learning PDFs</a></li>
+          <li><a href="../../interview.html">Interview Questions</a></li>
+          <li><a href="../../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- AdSense Placement 1: Below Header/Nav -->
+      <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto 10px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+          <ins class="adsbygoogle"
+               style="display:block; min-width:250px; min-height:90px;"
+               data-ad-client="ca-pub-8687126461256058"
+               data-ad-slot="3087513906"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+      </div>
+
+      <div class="content-container">
+  <section>
+    <h2>Top JavaScript Interview Questions</h2>
+    <p>Preparing for a JavaScript interview? Here are some of the most common JavaScript interview questions along with their answers, suitable for both freshers and experienced candidates. Understanding these concepts will help you demonstrate your JavaScript skills effectively during interviews.</p>
+  </section>
+
+  <section>
+    <h3>1. What is JavaScript?</h3>
+    <p>JavaScript is a high-level, dynamic, untyped, and interpreted programming language that is widely used for web development. It allows developers to create interactive and dynamic web pages by manipulating the Document Object Model (DOM) and handling events.</p>
+
+    <h3>2. What are the key features of JavaScript?</h3>
+    <ul>
+      <li><strong>Lightweight:</strong> JavaScript is a lightweight scripting language that is easy to learn and use.</li>
+      <li><strong>Interpreted Language:</strong> JavaScript code is executed line by line, making it easier to debug.</li>
+      <li><strong>Event-Driven:</strong> JavaScript supports event-driven programming, allowing developers to create responsive applications.</li>
+      <li><strong>Prototype-Based:</strong> JavaScript uses prototypes for inheritance, allowing for flexible object-oriented programming.</li>
+    </ul>
+
+    <h3>3. What is the difference between `==` and `===` in JavaScript?</h3>
+    <p><strong>`==` (Equality Operator):</strong> The equality operator compares two values for equality after converting them to a common type (type coercion). <strong>`===` (Strict Equality Operator):</strong> The strict equality operator compares both the value and the type without type coercion. It is generally recommended to use `===` to avoid unexpected results.</p>
+
+    <h3>4. What are JavaScript data types?</h3>
+    <p>JavaScript has several data types, which can be categorized into two groups: <strong>Primitive Types:</strong> These include <code>undefined</code>, <code>null</code>, <code>boolean</code>, <code>number</code>, <code>string</code>, and <code>symbol</code>. <strong>Reference Types:</strong> These include objects, arrays, and functions.</p>
+
+    <h3>5. What is a closure in JavaScript?</h3>
+    <p>A closure is a function that retains access to its lexical scope, even when the function is executed outside that scope. Closures are often used to create private variables and functions, allowing for data encapsulation.</p>
+
+    <h3>6. What is the purpose of the `this` keyword in JavaScript?</h3>
+    <p>The `this` keyword refers to the context in which a function is executed. Its value can vary depending on how a function is called. In global context, `this` refers to the global object (e.g., `window` in browsers). In object methods, `this` refers to the object the method is called on.</p>
+
+    <h3>7. What are promises in JavaScript?</h3>
+    <p>Promises are objects that represent the eventual completion (or failure) of an asynchronous operation and its resulting value. A promise can be in one of three states: <strong>pending</strong>, <strong>fulfilled</strong>, or <strong>rejected</strong>. Promises allow for cleaner handling of asynchronous code compared to traditional callback functions.</p>
+
+    <!-- AdSense Placement 2: Mid-Content -->
+    <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto; padding: 0; text-align: center; clear: both; box-sizing: border-box;">
+        <ins class="adsbygoogle"
+             style="display:block; min-width:250px; min-height:90px;"
+             data-ad-client="ca-pub-8687126461256058"
+             data-ad-slot="3087513906"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <h3>8. What is the difference between `let`, `const`, and `var`?</h3>
+    <p><strong>`var`:</strong> Variables declared with `var` are function-scoped or globally scoped and can be re-declared and updated. <strong>`let`:</strong> Variables declared with `let` are block-scoped and can be updated but not re-declared in the same scope. <strong>`const`:</strong> Variables declared with `const` are also block-scoped and cannot be updated or re-declared; they must be initialized at the time of declaration.</p>
+
+    <h3>9. What is event delegation in JavaScript?</h3>
+    <p>Event delegation is a technique that allows you to attach a single event listener to a parent element instead of multiple listeners to individual child elements. This approach improves performance and simplifies event handling, especially when dealing with dynamically added elements.</p>
+
+    <h3>10. What is the purpose of the `async` and `await` keywords in JavaScript?</h3>
+    <p>The `async` keyword is used to declare an asynchronous function, which returns a promise. The `await` keyword can only be used inside an `async` function and pauses the execution of the function until the promise is resolved. This allows for writing asynchronous code in a more synchronous manner, improving readability.</p>
+
+    <h3>11. What is Hoisting in JavaScript?</h3>
+    <p>Hoisting is JavaScript's default behavior of moving all declarations (variables and functions) to the top of their current scope (script or function) before code execution. Note that while <code>var</code> declarations are hoisted and initialized with <code>undefined</code>, <code>let</code> and <code>const</code> are hoisted but remain uninitialized in the "Temporal Dead Zone".</p>
+
+    <h3>12. Explain the difference between `null` and `undefined`.</h3>
+    <p><strong>`undefined`</strong> means a variable has been declared but has not yet been assigned a value. It is a type itself. <strong>`null`</strong> is an assignment value that represents the intentional absence of any object value. It is explicitly assigned by the developer, and its type evaluates to an object.</p>
+
+    <h3>13. What is the difference between Event Bubbling and Event Capturing?</h3>
+    <p>Both are phases of event propagation in the DOM. <strong>Event Bubbling</strong> means the event starts from the deepest target element and triggers upwards (bubbles up) to the parent elements. <strong>Event Capturing</strong> (or trickling) is the opposite; the event starts from the top-most parent element and propagates downwards to the target element.</p>
+
+    <h3>14. What are Arrow Functions and how do they differ from regular functions?</h3>
+    <p>Arrow functions were introduced in ES6 and provide a shorter syntax for writing function expressions. The main differences are that arrow functions do not have their own <code>this</code> binding (they inherit <code>this</code> from the enclosing lexical scope), they cannot be used as constructors (cannot use the <code>new</code> keyword), and they do not have an <code>arguments</code> object.</p>
+
+    <h3>15. What is the DOM (Document Object Model)?</h3>
+    <p>The DOM is a programming interface for web documents. It represents the page so that programs can change the document structure, style, and content. The DOM represents the document as nodes and objects (a tree structure); that way, programming languages like JavaScript can interact with the page.</p>
+  </section>
+
+  <section class="download-section" style="margin-top: 2rem; margin-bottom: 2rem;">
+    <h2>Download JavaScript Interview Questions</h2>
+    <p>For a comprehensive list of JavaScript interview questions and answers, download the PDF guide below:</p>
+    <a class="download-button" href="../pdfs/JS_Interview_Questions.pdf" download style="display: inline-block; padding: 0.8rem 1.5rem; background-color: #0056b3; color: #fff; text-decoration: none; border-radius: 5px; font-weight: 500;">Download PDF</a>
+  </section>
+  
+</div>
+
+  <!-- AdSense Placement 3: Above Footer -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 10px auto 40px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <div class="footer__logo">
+        <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+        </div>
+        <p>
+          SkillBloom helps you prepare for success with access to interview questions, company hiring processes, downloadable PDFs, job alerts, and more.
+        </p>
+      </div>
+
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <ul class="footer__links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../interview.html">Interview Prep</a></li>
+          <li><a href="../../pdf.html">PDF Library</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer__col">
+        <h4>Community</h4>
+        <ul class="footer__links">
+          <li><a href="https://t.me/ytsmart1437" target="_blank">Telegram</a></li>
+          <li><a href="https://youtube.com/@ytsmart143?si=RArtu08pGPesGzmW" target="_blank">YouTube</a></li>
+          <li><a href="https://whatsapp.com/channel/0029VarQwSyLo4hciv8S3t04" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <ul class="footer__links">
+          <li>
+            <a href="mailto:ytsmart143@gmail.com">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+              </span>
+               ytsmart143@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5 14.5 7.6 14.5 9 13.4 11.5 12 11.5z"/>
+                </svg>
+              </span>
+               Andhra Pradesh, India
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bar">
+      © 2026 SkillBloom. Built for learners and job seekers. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Fixed relative path for the main.js script -->
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+.content-page { padding: 5rem 1rem; }
+.content-panel { max-width: 900px; margin: 2rem auto 0; padding: 2.5rem; background: rgba(255,255,255,.92); border-left: 6px solid var(--primary-color); border-radius: 10px; box-shadow: 0 5px 22px rgba(42,72,112,.08); }
+.content-panel h3 { margin-top: 1.7rem; color: var(--primary-dark); }
+.meta-list { display: flex; flex-wrap: wrap; gap: .55rem; }
+.meta-pill { padding: .35rem .7rem; color: var(--primary-dark); background: #edf5ff; border: 1px solid #cfe3fb; border-radius: 999px; font-size: .85rem; }
+@media (max-width: 560px) { .content-page { padding: 3.5rem 0; } .content-panel { padding: 1.4rem; } }

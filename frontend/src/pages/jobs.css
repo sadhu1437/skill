@@ -1,0 +1,8 @@
+@import './home.css';
+.jobs-page { padding-top: 5rem; padding-bottom: 5rem; }
+.jobs-page .job__card { min-height: 330px; }
+.jobs-page .job-card-description { max-height: 10rem; overflow: hidden; white-space: pre-wrap; }
+.jobs-page .job-status { grid-column: 1 / -1; padding: 2rem; color: var(--text-light); text-align: center; }
+.jobs-ad-slot { width: 100%; min-height: 90px; margin: 1.5rem 0 2rem; overflow: hidden; text-align: center; }
+.jobs-ad-slot ins { display: block !important; min-height: 90px; }
+@media (max-width: 560px) { .jobs-page { padding-top: 3.5rem; padding-bottom: 3.5rem; } }

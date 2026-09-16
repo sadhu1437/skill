@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Python Guide - Styled Content</title>
+  
+  <!-- Google AdSense Auto Ads Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687126461256058" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/pdfs.css">
+  <style>
+    :root {
+      --primary: #3776ab;
+      --secondary: #ffd43b;
+      --accent: #306998;
+      --light-bg: #f4f7fa;
+      --text-dark: #1f2937;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text-dark);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    section {
+      background: white;
+      margin-bottom: 2rem;
+      padding: 2rem;
+      border-left: 6px solid var(--primary);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:hover {
+      transform: scale(1.01);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: var(--primary);
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+
+    h3 {
+      color: var(--accent);
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight-box {
+      background-color: var(--secondary);
+      color: #1f2937;
+      padding: 1rem;
+      border-radius: 8px;
+      margin: 1rem 0;
+      font-weight: bold;
+    }
+
+    code, pre {
+      background: #1e293b;
+      color: #f8f8f2;
+      padding: 1rem;
+      display: block;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: Consolas, monospace;
+      margin-top: 1rem;
+    }
+
+    svg {
+      display: block;
+      margin-top: 1rem;
+      max-width: 100%;
+    }
+    
+    .content-container {
+      padding: 2rem;
+    }
+
+    .download-button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #00bcd4;
+      color: #ffffff;
+      font-size: 1rem;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s, transform 0.2s;
+      margin-top: 10px;
+    }
+    
+    .download-button:hover {
+      background-color: #0097a7;
+      transform: scale(1.05);
+    }
+    
+    .download-button:active {
+      transform: scale(0.95);
+    }
+
+    /* Base responsiveness for sections and text */
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+
+      .content-container {
+        padding: 1rem;
+      }
+
+      section {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      h3 {
+        font-size: 1.2rem;
+      }
+
+      pre code {
+        font-size: 0.9rem;
+        padding: 0.75rem;
+      }
+
+      .download-button {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    /* Stack footer columns vertically on smaller screens */
+    @media (max-width: 768px) {
+      .footer__container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 1rem;
+      }
+
+      .footer__col {
+        width: 100%;
+      }
+    }  
+   </style>
+</head>
+<body>
+
+    <nav style="position: relative;">
+        <div class="nav__header">
+          <div class="nav__logo">
+          <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+          </div>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+              </svg>
+            </i>          
+          </div>
+        </div>
+       <ul class="nav__links" id="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../pdf.html">Learning PDFs</a></li>
+          <li><a href="../../interview.html">Interview Questions</a></li>
+          <li><a href="../../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- AdSense Placement 1: Below Header/Nav -->
+      <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto 10px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+          <ins class="adsbygoogle"
+               style="display:block; min-width:250px; min-height:90px;"
+               data-ad-client="ca-pub-8687126461256058"
+               data-ad-slot="3087513906"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+      </div>
+
+      <div class="content-container">
+  <section>
+    <h2>Introduction to Python</h2>
+    <p>Python is a high-level, interpreted programming language that emphasizes code readability. Created by Guido van Rossum and first released in 1991, it supports multiple programming paradigms, including procedural, object-oriented, and functional programming. Python has a vast ecosystem of libraries and frameworks, making it suitable for a wide range of applications.</p>
+  </section>
+
+  <section>
+    <h2>History of Python</h2>
+    <p>Python was developed in the late 1980s as a successor to the ABC language. Its name was inspired by Monty Python, not the snake. Python 1.0 was released in 1991, with Python 2.0 arriving in 2000 and Python 3.0 in 2008. Over time, it evolved into one of the most versatile and beginner-friendly programming languages available today.</p>
+    <div class="highlight-box">Fun Fact: Python is named after Monty Python's Flying Circus!</div>
+    <p>Python continues to grow due to its open-source nature, active community, and applicability across various domains such as AI, automation, data science, and more. The transition from Python 2 to Python 3 marked a significant milestone, as Python 3 introduced many new features and improvements, including better Unicode support and a more consistent syntax.</p>
+  </section>
+
+  <section>
+    <h2>Key Features</h2>
+    <h3>✔ Readability and Simplicity</h3>
+    <p>Python uses clean syntax with an emphasis on indentation, making it one of the easiest languages to learn and use. This design promotes good coding practices even for beginners. The use of whitespace in Python code enhances readability, allowing developers to focus on problem-solving rather than syntax.</p>
+
+    <h3>✔ Interpreted Language</h3>
+    <p>Python executes code line by line, which is great for debugging and testing. It doesn't require compilation before running the code, speeding up development time. This feature allows developers to write and test code interactively, making it ideal for rapid prototyping.</p>
+
+    <h3>✔ Dynamic Typing</h3>
+    <p>You don’t need to declare variable types—Python infers them at runtime. This provides flexibility, but developers must be cautious with type-related bugs. Dynamic typing allows for quicker development cycles, as you can change variable types without modifying the code structure.</p>
+
+    <h3>✔ Community and Documentation</h3>
+    <p>Python has extensive documentation and a strong community that supports users with tutorials, forums, libraries, and frequent updates. The Python Software Foundation (PSF) plays a crucial role in maintaining and promoting the language, ensuring that it remains accessible and up-to-date.</p>
+  </section>
+
+  <!-- AdSense Placement 2: Mid-Content -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto; padding: 0; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <section>
+    <h2>Advanced Python Concepts</h2>
+    <h3>✨ Decorators</h3>
+    <p>Decorators provide a highly elegant way to modify the behavior of a function or a class without permanently modifying its source code. They are frequently used in frameworks like Flask or Django for routing and authentication.</p>
+
+    <h3>🔄 Generators</h3>
+    <p>Generators allow you to iterate through large datasets without loading everything into memory at once. By using the <code>yield</code> keyword, generators produce items one at a time, making them incredibly memory-efficient.</p>
+
+    <h3>📋 List Comprehensions</h3>
+    <p>List comprehensions provide a shorter syntax for creating a new list based on the values of an existing list. They are often faster and more readable than standard <code>for</code> loops.</p>
+  </section>
+
+  <section>
+    <h2>Popular Libraries</h2>
+    <h3>🌐 Django & Flask</h3>
+    <p>These web frameworks enable rapid development of secure and maintainable websites. Django provides a full-stack approach, while Flask is lightweight and flexible. Django follows the "batteries-included" philosophy, offering built-in features for user authentication, database management, and more, while Flask allows developers to choose their tools and libraries.</p>
+
+    <h3>📊 Pandas, NumPy, Matplotlib</h3>
+    <p>Used extensively in data science for data analysis, numerical computation, and visualization. These libraries help transform and present complex data with ease. Pandas provides data structures like DataFrames for handling structured data, NumPy offers support for large multi-dimensional arrays and matrices, and Matplotlib is a powerful plotting library for creating static, animated, and interactive visualizations.</p>
+
+    <pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('data.csv')
+plt.plot(df['date'], df['value'])
+plt.title('Sample Data')
+plt.xlabel('Date')
+plt.ylabel('Value')
+plt.show()</code></pre>
+  </section>
+
+  <section>
+    <h2>Use Cases</h2>
+    <ul>
+      <li><strong>Web Development:</strong> Create websites using Django, Flask, FastAPI, and Pyramid. These frameworks provide tools for building robust web applications quickly.</li>
+      <li><strong>Data Science:</strong> Analyze and visualize data efficiently using libraries like Pandas, NumPy, and Matplotlib. Python is a go-to language for data scientists due to its simplicity and powerful libraries.</li>
+      <li><strong>Machine Learning:</strong> Develop ML models with TensorFlow, Scikit-learn, and Keras. Python's simplicity and extensive libraries make it a popular choice for machine learning and AI projects.</li>
+      <li><strong>Automation:</strong> Automate repetitive tasks with scripts using libraries like Selenium for web automation and PyAutoGUI for GUI automation.</li>
+      <li><strong>Education:</strong> Ideal for teaching programming to beginners due to its straightforward syntax and readability. Many educational institutions use Python as the first programming language for students.</li>
+      <li><strong>Game Development:</strong> Create games using libraries like Pygame, which provides functionalities for game development, including graphics, sound, and user input.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Conclusion</h2>
+    <p>Python's balance of simplicity and power makes it a top choice for beginners and professionals alike. Its vast ecosystem, readability, and wide range of applications make it a fundamental language in today's tech world. Whether you're building a web app, analyzing data, or exploring AI, Python is a reliable and robust tool to have in your arsenal. The language's community-driven development ensures that it continues to evolve, making it a valuable skill for any developer.</p>
+  </section>
+
+  <section class="download-section">
+    <h2>Python Programming</h2>
+    <p>A comprehensive Python programming guide suitable for beginners, developers, and professionals alike</p>
+    <a class="download-button" href="../pdfs/Python_Programming.pdf" download>Download PDF</a>
+  </section>
+  
+</div>
+
+  <!-- AdSense Placement 3: Above Footer -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 10px auto 40px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <div class="footer__logo">
+        <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+        </div>
+        <p>
+          SkillBloom helps you prepare for success with access to interview questions, company hiring processes, downloadable PDFs, job alerts, and more.
+        </p>
+      </div>
+
+      
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <ul class="footer__links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../interview.html">Interview Prep</a></li>
+          <li><a href="../../pdf.html">PDF Library</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer__col">
+        <h4>Community</h4>
+        <ul class="footer__links">
+          <li><a href="https://t.me/ytsmart1437" target="_blank">Telegram</a></li>
+          <li><a href="https://youtube.com/@ytsmart143?si=RArtu08pGPesGzmW" target="_blank">YouTube</a></li>
+          <li><a href="https://whatsapp.com/channel/0029VarQwSyLo4hciv8S3t04" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <ul class="footer__links">
+      <li>
+        <a href="mailto:ytsmart143@gmail.com">
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+              <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+          </span>
+           ytsmart143@gmail.com
+        </a>
+      </li>
+          <li>
+            <a href="#">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5 14.5 7.6 14.5 9 13.4 11.5 12 11.5z"/>
+                </svg>
+              </span>
+               Andhra Pradesh, India
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bar">
+      © 2026 SkillBloom. Built for learners and job seekers. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React.js Guide - SkillBloom</title>
+
+  <!-- Google AdSense Auto Ads Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687126461256058" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/pdfs.css">
+</head>
+<body>
+
+    <nav style="position: relative;">
+        <div class="nav__header">
+          <div class="nav__logo">
+          <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+          </div>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+              </svg>
+            </i>          
+          </div>
+        </div>
+        <ul class="nav__links" id="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../pdf.html">Learning PDFs</a></li>
+          <li><a href="../../interview.html">Interview Questions</a></li>
+          <li><a href="../../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- AdSense Placement 1 -->
+      <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto 10px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+          <ins class="adsbygoogle"
+               style="display:block; min-width:250px; min-height:90px;"
+               data-ad-client="ca-pub-8687126461256058"
+               data-ad-slot="3087513906"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+      </div>
+
+      <div class="content-container">
+  <section>
+    <h2>Introduction to React.js</h2>
+    <p>React.js is a popular JavaScript library for building user interfaces, particularly for single-page applications. Developed by Facebook, React allows developers to create reusable UI components and manage the state of applications efficiently.</p>
+  </section>
+
+  <section>
+    <h2>History of React.js</h2>
+    <p>React was first released in 2013 by Facebook as an open-source project. It was created to address the challenges of building complex user interfaces with dynamic data. Since its release, React has gained immense popularity and has a large community of developers contributing to its ecosystem.</p>
+    <div class="highlight-box">Fun Fact: React was initially developed for Facebook's newsfeed!</div>
+    <p>React introduced concepts such as the virtual DOM, component-based architecture, and unidirectional data flow, which have influenced many other frameworks and libraries.</p>
+  </section>
+
+  <section>
+    <h2>Key Features</h2>
+    <h3>✔ Component-Based Architecture</h3>
+    <p>React allows developers to build encapsulated components that manage their own state, making it easier to create complex UIs.</p>
+
+    <h3>✔ Virtual DOM</h3>
+    <p>React uses a virtual DOM to optimize rendering performance. It updates only the parts of the DOM that have changed, resulting in faster UI updates.</p>
+
+    <h3>✔ Unidirectional Data Flow</h3>
+    <p>Data flows in one direction, from parent to child components, making it easier to understand and debug applications.</p>
+
+    <h3>✔ Rich Ecosystem</h3>
+    <p>React has a rich ecosystem of libraries and tools, including React Router for routing, Redux for state management, and many others.</p>
+  </section>
+
+  <!-- AdSense Placement 2 -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto; padding: 0; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <section>
+    <h2>Modern React Hooks</h2>
+    <h3>🎣 useState</h3>
+    <p>The <code>useState</code> hook lets you add React state to functional components, allowing your UI to react to user inputs and data changes.</p>
+    <h3>🔄 useEffect</h3>
+    <p>The <code>useEffect</code> hook allows you to perform side effects in your components, such as data fetching, subscriptions, or manually changing the DOM.</p>
+    <h3>🏗️ useContext</h3>
+    <p>The <code>useContext</code> hook provides a way to share values between components without having to explicitly pass a prop through every level of the tree.</p>
+  </section>
+
+  <section>
+    <h2>Basic React Component</h2>
+    <pre><code>import React from 'react';
+
+function App() {
+    return (
+        &lt;div&gt;
+            &lt;h1&gt;Hello, World!&lt;/h1&gt;
+        &lt;/div&gt;
+    );
+}
+
+export default App;</code></pre>
+  </section>
+
+  <section>
+    <h2>Use Cases</h2>
+    <ul>
+      <li><strong>Single-Page Applications:</strong> Build dynamic and responsive single-page applications (SPAs).</li>
+      <li><strong>Web Development:</strong> Create interactive user interfaces for web applications.</li>
+      <li><strong>Mobile Applications:</strong> Use React Native to build cross-platform mobile applications.</li>
+      <li><strong>Progressive Web Apps:</strong> Develop progressive web apps (PWAs) that provide a native app-like experience.</li>
+      <li><strong>Component Libraries:</strong> Create reusable component libraries for design systems.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Conclusion</h2>
+    <p>React.js is a powerful library for building user interfaces, offering a component-based architecture and efficient rendering through the virtual DOM. Its popularity and strong community support make it a valuable skill for web developers. As the web continues to evolve, React remains a leading choice for building modern web applications.</p>
+  </section>
+
+  <section class="download-section">
+    <h2>React.js Programming</h2>
+    <p>A comprehensive React.js programming guide suitable for beginners, developers, and professionals alike.</p>
+    <a class="download-button" href="../pdfs/react.pdf" download>Download PDF</a>
+  </section>
+  
+</div>
+
+  <!-- AdSense Placement 3 -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 10px auto 40px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <div class="footer__logo">
+        <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+        </div>
+        <p>
+          SkillBloom helps you prepare for success with access to interview questions, company hiring processes, downloadable PDFs, job alerts, and more.
+        </p>
+      </div>
+
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <ul class="footer__links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../interview.html">Interview Prep</a></li>
+          <li><a href="../../pdf.html">PDF Library</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer__col">
+        <h4>Community</h4>
+        <ul class="footer__links">
+          <li><a href="https://t.me/ytsmart1437" target="_blank">Telegram</a></li>
+          <li><a href="https://youtube.com/@ytsmart143?si=RArtu08pGPesGzmW" target="_blank">YouTube</a></li>
+          <li><a href="https://whatsapp.com/channel/0029VarQwSyLo4hciv8S3t04" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <ul class="footer__links">
+          <li>
+            <a href="mailto:ytsmart143@gmail.com">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+              </span>
+               ytsmart143@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5 14.5 7.6 14.5 9 13.4 11.5 12 11.5z"/>
+                </svg>
+              </span>
+               Andhra Pradesh, India
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bar">
+      © 2026 SkillBloom. Built for learners and job seekers. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>

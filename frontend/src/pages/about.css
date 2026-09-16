@@ -1,0 +1,3 @@
+@import './content.css';
+.about-page .content-panel { border-left-color: var(--accent-color); }
+.about-page .content-panel h3 { color: var(--primary-color); }

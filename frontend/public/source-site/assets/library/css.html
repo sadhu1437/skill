@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Guide - Styled Content</title>
+
+  <!-- Google AdSense Auto Ads Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687126461256058" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/pdfs.css">
+</head>
+<body>
+
+    <nav style="position: relative;">
+        <div class="nav__header">
+          <div class="nav__logo">
+          <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+          </div>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+              </svg>
+            </i>          
+          </div>
+        </div>
+        <ul class="nav__links" id="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../pdf.html">Learning PDFs</a></li>
+          <li><a href="../../interview.html">Interview Questions</a></li>
+          <li><a href="../../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- AdSense Placement 1: Below Header/Nav -->
+      <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto 10px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+          <ins class="adsbygoogle"
+               style="display:block; min-width:250px; min-height:90px;"
+               data-ad-client="ca-pub-8687126461256058"
+               data-ad-slot="3087513906"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+      </div>
+
+      <div class="content-container">
+  <section>
+    <h2>Introduction to CSS</h2>
+    <p>CSS (Cascading Style Sheets) is a stylesheet language used to describe the presentation of a document written in HTML or XML. CSS controls the layout, colors, fonts, and overall visual appearance of web pages, making it an essential tool for web developers.</p>
+  </section>
+
+  <section>
+    <h2>History of CSS</h2>
+    <p>CSS was first proposed by Håkon Wium Lie in 1994 and has since evolved through several versions. The first official specification, CSS1, was released in 1996, followed by CSS2 in 1998. CSS3, which introduced modules for various features, was developed in the early 2000s and continues to be updated with new capabilities.</p>
+    <div class="highlight-box">Fun Fact: CSS was created specifically to solve the problem of HTML tags (like &lt;font&gt; and &lt;color&gt;) cluttering up documents, successfully separating content from presentation!</div>
+    <p>CSS3 introduced powerful new features such as media queries, transitions, 2D/3D transformations, animations, and flexbox, deeply enhancing the ability to create responsive and visually appealing web designs without relying on JavaScript.</p>
+  </section>
+
+  <section>
+    <h2>Key Features</h2>
+    <h3>✔ Separation of Content and Style</h3>
+    <p>CSS allows developers to separate the content (HTML) of a web page from its visual presentation (CSS), making websites much easier to maintain, update, and scale.</p>
+
+    <h3>✔ Responsive Design</h3>
+    <p>CSS enables responsive web design through media queries, allowing web pages to fluidly adapt their layout and elements to different screen sizes, orientations, and devices (desktops, tablets, mobiles).</p>
+
+    <h3>✔ Flexibility and Control</h3>
+    <p>CSS provides pixel-perfect control over layout, colors, typography, spacing, and other visual aspects, allowing for highly creative, branded, and unique UI designs.</p>
+
+    <h3>✔ Animation and Transitions</h3>
+    <p>Modern CSS supports hardware-accelerated animations and transitions, enabling developers to create dynamic, buttery-smooth user experiences directly in the browser.</p>
+  </section>
+
+  <!-- AdSense Placement 2: Mid-Content -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto; padding: 0; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <section>
+    <h2>The Box Model</h2>
+    <p>The CSS Box Model is the foundation of layout on the web. Every element on a web page is considered a rectangular box consisting of four parts:</p>
+    <ul>
+      <li><strong>Content:</strong> The actual content of the box, where text and images appear.</li>
+      <li><strong>Padding:</strong> Clears an area around the content. The padding is transparent and inside the border.</li>
+      <li><strong>Border:</strong> A border that goes around the padding and content.</li>
+      <li><strong>Margin:</strong> Clears an area outside the border. The margin is transparent and separates the element from its neighbors.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Modern CSS Layouts</h2>
+    <h3>📏 Flexbox</h3>
+    <p>The Flexible Box Layout Module (Flexbox) provides a more efficient way to lay out, align, and distribute space among items in a container, even when their size is unknown or dynamic. It is primarily a <em>one-dimensional</em> layout system (rows or columns).</p>
+    
+    <h3>📐 CSS Grid</h3>
+    <p>CSS Grid Layout is the most powerful layout system available in CSS. It is a <em>two-dimensional</em> system, meaning it can handle both columns and rows simultaneously, allowing for the creation of complex, responsive web designs with minimal code.</p>
+  </section>
+
+  <section>
+    <h2>Basic CSS Syntax</h2>
+    <p>A CSS rule consists of a selector and a declaration block. The selector points to the HTML element you want to style, and the declaration block contains one or more declarations separated by semicolons.</p>
+    <pre style="background: #f4f4f4; padding: 1rem; border-radius: 5px; overflow-x: auto;"><code>/* This is a CSS comment */
+body {
+    background-color: #f9fafe;
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+}
+
+h1 {
+    color: #0056b3;
+    text-align: center;
+    font-size: 2.5rem;
+}</code></pre>
+  </section>
+
+  <section>
+    <h2>Use Cases</h2>
+    <ul>
+      <li><strong>Web Design:</strong> Style and layout web pages to create visually appealing, branded experiences.</li>
+      <li><strong>Responsive Layouts:</strong> Build interfaces that look perfect on tiny smartphones, large 4K monitors, and everything in between.</li>
+      <li><strong>UI Animations:</strong> Add hover effects, loading spinners, and page transitions to enhance user interactivity.</li>
+      <li><strong>Theming:</strong> Implement dark mode, light mode, and dynamic color themes using CSS Custom Properties (CSS Variables).</li>
+      <li><strong>Print Styles:</strong> Define specific styles (`@media print`) so web pages look clean and professional when printed on physical paper.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Conclusion</h2>
+    <p>CSS is a fundamental technology for web development, enabling developers to create visually appealing and responsive web pages. Its flexibility, control, and ability to separate content from presentation make it an essential skill for any front-end developer. As web technologies continue to evolve, CSS remains a critical, ever-improving component of the modern web stack.</p>
+  </section>
+
+  <section class="download-section" style="margin-top: 2rem; margin-bottom: 2rem;">
+    <h2>CSS Programming</h2>
+    <p>A comprehensive CSS programming guide suitable for beginners, developers, and professionals alike.</p>
+    <a class="download-button" href="../pdfs/CSSNotesForProfessionals.pdf" download style="display: inline-block; padding: 0.8rem 1.5rem; background-color: #0056b3; color: #fff; text-decoration: none; border-radius: 5px; font-weight: 500;">Download PDF</a>
+  </section>
+  
+</div>
+
+  <!-- AdSense Placement 3: Above Footer -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 10px auto 40px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <div class="footer__logo">
+        <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+        </div>
+        <p>
+          SkillBloom helps you prepare for success with access to interview questions, company hiring processes, downloadable PDFs, job alerts, and more.
+        </p>
+      </div>
+
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <ul class="footer__links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../interview.html">Interview Prep</a></li>
+          <li><a href="../../pdf.html">PDF Library</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer__col">
+        <h4>Community</h4>
+        <ul class="footer__links">
+          <li><a href="https://t.me/ytsmart1437" target="_blank">Telegram</a></li>
+          <li><a href="https://youtube.com/@ytsmart143?si=RArtu08pGPesGzmW" target="_blank">YouTube</a></li>
+          <li><a href="https://whatsapp.com/channel/0029VarQwSyLo4hciv8S3t04" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <ul class="footer__links">
+          <li>
+            <a href="mailto:ytsmart143@gmail.com">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+              </span>
+               ytsmart143@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5 14.5 7.6 14.5 9 13.4 11.5 12 11.5z"/>
+                </svg>
+              </span>
+               Andhra Pradesh, India
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bar">
+      © 2026 SkillBloom. Built for learners and job seekers. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Fixed relative path for the main.js script -->
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Guide - Styled Content</title>
+  
+  <!-- Google AdSense Auto Ads Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687126461256058" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/pdfs.css">
+</head>
+<body>
+
+    <nav style="position: relative;">
+        <div class="nav__header">
+          <div class="nav__logo">
+          <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+          </div>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+              </svg>
+            </i>          
+          </div>
+        </div>
+        <ul class="nav__links" id="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../pdf.html">Learning PDFs</a></li>
+          <li><a href="../../interview.html">Interview Questions</a></li>
+          <li><a href="../../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- AdSense Placement 1: Below Header/Nav -->
+      <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto 10px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+          <ins class="adsbygoogle"
+               style="display:block; min-width:250px; min-height:90px;"
+               data-ad-client="ca-pub-8687126461256058"
+               data-ad-slot="3087513906"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+      </div>
+
+      <div class="content-container">
+  <section>
+    <h2>Introduction to JavaScript</h2>
+    <p>JavaScript is a high-level, dynamic, untyped, and interpreted programming language. It is the core scripting technology of the World Wide Web, alongside HTML and CSS, and enables interactive, dynamic web pages. While it began purely as a client-side browser language, JavaScript is now widely used for server-side development, mobile app development, and even desktop software.</p>
+  </section>
+
+  <section>
+    <h2>History of JavaScript</h2>
+    <p>JavaScript was created by Brendan Eich in 1995 while working at Netscape Communications. Originally named "Mocha", it was later renamed to "LiveScript" and finally to "JavaScript" as a marketing tactic to capitalize on the popularity of Java at the time. Over the years, JavaScript has evolved significantly through the ECMAScript (ES) standards, which define the official language specification.</p>
+    <div class="highlight-box">Fun Fact: Brendan Eich famously wrote the first prototype of JavaScript in just 10 days!</div>
+    <p>Today, JavaScript is the undisputed king of web development and one of the most popular programming languages in the world, powering millions of websites and massive enterprise applications.</p>
+  </section>
+
+  <section>
+    <h2>Key Features</h2>
+    <h3>✔ Versatile & Ubiquitous</h3>
+    <p>JavaScript is truly "full-stack." It can be used for client-side development in the browser, server-side development using Node.js, and even embedded systems or IoT devices.</p>
+
+    <h3>✔ Event-Driven</h3>
+    <p>JavaScript fundamentally revolves around events. It allows developers to create highly interactive applications that instantly respond to user actions like clicks, scrolls, form submissions, and keyboard presses.</p>
+
+    <h3>✔ Asynchronous Programming</h3>
+    <p>JavaScript uses a non-blocking, single-threaded Event Loop. With features like Callbacks, Promises, and <code>async/await</code>, it handles complex asynchronous operations (like fetching API data) without freezing the user interface.</p>
+
+    <h3>✔ First-Class Functions</h3>
+    <p>In JavaScript, functions are treated as "first-class citizens," meaning they can be assigned to variables, passed as arguments to other functions, and returned from functions. This makes functional programming patterns highly effective.</p>
+  </section>
+
+  <!-- AdSense Placement 2: Mid-Content -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto; padding: 0; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <section>
+    <h2>Modern JavaScript (ES6+)</h2>
+    <p>The release of ECMAScript 2015 (ES6) marked a massive paradigm shift for the language. It introduced modern syntax and features that made writing JavaScript cleaner and more powerful:</p>
+    <ul>
+      <li><strong>let & const:</strong> Block-scoped variable declarations that replace the unpredictable <code>var</code> keyword.</li>
+      <li><strong>Arrow Functions:</strong> A concise syntax for writing function expressions that also lexically binds the <code>this</code> keyword.</li>
+      <li><strong>Template Literals:</strong> String interpolation using backticks (<code>`</code>) for easy dynamic string creation.</li>
+      <li><strong>Destructuring & Spread/Rest Operators:</strong> Powerful ways to unpack arrays and objects into distinct variables.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>The Document Object Model (DOM)</h2>
+    <p>When a web page loads, the browser creates a Document Object Model of the page. JavaScript uses the DOM API to dynamically access and manipulate HTML elements and CSS styles. This is what allows JavaScript to hide elements, create new paragraphs, trigger animations, or validate forms dynamically without reloading the browser window.</p>
+  </section>
+
+  <section>
+    <h2>Popular Libraries and Frameworks</h2>
+    <h3>🌐 React, Vue, & Angular</h3>
+    <p>These are the "Big Three" front-end JavaScript frameworks/libraries. They allow developers to build complex, state-driven Single Page Applications (SPAs) efficiently by breaking the UI down into reusable components.</p>
+
+    <h3>📊 Node.js & Express</h3>
+    <p>Node.js is a cross-platform runtime environment built on Chrome's highly optimized V8 JavaScript engine. It allows developers to run JavaScript on the server, typically paired with the Express.js framework to build fast, scalable REST APIs.</p>
+
+    <pre style="background: #f4f4f4; padding: 1rem; border-radius: 5px; overflow-x: auto;"><code>// Modern ES6 JavaScript Example
+const greetUser = (name) =&gt; {
+    const time = new Date().getHours();
+    let greeting = time &lt; 12 ? "Good morning" : "Good afternoon";
+    console.log(`${greeting}, ${name}! Welcome to JavaScript.`);
+};
+
+greetUser("Developer");</code></pre>
+  </section>
+
+  <section>
+    <h2>Use Cases</h2>
+    <ul>
+      <li><strong>Web Development:</strong> Create highly interactive, dynamic, and state-driven web applications natively in the browser.</li>
+      <li><strong>Server-Side Development:</strong> Build fast, non-blocking APIs and backend microservices using Node.js.</li>
+      <li><strong>Mobile App Development:</strong> Develop native-feeling iOS and Android applications using frameworks like React Native or Ionic.</li>
+      <li><strong>Desktop Applications:</strong> Build cross-platform desktop software (like VS Code or Slack) using Electron.js.</li>
+      <li><strong>Game Development:</strong> Create browser-based 2D and 3D games using HTML5 Canvas and WebGL APIs.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Conclusion</h2>
+    <p>JavaScript is an essential, irreplaceable language for modern web development. Its incredible versatility, massive open-source ecosystem, and vibrant global community make it a mandatory skill for any front-end or full-stack developer. As technology continues to evolve, JavaScript consistently adapts, remaining at the absolute forefront of the software engineering industry.</p>
+  </section>
+
+  <section class="download-section" style="margin-top: 2rem; margin-bottom: 2rem;">
+    <h2>JavaScript Programming</h2>
+    <p>A comprehensive JavaScript programming guide suitable for beginners, developers, and professionals alike.</p>
+    <a class="download-button" href="../pdfs/javascript.pdf" download style="display: inline-block; padding: 0.8rem 1.5rem; background-color: #0056b3; color: #fff; text-decoration: none; border-radius: 5px; font-weight: 500;">Download PDF</a>
+  </section>
+  
+</div>
+
+  <!-- AdSense Placement 3: Above Footer -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 10px auto 40px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <div class="footer__logo">
+        <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+        </div>
+        <p>
+          SkillBloom helps you prepare for success with access to interview questions, company hiring processes, downloadable PDFs, job alerts, and more.
+        </p>
+      </div>
+
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <ul class="footer__links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../interview.html">Interview Prep</a></li>
+          <li><a href="../../pdf.html">PDF Library</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer__col">
+        <h4>Community</h4>
+        <ul class="footer__links">
+          <li><a href="https://t.me/ytsmart1437" target="_blank">Telegram</a></li>
+          <li><a href="https://youtube.com/@ytsmart143?si=RArtu08pGPesGzmW" target="_blank">YouTube</a></li>
+          <li><a href="https://whatsapp.com/channel/0029VarQwSyLo4hciv8S3t04" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <ul class="footer__links">
+          <li>
+            <a href="mailto:ytsmart143@gmail.com">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+              </span>
+               ytsmart143@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5 14.5 7.6 14.5 9 13.4 11.5 12 11.5z"/>
+                </svg>
+              </span>
+               Andhra Pradesh, India
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bar">
+      © 2026 SkillBloom. Built for learners and job seekers. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Fixed relative path for the main.js script -->
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>

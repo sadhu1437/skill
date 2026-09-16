@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Guide - Styled Content</title>
+  
+  <!-- Google AdSense Auto Ads Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687126461256058" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/pdfs.css">
+</head>
+<body>
+
+    <nav style="position: relative;">
+        <div class="nav__header">
+          <div class="nav__logo">
+          <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+          </div>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+              </svg>
+            </i>          
+          </div>
+        </div>
+        <ul class="nav__links" id="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../pdf.html">Learning PDFs</a></li>
+          <li><a href="../../interview.html">Interview Questions</a></li>
+          <li><a href="../../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- AdSense Placement 1: Below Header/Nav -->
+      <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto 10px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+          <ins class="adsbygoogle"
+               style="display:block; min-width:250px; min-height:90px;"
+               data-ad-client="ca-pub-8687126461256058"
+               data-ad-slot="3087513906"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+      </div>
+
+      <div class="content-container">
+  <section>
+    <h2>Introduction to Java</h2>
+    <p>Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible. It was originally developed by James Gosling at Sun Microsystems and released in 1995. Java is widely used for building enterprise-scale applications, mobile applications, embedded systems, and robust web applications.</p>
+  </section>
+
+  <section>
+    <h2>History of Java</h2>
+    <p>Java was developed in the early 1990s as part of the Green Project at Sun Microsystems. The first public release was Java 1.0 in 1995. Java's design principles emphasize portability, security, and performance. Over the years, Java has evolved significantly, with major versions continuously introducing modern programming paradigms while maintaining strict backward compatibility.</p>
+    <div class="highlight-box">Fun Fact: Java was originally called "Oak" after an oak tree that stood outside Gosling's office, and later went by the name "Green" before finally being renamed to Java, inspired by Java coffee!</div>
+    <p>Java's "Write Once, Run Anywhere" (WORA) capability allows developers to create applications that can run on any device that has a Java Virtual Machine (JVM), making it a dominant choice for cross-platform development.</p>
+  </section>
+
+  <section>
+    <h2>Key Features</h2>
+    <h3>✔ Object-Oriented</h3>
+    <p>Java is an object-oriented programming language, which means it allows developers to create modular programs and reusable code through concepts like Encapsulation, Inheritance, Polymorphism, and Abstraction. This approach promotes better organization and maintainability of complex systems.</p>
+
+    <h3>✔ Platform Independence</h3>
+    <p>Unlike languages that compile down to machine code specific to an operating system, Java applications are compiled into an intermediate "bytecode". This bytecode can be executed on any platform (Windows, Mac, Linux) that has a JVM installed.</p>
+
+    <h3>✔ Strongly Typed & Secure</h3>
+    <p>Java is a strongly typed language, meaning that all variables must be declared with a strict data type. This helps catch errors at compile time. Furthermore, Java executes in a sandboxed environment and lacks explicit pointers, making it highly secure against malicious code.</p>
+
+    <h3>✔ Automatic Memory Management</h3>
+    <p>Developers don't need to manually free up memory in Java. The JVM includes a Garbage Collector (GC) that automatically tracks object references and deletes objects that are no longer in use, preventing memory leaks.</p>
+  </section>
+
+  <!-- AdSense Placement 2: Mid-Content -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto; padding: 0; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <section>
+    <h2>The JVM Architecture</h2>
+    <p>Understanding Java requires understanding the JVM (Java Virtual Machine). It operates in three main stages:</p>
+    <ul>
+      <li><strong>Classloader:</strong> Loads the compiled <code>.class</code> files into the memory.</li>
+      <li><strong>Memory Area:</strong> Allocates memory for class structures, objects (Heap), and method executions (Stack).</li>
+      <li><strong>Execution Engine:</strong> Converts the bytecode into native machine code using an interpreter and a JIT (Just-In-Time) compiler for optimized performance.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Modern Java Features (Java 8+)</h2>
+    <p>Modern Java has evolved far beyond its verbose origins. Significant additions include:</p>
+    <ul>
+      <li><strong>Lambda Expressions & Streams (Java 8):</strong> Introduced functional programming capabilities, making data processing concise and parallelizable.</li>
+      <li><strong>Local-Variable Type Inference (Java 10):</strong> Introduced the <code>var</code> keyword to reduce boilerplate code.</li>
+      <li><strong>Records (Java 14+):</strong> A compact syntax for declaring classes that are transparent carriers for immutable data.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Popular Libraries and Frameworks</h2>
+    <h3>🌐 Spring & Spring Boot</h3>
+    <p>Spring is a massive framework for building enterprise applications. Spring Boot sits on top of it to completely eliminate heavy XML configurations, making it the industry standard for creating standalone, production-grade microservices.</p>
+
+    <h3>📊 Hibernate</h3>
+    <p>Hibernate is an Object-Relational Mapping (ORM) tool that simplifies database interactions by mapping Java objects directly to database tables, eliminating the need to write complex SQL queries manually.</p>
+
+    <pre style="background: #f4f4f4; padding: 1rem; border-radius: 5px; overflow-x: auto;"><code>import java.util.ArrayList;
+
+public class Example {
+    public static void main(String[] args) {
+        ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
+        list.add("Hello");
+        list.add("World");
+        System.out.println(list);
+    }
+}</code></pre>
+  </section>
+
+  <section>
+    <h2>Use Cases</h2>
+    <ul>
+      <li><strong>Enterprise Applications:</strong> Large-scale banking, financial, and corporate billing systems rely heavily on Java EE and Spring.</li>
+      <li><strong>Web Development:</strong> Build highly secure backend REST APIs and microservices.</li>
+      <li><strong>Mobile Development:</strong> Despite the rise of Kotlin, Java remains a core language for building native Android applications.</li>
+      <li><strong>Big Data:</strong> The most famous Big Data frameworks, including Apache Hadoop, Apache Spark, and Apache Kafka, are written in Java or run on the JVM.</li>
+      <li><strong>Cloud Computing:</strong> Java is heavily utilized in distributed cloud infrastructure, AWS, and Google Cloud services.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Conclusion</h2>
+    <p>Java's unparalleled versatility, cross-platform portability, and massive ecosystem make it a leading choice for developers and Fortune 500 companies worldwide. Its extensive libraries and frameworks enable the development of a wide range of applications, from mobile to complex enterprise solutions. As the language continues to evolve with modern features, Java remains an incredibly stable and lucrative skill for any software engineer.</p>
+  </section>
+
+  <section class="download-section" style="margin-top: 2rem; margin-bottom: 2rem;">
+    <h2>Java Programming</h2>
+    <p>A comprehensive Java programming guide suitable for beginners, developers, and professionals alike.</p>
+    <a class="download-button" href="../pdfs/JavaNotesForProfessionals.pdf" download style="display: inline-block; padding: 0.8rem 1.5rem; background-color: #0056b3; color: #fff; text-decoration: none; border-radius: 5px; font-weight: 500;">Download PDF</a>
+  </section>
+  
+</div>
+
+  <!-- AdSense Placement 3: Above Footer -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 10px auto 40px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <div class="footer__logo">
+        <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+        </div>
+        <p>
+          SkillBloom helps you prepare for success with access to interview questions, company hiring processes, downloadable PDFs, job alerts, and more.
+        </p>
+      </div>
+
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <ul class="footer__links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../interview.html">Interview Prep</a></li>
+          <li><a href="../../pdf.html">PDF Library</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer__col">
+        <h4>Community</h4>
+        <ul class="footer__links">
+          <li><a href="https://t.me/ytsmart1437" target="_blank">Telegram</a></li>
+          <li><a href="https://youtube.com/@ytsmart143?si=RArtu08pGPesGzmW" target="_blank">YouTube</a></li>
+          <li><a href="https://whatsapp.com/channel/0029VarQwSyLo4hciv8S3t04" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <ul class="footer__links">
+          <li>
+            <a href="mailto:ytsmart143@gmail.com">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+              </span>
+               ytsmart143@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5 14.5 7.6 14.5 9 13.4 11.5 12 11.5z"/>
+                </svg>
+              </span>
+               Andhra Pradesh, India
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bar">
+      © 2026 SkillBloom. Built for learners and job seekers. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Fixed relative path for the main.js script -->
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Prepare for your SQL interview with our comprehensive guide featuring top SQL interview questions and answers for freshers and experienced candidates.">
+  <meta name="keywords" content="SQL, SQL interview questions, SQL programming, SQL interview preparation, Database queries, SQL for beginners, SQL for experienced">
+  <title>SQL Interview Questions - Styled Content</title>
+
+  <!-- Google AdSense Auto Ads Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687126461256058" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/pdfs.css">
+</head>
+<body>
+
+    <nav style="position: relative;">
+        <div class="nav__header">
+          <div class="nav__logo">
+          <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+          </div>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+              </svg>
+            </i>          
+          </div>
+        </div>
+        <ul class="nav__links" id="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../pdf.html">Learning PDFs</a></li>
+          <li><a href="../../interview.html">Interview Questions</a></li>
+          <li><a href="../../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- AdSense Placement 1: Below Header/Nav -->
+      <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto 10px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+          <ins class="adsbygoogle"
+               style="display:block; min-width:250px; min-height:90px;"
+               data-ad-client="ca-pub-8687126461256058"
+               data-ad-slot="3087513906"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+      </div>
+
+      <div class="content-container">
+  <section>
+    <h2>Top SQL Interview Questions</h2>
+    <p>Preparing for an SQL interview? Here are some of the most common SQL interview questions along with their answers, suitable for both freshers and experienced candidates. Understanding these concepts will help you demonstrate your SQL skills effectively during interviews.</p>
+  </section>
+
+  <section>
+    <h3>1. What is SQL?</h3>
+    <p>SQL (Structured Query Language) is a standard programming language used for managing and manipulating relational databases. It allows users to perform various operations such as querying data, updating records, and managing database structures.</p>
+
+    <h3>2. What are the different types of SQL commands?</h3>
+    <ul>
+      <li><strong>DML (Data Manipulation Language):</strong> Commands like <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code> that are used to manipulate data in the database.</li>
+      <li><strong>DDL (Data Definition Language):</strong> Commands like <code>CREATE</code>, <code>ALTER</code>, and <code>DROP</code> that define and modify database structures.</li>
+      <li><strong>DCL (Data Control Language):</strong> Commands like <code>GRANT</code> and <code>REVOKE</code> that control access to data in the database.</li>
+      <li><strong>TCL (Transaction Control Language):</strong> Commands like <code>COMMIT</code>, <code>ROLLBACK</code>, and <code>SAVEPOINT</code> that manage transactions in the database.</li>
+    </ul>
+
+    <h3>3. What is a primary key?</h3>
+    <p>A primary key is a unique identifier for a record in a database table. It ensures that each record can be uniquely identified and cannot contain NULL values. A table can have only one primary key, which may consist of a single or multiple columns.</p>
+
+    <h3>4. What is the difference between <code>INNER JOIN</code> and <code>OUTER JOIN</code>?</h3>
+    <p><strong>INNER JOIN:</strong> Returns only the rows that have matching values in both tables. <strong>OUTER JOIN:</strong> Returns all rows from one table and the matched rows from the other table. If there is no match, NULL values are returned for the columns of the table without a match. Types include LEFT, RIGHT, and FULL outer joins.</p>
+
+    <h3>5. What is normalization?</h3>
+    <p>Normalization is the process of organizing data in a database to reduce redundancy and improve data integrity. It involves dividing large tables into smaller, related tables and defining relationships between them. The main goals of normalization are to eliminate duplicate data and ensure data dependencies are properly enforced.</p>
+
+    <h3>6. What are indexes in SQL?</h3>
+    <p>Indexes are database objects that improve the speed of data retrieval operations on a table. They work like a book's index, allowing the database engine to find rows more quickly. However, indexes can slow down data modification operations (INSERT, UPDATE, DELETE) because the index must also be updated.</p>
+
+    <h3>7. What is a foreign key?</h3>
+    <p>A foreign key is a field (or a collection of fields) in one table that uniquely identifies a row in another table. It establishes a relationship between the two tables, enforcing referential integrity. A foreign key in a child table points to a primary key in a parent table.</p>
+
+    <!-- AdSense Placement 2: Mid-Content -->
+    <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto; padding: 0; text-align: center; clear: both; box-sizing: border-box;">
+        <ins class="adsbygoogle"
+             style="display:block; min-width:250px; min-height:90px;"
+             data-ad-client="ca-pub-8687126461256058"
+             data-ad-slot="3087513906"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <h3>8. What is a stored procedure?</h3>
+    <p>A stored procedure is a precompiled collection of one or more SQL statements that can be executed as a single unit. Stored procedures are used to encapsulate complex business logic, improve performance, and enhance security by controlling access to data.</p>
+
+    <h3>9. What is the difference between <code>HAVING</code> and <code>WHERE</code> clauses?</h3>
+    <p>The <code>WHERE</code> clause is used to filter records before any groupings are made, while the <code>HAVING</code> clause is used to filter records after groupings have been made (usually used with the <code>GROUP BY</code> clause and aggregate functions).</p>
+
+    <h3>10. What is a view in SQL?</h3>
+    <p>A view is a virtual table that is based on the result of a SELECT query. It does not store data physically but provides a way to present data from one or more tables in a specific format. Views can simplify complex queries and enhance security by restricting access to specific data.</p>
+
+    <h3>11. What is the difference between <code>DELETE</code>, <code>TRUNCATE</code>, and <code>DROP</code>?</h3>
+    <p><strong>DELETE:</strong> A DML command used to remove specific rows from a table based on a WHERE condition. It can be rolled back. <strong>TRUNCATE:</strong> A DDL command that removes all rows from a table instantly, freeing up space. It is faster than DELETE and generally cannot be rolled back. <strong>DROP:</strong> A DDL command that completely removes the table structure and its data from the database.</p>
+
+    <h3>12. What are ACID properties in a database?</h3>
+    <p>ACID is an acronym for Atomicity, Consistency, Isolation, and Durability. These properties guarantee that database transactions are processed reliably. <strong>Atomicity</strong> ensures the transaction is all or nothing. <strong>Consistency</strong> ensures data remains valid. <strong>Isolation</strong> ensures concurrent transactions do not interfere with each other. <strong>Durability</strong> ensures the results of a committed transaction are permanently saved.</p>
+
+    <h3>13. What is the difference between <code>UNION</code> and <code>UNION ALL</code>?</h3>
+    <p>Both commands combine the result sets of two or more SELECT statements. The difference is that <strong>UNION</strong> removes duplicate rows from the final result set, which adds processing overhead. <strong>UNION ALL</strong> includes all duplicates and is generally faster because it does not have to scan for and remove identical rows.</p>
+
+    <h3>14. What is a Subquery?</h3>
+    <p>A subquery (or nested query) is a query within another SQL query. It is typically embedded within the <code>WHERE</code>, <code>HAVING</code>, or <code>FROM</code> clause of the main query. The subquery executes first, and its output is used by the main (outer) query to filter or evaluate data.</p>
+
+    <h3>15. What is a Database Trigger?</h3>
+    <p>A trigger is a special type of stored procedure that automatically executes (or "fires") in response to certain events on a particular table or view. These events are usually DML operations such as <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code>. Triggers are commonly used to maintain audit trails or enforce complex business rules automatically.</p>
+  </section>
+
+  <section class="download-section" style="margin-top: 2rem; margin-bottom: 2rem;">
+    <h2>Download SQL Interview Questions</h2>
+    <p>For a comprehensive list of SQL interview questions and answers, download the PDF guide below:</p>
+    <a class="download-button" href="../pdfs/SQl_intervie_ questions.pdf" download style="display: inline-block; padding: 0.8rem 1.5rem; background-color: #0056b3; color: #fff; text-decoration: none; border-radius: 5px; font-weight: 500;">Download PDF</a>
+  </section>
+  
+</div>
+
+  <!-- AdSense Placement 3: Above Footer -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 10px auto 40px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <div class="footer__logo">
+        <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+        </div>
+        <p>
+          SkillBloom helps you prepare for success with access to interview questions, company hiring processes, downloadable PDFs, job alerts, and more.
+        </p>
+      </div>
+
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <ul class="footer__links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../interview.html">Interview Prep</a></li>
+          <li><a href="../../pdf.html">PDF Library</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer__col">
+        <h4>Community</h4>
+        <ul class="footer__links">
+          <li><a href="https://t.me/ytsmart1437" target="_blank">Telegram</a></li>
+          <li><a href="https://youtube.com/@ytsmart143?si=RArtu08pGPesGzmW" target="_blank">YouTube</a></li>
+          <li><a href="https://whatsapp.com/channel/0029VarQwSyLo4hciv8S3t04" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <ul class="footer__links">
+          <li>
+            <a href="mailto:ytsmart143@gmail.com">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+              </span>
+               ytsmart143@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5 14.5 7.6 14.5 9 13.4 11.5 12 11.5z"/>
+                </svg>
+              </span>
+               Andhra Pradesh, India
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bar">
+      © 2026 SkillBloom. Built for learners and job seekers. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>

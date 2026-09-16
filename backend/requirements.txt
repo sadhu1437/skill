@@ -1,0 +1,11 @@
+Django>=5.0,<5.1
+djangorestframework>=3.15,<3.16
+django-cors-headers>=4.4,<5.0
+djangorestframework-simplejwt>=5.3,<5.4
+python-dotenv>=1.0,<2.0
+PyMySQL>=1.1,<2.0
+Pillow>=10.4,<11.0
+django-filter>=24.3,<25.0
+bleach>=5.0.0
+djangorestframework-ratelimit>=0.1.0
+django-ratelimit>=4.0.0

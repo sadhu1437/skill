@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS-Optimized Resume Builder</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563eb',
+                        darkBg: '#111827',
+                        darkCard: '#1f2937'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- html2pdf.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+
+        /* A4 Document Preview Sizing */
+        .preview-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2rem;
+            background-color: #e2e8f0;
+            overflow-y: auto;
+        }
+        .dark .preview-container {
+            background-color: #0f172a;
+        }
+        
+        .a4-wrapper {
+            background: white;
+            width: 210mm;
+            min-height: 297mm;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 20mm;
+            color: #000; /* Ensure text is always black for ATS/PDF */
+            flex-shrink: 0;
+            transform-origin: top center;
+        }
+
+        /* Form Validations */
+        .input-error {
+            border-color: #ef4444 !important;
+        }
+        .error-msg {
+            display: none;
+            color: #ef4444;
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+        .input-error + .error-msg {
+            display: block;
+        }
+
+        /* Collapsible Sections */
+        .section-content {
+            display: none;
+        }
+        .section-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* TEMPLATE STYLES */
+        
+        /* 1. Professional (Serif, Classic) */
+        .tmpl-professional {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.5;
+        }
+        .tmpl-professional .r-name { font-size: 24pt; font-weight: bold; text-align: center; margin-bottom: 5px; text-transform: uppercase; }
+        .tmpl-professional .r-title { font-size: 14pt; text-align: center; margin-bottom: 10px; font-style: italic; }
+        .tmpl-professional .r-contact { text-align: center; font-size: 10pt; margin-bottom: 20px; }
+        .tmpl-professional .r-section-title { font-size: 12pt; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #000; margin-top: 15px; margin-bottom: 10px; padding-bottom: 2px; }
+        .tmpl-professional .r-item-header { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 2px; }
+        .tmpl-professional .r-item-sub { display: flex; justify-content: space-between; font-style: italic; margin-bottom: 5px; }
+        .tmpl-professional .r-list { list-style-type: disc; margin-left: 20px; margin-bottom: 10px; }
+        
+        /* 2. Modern (Sans-serif, Clean lines, slight accent) */
+        .tmpl-modern {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .tmpl-modern .r-name { font-size: 26pt; font-weight: 700; color: #1e3a8a; margin-bottom: 5px; letter-spacing: -0.5px; }
+        .tmpl-modern .r-title { font-size: 14pt; color: #475569; margin-bottom: 10px; font-weight: 500; }
+        .tmpl-modern .r-contact { font-size: 10pt; display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; color: #475569; }
+        .tmpl-modern .r-contact span { display: flex; align-items: center; gap: 4px; }
+        .tmpl-modern .r-section-title { font-size: 14pt; font-weight: 700; color: #1e3a8a; border-bottom: 2px solid #e2e8f0; margin-top: 20px; margin-bottom: 12px; padding-bottom: 4px; }
+        .tmpl-modern .r-item-header { display: flex; justify-content: space-between; font-weight: 700; font-size: 11pt; color: #1e293b; }
+        .tmpl-modern .r-item-sub { display: flex; justify-content: space-between; font-weight: 500; color: #64748b; font-size: 10pt; margin-bottom: 6px; }
+        .tmpl-modern .r-list { list-style-type: square; margin-left: 18px; margin-bottom: 12px; font-size: 10pt; }
+
+        /* 3. Minimal (Helvetica/Arial, Monochrome, Space heavy) */
+        .tmpl-minimal {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            color: #111;
+        }
+        .tmpl-minimal .r-name { font-size: 22pt; font-weight: 300; letter-spacing: 2px; margin-bottom: 4px; }
+        .tmpl-minimal .r-title { font-size: 11pt; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; color: #666; }
+        .tmpl-minimal .r-contact { font-size: 9pt; margin-bottom: 25px; color: #666; }
+        .tmpl-minimal .r-section-title { font-size: 10pt; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 25px; margin-bottom: 15px; }
+        .tmpl-minimal .r-item-header { display: flex; justify-content: space-between; font-weight: 600; font-size: 10.5pt; }
+        .tmpl-minimal .r-item-sub { display: flex; justify-content: space-between; font-size: 9.5pt; color: #555; margin-bottom: 8px; }
+        .tmpl-minimal .r-list { list-style-type: none; margin-left: 0; padding-left: 0; margin-bottom: 15px; font-size: 9.5pt; }
+        .tmpl-minimal .r-list li { position: relative; padding-left: 12px; margin-bottom: 4px; }
+        .tmpl-minimal .r-list li::before { content: "•"; position: absolute; left: 0; color: #999; }
+
+        /* Utility for ATS flow */
+        .ats-comma-list { display: inline; padding: 0; margin: 0; }
+        .ats-comma-list li { display: inline; }
+        .ats-comma-list li:not(:last-child)::after { content: ", "; }
+
+        /* Print Styles */
+        @media print {
+            body * { visibility: hidden; }
+            #preview-pane, #preview-pane * { visibility: visible; }
+            #preview-pane { position: absolute; left: 0; top: 0; width: 100%; padding: 0; margin: 0; background: white; }
+            .a4-wrapper { box-shadow: none; width: 100%; min-height: auto; padding: 0; }
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-darkBg text-gray-800 dark:text-gray-200 h-screen flex flex-col font-sans transition-colors duration-200">
+
+    <!-- Header -->
+    <header class="bg-white dark:bg-darkCard border-b border-gray-200 dark:border-gray-700 p-4 flex flex-col sm:flex-row justify-between items-center z-10 shrink-0">
+        <div class="flex items-center gap-3 mb-4 sm:mb-0">
+            <i data-lucide="file-text" class="text-primary w-8 h-8"></i>
+            <h1 class="text-xl font-bold">ProCV ATS Builder</h1>
+        </div>
+        
+        <div class="flex-1 max-w-md mx-8 hidden md:block">
+            <div class="flex justify-between text-xs mb-1">
+                <span>Profile Completeness</span>
+                <span id="progress-text">0%</span>
+            </div>
+            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                <div id="progress-bar" class="bg-primary h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-2 sm:gap-4 flex-wrap justify-center">
+            <select id="template-select" class="bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                <option value="modern">Modern Template</option>
+                <option value="professional">Professional Template</option>
+                <option value="minimal">Minimal Template</option>
+            </select>
+            
+            <button onclick="toggleDarkMode()" class="p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition" title="Toggle Dark Mode">
+                <i data-lucide="moon" id="dark-icon" class="w-5 h-5 hidden dark:block"></i>
+                <i data-lucide="sun" id="light-icon" class="w-5 h-5 block dark:hidden"></i>
+            </button>
+            
+            <div class="flex gap-2">
+                <button onclick="resetData()" class="px-3 py-1.5 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/40 rounded transition">
+                    Reset
+                </button>
+                <button onclick="window.print()" class="px-3 py-1.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 dark:text-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded transition flex items-center gap-1">
+                    <i data-lucide="printer" class="w-4 h-4"></i> Print
+                </button>
+                <button onclick="downloadPDF()" class="px-3 py-1.5 text-sm font-medium text-white bg-primary hover:bg-blue-700 rounded shadow transition flex items-center gap-1">
+                    <i data-lucide="download" class="w-4 h-4"></i> PDF
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Layout -->
+    <main class="flex-1 flex overflow-hidden flex-col md:flex-row">
+        
+        <!-- Left Panel: Form Input -->
+        <div class="w-full md:w-[45%] lg:w-[40%] bg-gray-50 dark:bg-gray-800 overflow-y-auto border-r border-gray-200 dark:border-gray-700 shrink-0">
+            <div class="p-4 sm:p-6 space-y-4">
+                
+                <div class="text-sm text-gray-500 dark:text-gray-400 mb-4 flex justify-between items-center">
+                    <p>Changes are saved automatically.</p>
+                    <button onclick="toggleSectionOrderModal()" class="text-primary hover:underline text-xs flex items-center gap-1">
+                        <i data-lucide="arrow-up-down" class="w-3 h-3"></i> Reorder Sections
+                    </button>
+                </div>
+
+                <!-- Personal Info -->
+                <div class="bg-white dark:bg-darkCard rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button class="w-full px-4 py-3 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition" onclick="toggleSection('sec-personal')">
+                        <span class="font-semibold flex items-center gap-2"><i data-lucide="user" class="w-4 h-4 text-primary"></i> Personal Information</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform sec-icon"></i>
+                    </button>
+                    <div id="sec-personal" class="section-content p-4 active">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-xs font-medium mb-1">Full Name *</label>
+                                <input type="text" id="p-name" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary form-input" data-path="personal.name" required>
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-xs font-medium mb-1">Professional Title</label>
+                                <input type="text" id="p-title" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary form-input" data-path="personal.title" placeholder="e.g. Senior Software Engineer">
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-xs font-medium mb-1">Email *</label>
+                                <input type="email" id="p-email" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary form-input" data-path="personal.email" required>
+                                <span class="error-msg">Please enter a valid email.</span>
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-xs font-medium mb-1">Phone *</label>
+                                <input type="tel" id="p-phone" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary form-input" data-path="personal.phone" required>
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-xs font-medium mb-1">Location</label>
+                                <input type="text" id="p-location" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary form-input" data-path="personal.location" placeholder="City, Country">
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-xs font-medium mb-1">LinkedIn URL</label>
+                                <input type="url" id="p-linkedin" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary form-input" data-path="personal.linkedin" placeholder="https://linkedin.com/in/...">
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-xs font-medium mb-1">GitHub URL</label>
+                                <input type="url" id="p-github" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary form-input" data-path="personal.github" placeholder="https://github.com/...">
+                            </div>
+                            <div class="col-span-2 sm:col-span-1">
+                                <label class="block text-xs font-medium mb-1">Portfolio/Website</label>
+                                <input type="url" id="p-portfolio" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary form-input" data-path="personal.portfolio" placeholder="https://...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Summary -->
+                <div class="bg-white dark:bg-darkCard rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button class="w-full px-4 py-3 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition" onclick="toggleSection('sec-summary')">
+                        <span class="font-semibold flex items-center gap-2"><i data-lucide="align-left" class="w-4 h-4 text-primary"></i> Professional Summary</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform sec-icon"></i>
+                    </button>
+                    <div id="sec-summary" class="section-content p-4">
+                        <textarea id="f-summary" rows="4" class="w-full p-2 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary form-input text-sm" data-path="summary" placeholder="Briefly describe your professional background and core strengths..."></textarea>
+                        <div class="text-right text-xs text-gray-500 mt-1"><span id="summary-count">0</span> / 500 chars (approx)</div>
+                    </div>
+                </div>
+
+                <!-- Work Experience -->
+                <div class="bg-white dark:bg-darkCard rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button class="w-full px-4 py-3 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition" onclick="toggleSection('sec-experience')">
+                        <span class="font-semibold flex items-center gap-2"><i data-lucide="briefcase" class="w-4 h-4 text-primary"></i> Work Experience</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform sec-icon"></i>
+                    </button>
+                    <div id="sec-experience" class="section-content p-4 bg-gray-50/30 dark:bg-gray-900/20">
+                        <div id="experience-list" class="space-y-4"></div>
+                        <button onclick="addDynamicItem('experience')" class="mt-4 w-full py-2 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded text-sm text-gray-600 dark:text-gray-400 hover:border-primary hover:text-primary transition flex justify-center items-center gap-2">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Add Experience
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="bg-white dark:bg-darkCard rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button class="w-full px-4 py-3 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition" onclick="toggleSection('sec-education')">
+                        <span class="font-semibold flex items-center gap-2"><i data-lucide="graduation-cap" class="w-4 h-4 text-primary"></i> Education</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform sec-icon"></i>
+                    </button>
+                    <div id="sec-education" class="section-content p-4 bg-gray-50/30 dark:bg-gray-900/20">
+                        <div id="education-list" class="space-y-4"></div>
+                        <button onclick="addDynamicItem('education')" class="mt-4 w-full py-2 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded text-sm text-gray-600 dark:text-gray-400 hover:border-primary hover:text-primary transition flex justify-center items-center gap-2">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Add Education
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="bg-white dark:bg-darkCard rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button class="w-full px-4 py-3 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition" onclick="toggleSection('sec-skills')">
+                        <span class="font-semibold flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4 text-primary"></i> Skills</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform sec-icon"></i>
+                    </button>
+                    <div id="sec-skills" class="section-content p-4">
+                        <div class="flex gap-2 mb-3">
+                            <input type="text" id="skill-input" class="flex-1 p-2 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary text-sm" placeholder="e.g. JavaScript, React, Node.js" onkeypress="if(event.key==='Enter') addSkill()">
+                            <button onclick="addSkill()" class="px-4 py-2 bg-primary text-white rounded hover:bg-blue-700 transition text-sm">Add</button>
+                        </div>
+                        <div id="skills-container" class="flex flex-wrap gap-2">
+                            <!-- Skills generated via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects -->
+                <div class="bg-white dark:bg-darkCard rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button class="w-full px-4 py-3 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition" onclick="toggleSection('sec-projects')">
+                        <span class="font-semibold flex items-center gap-2"><i data-lucide="folder-code" class="w-4 h-4 text-primary"></i> Projects</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform sec-icon"></i>
+                    </button>
+                    <div id="sec-projects" class="section-content p-4 bg-gray-50/30 dark:bg-gray-900/20">
+                        <div id="projects-list" class="space-y-4"></div>
+                        <button onclick="addDynamicItem('projects')" class="mt-4 w-full py-2 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded text-sm text-gray-600 dark:text-gray-400 hover:border-primary hover:text-primary transition flex justify-center items-center gap-2">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Add Project
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Certifications -->
+                <div class="bg-white dark:bg-darkCard rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button class="w-full px-4 py-3 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition" onclick="toggleSection('sec-certs')">
+                        <span class="font-semibold flex items-center gap-2"><i data-lucide="award" class="w-4 h-4 text-primary"></i> Certifications</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform sec-icon"></i>
+                    </button>
+                    <div id="sec-certs" class="section-content p-4 bg-gray-50/30 dark:bg-gray-900/20">
+                        <div id="certs-list" class="space-y-4"></div>
+                        <button onclick="addDynamicItem('certifications')" class="mt-4 w-full py-2 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded text-sm text-gray-600 dark:text-gray-400 hover:border-primary hover:text-primary transition flex justify-center items-center gap-2">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Add Certification
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <div class="bg-white dark:bg-darkCard rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button class="w-full px-4 py-3 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition" onclick="toggleSection('sec-achievements')">
+                        <span class="font-semibold flex items-center gap-2"><i data-lucide="star" class="w-4 h-4 text-primary"></i> Achievements</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform sec-icon"></i>
+                    </button>
+                    <div id="sec-achievements" class="section-content p-4">
+                        <div class="flex gap-2 mb-3">
+                            <input type="text" id="achievement-input" class="flex-1 p-2 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary text-sm" placeholder="e.g. Employee of the Month (2023)" onkeypress="if(event.key==='Enter') addAchievement()">
+                            <button onclick="addAchievement()" class="px-4 py-2 bg-primary text-white rounded hover:bg-blue-700 transition text-sm">Add</button>
+                        </div>
+                        <ul id="achievements-container" class="space-y-2 text-sm">
+                            <!-- JS Generated -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Languages -->
+                <div class="bg-white dark:bg-darkCard rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <button class="w-full px-4 py-3 flex justify-between items-center bg-gray-50/50 dark:bg-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-700 transition" onclick="toggleSection('sec-languages')">
+                        <span class="font-semibold flex items-center gap-2"><i data-lucide="globe" class="w-4 h-4 text-primary"></i> Languages</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform sec-icon"></i>
+                    </button>
+                    <div id="sec-languages" class="section-content p-4">
+                        <div class="flex gap-2 mb-3">
+                            <input type="text" id="lang-input" class="flex-1 p-2 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary text-sm" placeholder="e.g. English (Fluent)" onkeypress="if(event.key==='Enter') addLanguage()">
+                            <button onclick="addLanguage()" class="px-4 py-2 bg-primary text-white rounded hover:bg-blue-700 transition text-sm">Add</button>
+                        </div>
+                        <div id="languages-container" class="flex flex-wrap gap-2">
+                            <!-- JS Generated -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="h-20"></div> <!-- Spacer for mobile -->
+            </div>
+        </div>
+
+        <!-- Right Panel: Live Preview -->
+        <div id="preview-container" class="preview-container flex-1">
+            <!-- This scale wrapper allows A4 to fit in smaller screens visually while keeping actual mm dimensions -->
+            <div id="scale-wrapper" style="transform: scale(1);">
+                <div id="preview-pane" class="a4-wrapper tmpl-modern">
+                    <!-- Preview content generated by JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal for Reordering Sections -->
+    <div id="reorder-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex justify-center items-center">
+        <div class="bg-white dark:bg-darkCard rounded-lg shadow-xl w-full max-w-md p-6">
+            <h2 class="text-lg font-bold mb-4">Reorder Sections</h2>
+            <p class="text-sm text-gray-500 mb-4">Use the arrows to change the order of sections in your resume.</p>
+            <ul id="section-order-list" class="space-y-2">
+                <!-- Generated by JS -->
+            </ul>
+            <div class="mt-6 flex justify-end gap-2">
+                <button onclick="toggleSectionOrderModal()" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA STATE ---
+        const defaultData = {
+            personal: { name: '', title: '', email: '', phone: '', location: '', linkedin: '', github: '', portfolio: '' },
+            summary: '',
+            skills: [],
+            experience: [],
+            education: [],
+            projects: [],
+            certifications: [],
+            achievements: [],
+            languages: [],
+            sectionOrder: ['summary', 'experience', 'education', 'skills', 'projects', 'certifications', 'achievements', 'languages']
+        };
+
+        const sectionNames = {
+            summary: 'Professional Summary',
+            experience: 'Work Experience',
+            education: 'Education',
+            skills: 'Skills',
+            projects: 'Projects',
+            certifications: 'Certifications',
+            achievements: 'Achievements',
+            languages: 'Languages'
+        };
+
+        let resumeData = JSON.parse(localStorage.getItem('resumeData')) || JSON.parse(JSON.stringify(defaultData));
+        
+        // Ensure new arrays exist if loading old data structure
+        if(!resumeData.sectionOrder) resumeData.sectionOrder = defaultData.sectionOrder;
+
+        // --- INITIALIZATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            
+            // Setup Theme
+            if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+
+            // Setup Event Listeners for static inputs
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.addEventListener('input', (e) => {
+                    updateDataFromInput(e.target);
+                    validateInput(e.target);
+                    if(e.target.id === 'f-summary') updateCharCount();
+                    autoSave();
+                });
+            });
+
+            // Template selector
+            document.getElementById('template-select').addEventListener('change', (e) => {
+                const pane = document.getElementById('preview-pane');
+                pane.className = `a4-wrapper tmpl-${e.target.value}`;
+            });
+
+            // Adjust scaling on resize
+            window.addEventListener('resize', adjustPreviewScale);
+            
+            // Initial render
+            populateForm();
+            renderDynamicLists();
+            renderPreview();
+            updateProgress();
+            adjustPreviewScale();
+            
+            // Open first section
+            toggleSection('sec-personal', true);
+        });
+
+        // --- CORE LOGIC ---
+        function updateDataFromInput(el) {
+            const path = el.dataset.path.split('.');
+            if (path.length === 1) {
+                resumeData[path[0]] = el.value;
+            } else if (path.length === 2) {
+                resumeData[path[0]][path[1]] = el.value;
+            }
+        }
+
+        function validateInput(el) {
+            if (el.required && !el.value) {
+                el.classList.add('input-error');
+            } else if (el.type === 'email' && el.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value)) {
+                el.classList.add('input-error');
+            } else if (el.type === 'url' && el.value && !/^https?:\/\/.*/.test(el.value)) {
+                el.classList.add('input-error');
+            } else {
+                el.classList.remove('input-error');
+            }
+        }
+
+        function autoSave() {
+            localStorage.setItem('resumeData', JSON.stringify(resumeData));
+            renderPreview();
+            updateProgress();
+        }
+
+        function resetData() {
+            if(confirm("Are you sure you want to reset all data? This cannot be undone.")) {
+                resumeData = JSON.parse(JSON.stringify(defaultData));
+                localStorage.removeItem('resumeData');
+                populateForm();
+                renderDynamicLists();
+                renderPreview();
+                updateProgress();
+            }
+        }
+
+        function populateForm() {
+            // Personal
+            document.getElementById('p-name').value = resumeData.personal.name || '';
+            document.getElementById('p-title').value = resumeData.personal.title || '';
+            document.getElementById('p-email').value = resumeData.personal.email || '';
+            document.getElementById('p-phone').value = resumeData.personal.phone || '';
+            document.getElementById('p-location').value = resumeData.personal.location || '';
+            document.getElementById('p-linkedin').value = resumeData.personal.linkedin || '';
+            document.getElementById('p-github').value = resumeData.personal.github || '';
+            document.getElementById('p-portfolio').value = resumeData.personal.portfolio || '';
+            
+            // Summary
+            document.getElementById('f-summary').value = resumeData.summary || '';
+            updateCharCount();
+        }
+
+        // --- DYNAMIC LIST MANAGEMENT ---
+        
+        function generateId() { return Math.random().toString(36).substr(2, 9); }
+
+        function getEmptyItemTemplate(type) {
+            switch(type) {
+                case 'experience': return { id: generateId(), company: '', title: '', startDate: '', endDate: '', desc: '' };
+                case 'education': return { id: generateId(), institution: '', degree: '', year: '', score: '' };
+                case 'projects': return { id: generateId(), name: '', tech: '', desc: '', link: '' };
+                case 'certifications': return { id: generateId(), name: '', org: '', year: '' };
+            }
+        }
+
+        function addDynamicItem(type) {
+            resumeData[type].push(getEmptyItemTemplate(type));
+            renderDynamicLists();
+            autoSave();
+            
+            // Scroll to the new item
+            setTimeout(() => {
+                const list = document.getElementById(`${type}-list`);
+                list.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 50);
+        }
+
+        function removeDynamicItem(type, index) {
+            resumeData[type].splice(index, 1);
+            renderDynamicLists();
+            autoSave();
+        }
+
+        function updateDynamicItem(type, index, field, value) {
+            resumeData[type][index][field] = value;
+            autoSave();
+        }
+
+        function moveItem(type, index, dir) {
+            const target = index + dir;
+            if(target >= 0 && target < resumeData[type].length) {
+                const temp = resumeData[type][index];
+                resumeData[type][index] = resumeData[type][target];
+                resumeData[type][target] = temp;
+                renderDynamicLists();
+                autoSave();
+            }
+        }
+
+        function renderDynamicLists() {
+            renderExperienceForm();
+            renderEducationForm();
+            renderProjectsForm();
+            renderCertsForm();
+            renderSkillsForm();
+            renderAchievementsForm();
+            renderLanguagesForm();
+        }
+
+        // --- SPECIFIC FORM RENDERING ---
+        
+        function renderExperienceForm() {
+            const container = document.getElementById('experience-list');
+            container.innerHTML = resumeData.experience.map((item, i) => `
+                <div class="p-3 border dark:border-gray-600 rounded bg-white dark:bg-gray-800 relative group">
+                    <div class="absolute right-2 top-2 flex gap-1 opacity-50 group-hover:opacity-100 transition">
+                        <button onclick="moveItem('experience', ${i}, -1)" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded" title="Move Up"><i data-lucide="arrow-up" class="w-3 h-3"></i></button>
+                        <button onclick="moveItem('experience', ${i}, 1)" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded" title="Move Down"><i data-lucide="arrow-down" class="w-3 h-3"></i></button>
+                        <button onclick="removeDynamicItem('experience', ${i})" class="p-1 hover:bg-red-100 text-red-500 rounded" title="Remove"><i data-lucide="trash-2" class="w-3 h-3"></i></button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 mt-4 text-sm">
+                        <div class="col-span-2 sm:col-span-1"><input type="text" placeholder="Job Title" value="${item.title}" oninput="updateDynamicItem('experience', ${i}, 'title', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary"></div>
+                        <div class="col-span-2 sm:col-span-1"><input type="text" placeholder="Company Name" value="${item.company}" oninput="updateDynamicItem('experience', ${i}, 'company', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary"></div>
+                        <div><input type="text" placeholder="Start (e.g. Jan 2020)" value="${item.startDate}" oninput="updateDynamicItem('experience', ${i}, 'startDate', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary"></div>
+                        <div><input type="text" placeholder="End (e.g. Present)" value="${item.endDate}" oninput="updateDynamicItem('experience', ${i}, 'endDate', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary"></div>
+                        <div class="col-span-2">
+                            <textarea placeholder="Job Description (Use bullets for best ATS results)" rows="3" oninput="updateDynamicItem('experience', ${i}, 'desc', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary">${item.desc}</textarea>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function renderEducationForm() {
+            const container = document.getElementById('education-list');
+            container.innerHTML = resumeData.education.map((item, i) => `
+                <div class="p-3 border dark:border-gray-600 rounded bg-white dark:bg-gray-800 relative group">
+                    <div class="absolute right-2 top-2 flex gap-1 opacity-50 group-hover:opacity-100 transition">
+                        <button onclick="moveItem('education', ${i}, -1)" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"><i data-lucide="arrow-up" class="w-3 h-3"></i></button>
+                        <button onclick="moveItem('education', ${i}, 1)" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"><i data-lucide="arrow-down" class="w-3 h-3"></i></button>
+                        <button onclick="removeDynamicItem('education', ${i})" class="p-1 hover:bg-red-100 text-red-500 rounded"><i data-lucide="trash-2" class="w-3 h-3"></i></button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 mt-4 text-sm">
+                        <div class="col-span-2"><input type="text" placeholder="Degree/Course (e.g. B.S. Computer Science)" value="${item.degree}" oninput="updateDynamicItem('education', ${i}, 'degree', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary"></div>
+                        <div class="col-span-2"><input type="text" placeholder="Institution Name" value="${item.institution}" oninput="updateDynamicItem('education', ${i}, 'institution', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary"></div>
+                        <div><input type="text" placeholder="Year (e.g. 2018 - 2022)" value="${item.year}" oninput="updateDynamicItem('education', ${i}, 'year', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary"></div>
+                        <div><input type="text" placeholder="CGPA / % (Optional)" value="${item.score}" oninput="updateDynamicItem('education', ${i}, 'score', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary"></div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function renderProjectsForm() {
+            const container = document.getElementById('projects-list');
+            container.innerHTML = resumeData.projects.map((item, i) => `
+                <div class="p-3 border dark:border-gray-600 rounded bg-white dark:bg-gray-800 relative group">
+                    <div class="absolute right-2 top-2 flex gap-1 opacity-50 group-hover:opacity-100 transition">
+                        <button onclick="moveItem('projects', ${i}, -1)" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"><i data-lucide="arrow-up" class="w-3 h-3"></i></button>
+                        <button onclick="moveItem('projects', ${i}, 1)" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"><i data-lucide="arrow-down" class="w-3 h-3"></i></button>
+                        <button onclick="removeDynamicItem('projects', ${i})" class="p-1 hover:bg-red-100 text-red-500 rounded"><i data-lucide="trash-2" class="w-3 h-3"></i></button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 mt-4 text-sm">
+                        <div class="col-span-2 sm:col-span-1"><input type="text" placeholder="Project Name" value="${item.name}" oninput="updateDynamicItem('projects', ${i}, 'name', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary"></div>
+                        <div class="col-span-2 sm:col-span-1"><input type="text" placeholder="Link (Optional)" value="${item.link}" oninput="updateDynamicItem('projects', ${i}, 'link', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary"></div>
+                        <div class="col-span-2"><input type="text" placeholder="Technologies Used (e.g. React, Node.js)" value="${item.tech}" oninput="updateDynamicItem('projects', ${i}, 'tech', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary"></div>
+                        <div class="col-span-2"><textarea placeholder="Description" rows="2" oninput="updateDynamicItem('projects', ${i}, 'desc', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary">${item.desc}</textarea></div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function renderCertsForm() {
+            const container = document.getElementById('certs-list');
+            container.innerHTML = resumeData.certifications.map((item, i) => `
+                <div class="p-3 border dark:border-gray-600 rounded bg-white dark:bg-gray-800 relative group">
+                    <div class="absolute right-2 top-2 flex gap-1 opacity-50 group-hover:opacity-100 transition">
+                        <button onclick="moveItem('certifications', ${i}, -1)" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"><i data-lucide="arrow-up" class="w-3 h-3"></i></button>
+                        <button onclick="moveItem('certifications', ${i}, 1)" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"><i data-lucide="arrow-down" class="w-3 h-3"></i></button>
+                        <button onclick="removeDynamicItem('certifications', ${i})" class="p-1 hover:bg-red-100 text-red-500 rounded"><i data-lucide="trash-2" class="w-3 h-3"></i></button>
+                    </div>
+                    <div class="grid grid-cols-1 gap-2 mt-4 text-sm">
+                        <input type="text" placeholder="Certification Name" value="${item.name}" oninput="updateDynamicItem('certifications', ${i}, 'name', this.value)" class="w-full p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary">
+                        <div class="flex gap-2">
+                            <input type="text" placeholder="Issuing Org" value="${item.org}" oninput="updateDynamicItem('certifications', ${i}, 'org', this.value)" class="w-full flex-1 p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary">
+                            <input type="text" placeholder="Year" value="${item.year}" oninput="updateDynamicItem('certifications', ${i}, 'year', this.value)" class="w-24 p-1.5 border rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-1 focus:ring-primary">
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // Simple Array Appends (Skills, Achievements, Languages)
+        function addSimpleItem(type, inputId) {
+            const input = document.getElementById(inputId);
+            const val = input.value.trim();
+            if(val) {
+                resumeData[type].push(val);
+                input.value = '';
+                renderDynamicLists();
+                autoSave();
+            }
+        }
+        function removeSimpleItem(type, index) {
+            resumeData[type].splice(index, 1);
+            renderDynamicLists();
+            autoSave();
+        }
+
+        function addSkill() { addSimpleItem('skills', 'skill-input'); }
+        function addAchievement() { addSimpleItem('achievements', 'achievement-input'); }
+        function addLanguage() { addSimpleItem('languages', 'lang-input'); }
+
+        function renderSkillsForm() {
+            document.getElementById('skills-container').innerHTML = resumeData.skills.map((skill, i) => `
+                <span class="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 text-xs px-2 py-1 rounded flex items-center gap-1 border border-blue-200 dark:border-blue-800/50">
+                    ${skill} <button onclick="removeSimpleItem('skills', ${i})" class="text-blue-500 hover:text-blue-700">&times;</button>
+                </span>
+            `).join('');
+        }
+
+        function renderAchievementsForm() {
+            document.getElementById('achievements-container').innerHTML = resumeData.achievements.map((ach, i) => `
+                <li class="flex justify-between items-start gap-2 bg-gray-50 dark:bg-gray-800 p-2 rounded border dark:border-gray-700">
+                    <span>${ach}</span>
+                    <button onclick="removeSimpleItem('achievements', ${i})" class="text-red-500 hover:text-red-700 shrink-0"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </li>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function renderLanguagesForm() {
+            document.getElementById('languages-container').innerHTML = resumeData.languages.map((lang, i) => `
+                <span class="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 text-xs px-2 py-1 rounded flex items-center gap-1 border border-green-200 dark:border-green-800/50">
+                    ${lang} <button onclick="removeSimpleItem('languages', ${i})" class="text-green-600 hover:text-green-800">&times;</button>
+                </span>
+            `).join('');
+        }
+
+        // --- PREVIEW RENDERING (ATS Semantic HTML) ---
+        function formatDesc(text) {
+            if(!text) return '';
+            // Convert lines to bullet points if they start with '-' or '*' or just create simple breaks
+            const lines = text.split('\n').filter(l => l.trim().length > 0);
+            if(lines.length > 1 || text.startsWith('-') || text.startsWith('*')) {
+                return `<ul class="r-list">` + lines.map(l => `<li>${l.replace(/^[-*]\s*/, '')}</li>`).join('') + `</ul>`;
+            }
+            return `<p style="margin-bottom: 8px; font-size: 10pt;">${text}</p>`;
+        }
+
+        function renderPreview() {
+            const pane = document.getElementById('preview-pane');
+            const d = resumeData;
+            const p = d.personal;
+
+            // Build Contact Links safely
+            let contactHTML = [];
+            if(p.email) contactHTML.push(`<span>${p.email}</span>`);
+            if(p.phone) contactHTML.push(`<span>${p.phone}</span>`);
+            if(p.location) contactHTML.push(`<span>${p.location}</span>`);
+            if(p.linkedin) contactHTML.push(`<span><a href="${p.linkedin}" target="_blank" style="color:inherit;text-decoration:none;">${p.linkedin.replace(/^https?:\/\/(www\.)?/, '')}</a></span>`);
+            if(p.github) contactHTML.push(`<span><a href="${p.github}" target="_blank" style="color:inherit;text-decoration:none;">${p.github.replace(/^https?:\/\/(www\.)?/, '')}</a></span>`);
+            if(p.portfolio) contactHTML.push(`<span><a href="${p.portfolio}" target="_blank" style="color:inherit;text-decoration:none;">${p.portfolio.replace(/^https?:\/\/(www\.)?/, '')}</a></span>`);
+
+            let html = `
+                <header>
+                    ${p.name ? `<h1 class="r-name">${p.name}</h1>` : ''}
+                    ${p.title ? `<div class="r-title">${p.title}</div>` : ''}
+                    ${contactHTML.length > 0 ? `<div class="r-contact">${contactHTML.join(' | ')}</div>` : ''}
+                </header>
+            `;
+
+            // Render Sections based on sectionOrder array
+            d.sectionOrder.forEach(secKey => {
+                switch(secKey) {
+                    case 'summary':
+                        if(d.summary) {
+                            html += `
+                                <section>
+                                    <h2 class="r-section-title">Professional Summary</h2>
+                                    <p style="font-size: 10pt; text-align: justify;">${d.summary}</p>
+                                </section>
+                            `;
+                        }
+                        break;
+                    case 'experience':
+                        if(d.experience.length > 0) {
+                            html += `
+                                <section>
+                                    <h2 class="r-section-title">Experience</h2>
+                                    ${d.experience.map(e => `
+                                        <article style="margin-bottom: 12px;">
+                                            <div class="r-item-header">
+                                                <span>${e.title}</span>
+                                                <span>${e.startDate}${e.endDate ? ' &ndash; ' + e.endDate : ''}</span>
+                                            </div>
+                                            <div class="r-item-sub">
+                                                <span>${e.company}</span>
+                                            </div>
+                                            ${formatDesc(e.desc)}
+                                        </article>
+                                    `).join('')}
+                                </section>
+                            `;
+                        }
+                        break;
+                    case 'education':
+                        if(d.education.length > 0) {
+                            html += `
+                                <section>
+                                    <h2 class="r-section-title">Education</h2>
+                                    ${d.education.map(e => `
+                                        <article style="margin-bottom: 10px;">
+                                            <div class="r-item-header">
+                                                <span>${e.degree}</span>
+                                                <span>${e.year}</span>
+                                            </div>
+                                            <div class="r-item-sub">
+                                                <span>${e.institution}</span>
+                                                ${e.score ? `<span>Score: ${e.score}</span>` : ''}
+                                            </div>
+                                        </article>
+                                    `).join('')}
+                                </section>
+                            `;
+                        }
+                        break;
+                    case 'skills':
+                        if(d.skills.length > 0) {
+                            html += `
+                                <section>
+                                    <h2 class="r-section-title">Skills</h2>
+                                    <ul class="ats-comma-list" style="font-size: 10pt;">
+                                        ${d.skills.map(s => `<li>${s}</li>`).join('')}
+                                    </ul>
+                                </section>
+                            `;
+                        }
+                        break;
+                    case 'projects':
+                        if(d.projects.length > 0) {
+                            html += `
+                                <section>
+                                    <h2 class="r-section-title">Projects</h2>
+                                    ${d.projects.map(p => `
+                                        <article style="margin-bottom: 10px;">
+                                            <div class="r-item-header">
+                                                <span>${p.name} ${p.link ? `<a href="${p.link}" style="font-size:8pt; font-weight:normal;">[Link]</a>` : ''}</span>
+                                            </div>
+                                            ${p.tech ? `<div class="r-item-sub" style="font-size:9pt;">Tech: ${p.tech}</div>` : ''}
+                                            ${formatDesc(p.desc)}
+                                        </article>
+                                    `).join('')}
+                                </section>
+                            `;
+                        }
+                        break;
+                    case 'certifications':
+                        if(d.certifications.length > 0) {
+                            html += `
+                                <section>
+                                    <h2 class="r-section-title">Certifications</h2>
+                                    <ul class="r-list" style="margin-bottom:0;">
+                                        ${d.certifications.map(c => `<li><strong>${c.name}</strong> &ndash; ${c.org} ${c.year ? `(${c.year})` : ''}</li>`).join('')}
+                                    </ul>
+                                </section>
+                            `;
+                        }
+                        break;
+                    case 'achievements':
+                        if(d.achievements.length > 0) {
+                            html += `
+                                <section>
+                                    <h2 class="r-section-title">Achievements</h2>
+                                    <ul class="r-list">
+                                        ${d.achievements.map(a => `<li>${a}</li>`).join('')}
+                                    </ul>
+                                </section>
+                            `;
+                        }
+                        break;
+                    case 'languages':
+                        if(d.languages.length > 0) {
+                            html += `
+                                <section>
+                                    <h2 class="r-section-title">Languages</h2>
+                                    <ul class="ats-comma-list" style="font-size: 10pt;">
+                                        ${d.languages.map(l => `<li>${l}</li>`).join('')}
+                                    </ul>
+                                </section>
+                            `;
+                        }
+                        break;
+                }
+            });
+
+            pane.innerHTML = html;
+        }
+
+        // --- UTILS & UI INTERACTIONS ---
+
+        function toggleSection(id, forceOpen = false) {
+            const content = document.getElementById(id);
+            const icon = content.previousElementSibling.querySelector('.sec-icon');
+            
+            if (forceOpen) {
+                content.classList.add('active');
+                icon.style.transform = 'rotate(180deg)';
+                return;
+            }
+
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('active');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        function updateCharCount() {
+            const el = document.getElementById('f-summary');
+            document.getElementById('summary-count').innerText = el.value.length;
+        }
+
+        function updateProgress() {
+            const totalFields = 12; // Base fields
+            let filled = 0;
+            const p = resumeData.personal;
+            if(p.name) filled++;
+            if(p.email) filled++;
+            if(p.phone) filled++;
+            if(p.title) filled++;
+            if(resumeData.summary) filled++;
+            if(resumeData.experience.length > 0) filled += 2;
+            if(resumeData.education.length > 0) filled += 2;
+            if(resumeData.skills.length > 0) filled++;
+            if(resumeData.projects.length > 0) filled++;
+            if(p.linkedin || p.github || p.portfolio) filled++;
+
+            const pct = Math.min(100, Math.round((filled / totalFields) * 100));
+            document.getElementById('progress-bar').style.width = pct + '%';
+            document.getElementById('progress-text').innerText = pct + '%';
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const isDark = document.documentElement.classList.contains('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        function adjustPreviewScale() {
+            // Scales the A4 wrapper down visually if screen is too small, mostly for right pane visibility
+            const container = document.getElementById('preview-container');
+            const scaleWrapper = document.getElementById('scale-wrapper');
+            const a4Width = 794; // 210mm in pixels approx at 96dpi
+            
+            // Only scale if container is smaller than A4 width + padding
+            const availableWidth = container.clientWidth - 40; 
+            if (availableWidth < a4Width) {
+                const scale = availableWidth / a4Width;
+                scaleWrapper.style.transform = `scale(${scale})`;
+            } else {
+                scaleWrapper.style.transform = `scale(1)`;
+            }
+        }
+
+        // --- SECTION REORDERING LOGIC ---
+        function toggleSectionOrderModal() {
+            const modal = document.getElementById('reorder-modal');
+            if (modal.classList.contains('hidden')) {
+                renderSectionOrderList();
+                modal.classList.remove('hidden');
+            } else {
+                modal.classList.add('hidden');
+            }
+        }
+
+        function renderSectionOrderList() {
+            const list = document.getElementById('section-order-list');
+            list.innerHTML = resumeData.sectionOrder.map((sec, i) => `
+                <li class="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-800 rounded border dark:border-gray-700">
+                    <span class="font-medium">${sectionNames[sec]}</span>
+                    <div class="flex gap-2">
+                        <button onclick="moveSectionOrder(${i}, -1)" class="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded disabled:opacity-30" ${i===0?'disabled':''}><i data-lucide="arrow-up" class="w-4 h-4"></i></button>
+                        <button onclick="moveSectionOrder(${i}, 1)" class="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded disabled:opacity-30" ${i===resumeData.sectionOrder.length-1?'disabled':''}><i data-lucide="arrow-down" class="w-4 h-4"></i></button>
+                    </div>
+                </li>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function moveSectionOrder(index, dir) {
+            const target = index + dir;
+            if(target >= 0 && target < resumeData.sectionOrder.length) {
+                const temp = resumeData.sectionOrder[index];
+                resumeData.sectionOrder[index] = resumeData.sectionOrder[target];
+                resumeData.sectionOrder[target] = temp;
+                renderSectionOrderList();
+                autoSave(); // this triggers renderPreview
+            }
+        }
+
+        // --- PDF GENERATION ---
+        function downloadPDF() {
+            const element = document.getElementById('preview-pane');
+            const name = resumeData.personal.name ? resumeData.personal.name.replace(/\s+/g, '_') : 'Resume';
+            
+            // Temporary styles for PDF consistency
+            element.style.boxShadow = 'none';
+            element.style.width = '210mm';
+            element.style.minHeight = '297mm';
+            
+            const opt = {
+                margin:       0,
+                filename:     `${name}_Resume.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Setup loading state on button
+            const btn = document.querySelector('button[onclick="downloadPDF()"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin"></i> Generating...';
+            lucide.createIcons();
+
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restore UI
+                btn.innerHTML = originalText;
+                lucide.createIcons();
+                element.style.boxShadow = '';
+            });
+        }
+    </script>
+</body>
+</html>

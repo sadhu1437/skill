@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Guide - Styled Content</title>
+
+  <!-- Google AdSense Auto Ads Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687126461256058" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/pdfs.css">
+</head>
+<body>
+
+    <nav style="position: relative;">
+        <div class="nav__header">
+          <div class="nav__logo">
+          <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+          </div>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+              </svg>
+            </i>          
+          </div>
+        </div>
+     <ul class="nav__links" id="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../pdf.html">Learning PDFs</a></li>
+          <li><a href="../../interview.html">Interview Questions</a></li>
+          <li><a href="../../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- AdSense Placement 1: Below Header/Nav -->
+      <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto 10px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+          <ins class="adsbygoogle"
+               style="display:block; min-width:250px; min-height:90px;"
+               data-ad-client="ca-pub-8687126461256058"
+               data-ad-slot="3087513906"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+      </div>
+
+      <div class="content-container">
+  <section>
+    <h2>Introduction to HTML</h2>
+    <p>HTML (HyperText Markup Language) is the standard markup language used to create web pages. It provides the core skeleton and structure for web content and is universally used in conjunction with CSS (for styling) and JavaScript (for interactivity) to create visually appealing and dynamic websites.</p>
+  </section>
+
+  <section>
+    <h2>History of HTML</h2>
+    <p>HTML was created by Tim Berners-Lee in 1991 as a way to structure and present content on the early World Wide Web. The first version, HTML 1.0, was released in 1993. Since then, HTML has evolved through several major versions, with HTML5 being the modern standard, officially introduced in 2014.</p>
+    <div class="highlight-box">Fun Fact: HTML was originally designed primarily to facilitate the sharing of text documents and research papers between scientists over the internet!</div>
+    <p>HTML5 introduced revolutionary native elements and attributes, eliminating the need for third-party plugins like Adobe Flash by enhancing native multimedia support, offline storage, and creating a better overall user experience.</p>
+  </section>
+
+  <section>
+    <h2>Key Features</h2>
+    <h3>✔ Structure & Semantics</h3>
+    <p>HTML provides a clear structure using elements such as headings, paragraphs, lists, and links. HTML5 pushed this further with semantic elements like <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;article&gt;</code>, and <code>&lt;section&gt;</code>, which dramatically improve accessibility for screen readers and SEO for search engines.</p>
+
+    <h3>✔ Multimedia Support</h3>
+    <p>HTML5 includes native support for the <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> elements, allowing developers to embed rich media experiences directly into the browser without external plugins.</p>
+
+    <h3>✔ Cross-Platform Compatibility</h3>
+    <p>HTML is supported by all modern web browsers (Chrome, Safari, Firefox, Edge), making it a universal language that works seamlessly across desktops, tablets, and smartphones.</p>
+  </section>
+
+  <!-- AdSense Placement 2: Mid-Content -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto; padding: 0; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <section>
+    <h2>Basic HTML Structure</h2>
+    <p>Every HTML document follows a standard boilerplate that tells the browser how to interpret the code. Here is a basic example:</p>
+    <pre style="background: #f4f4f4; padding: 1rem; border-radius: 5px; overflow-x: auto;"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Document Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello, World!&lt;/h1&gt;
+    &lt;p&gt;This is a sample HTML document.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </section>
+
+  <section>
+    <h2>HTML Forms & User Input</h2>
+    <p>One of the most powerful features of HTML is the ability to collect user input via forms. Using the <code>&lt;form&gt;</code> element combined with various <code>&lt;input&gt;</code> types (text, email, password, radio, checkbox), developers can create login screens, contact pages, and search bars that send data back to a server.</p>
+  </section>
+
+  <section>
+    <h2>The Document Object Model (DOM)</h2>
+    <p>When a web browser loads an HTML document, it creates a tree-like structure known as the <strong>Document Object Model (DOM)</strong>. HTML represents the "nodes" of this tree. This structure is what allows CSS to style specific parts of the page and JavaScript to dynamically add, remove, or modify elements on the fly.</p>
+  </section>
+
+  <section>
+    <h2>Use Cases</h2>
+    <ul>
+      <li><strong>Web Development:</strong> Create the core structure and visible content of all web pages.</li>
+      <li><strong>Email Templates:</strong> Design and structure responsive email content for marketing campaigns (using table-based HTML layouts).</li>
+      <li><strong>Documentation:</strong> Write accessible technical documentation, wikis, and manuals.</li>
+      <li><strong>Content Management Systems:</strong> Serve as the backbone structure for CMS platforms like WordPress and Shopify.</li>
+      <li><strong>Web Applications:</strong> Provide the foundational scaffolding upon which robust React, Angular, and Vue.js web apps are built.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Conclusion</h2>
+    <p>HTML is the absolute foundation of web development. Its simplicity and versatility make it a mandatory, fundamental skill for anyone looking to create websites or web applications. No matter how advanced web technologies become, HTML remains the critical starting block of the entire web development stack.</p>
+  </section>
+
+  <section class="download-section" style="margin-top: 2rem; margin-bottom: 2rem;">
+    <h2>HTML Programming</h2>
+    <p>A comprehensive HTML programming guide suitable for beginners, developers, and professionals alike.</p>
+    <a class="download-button" href="../pdfs/HTML5NotesForProfessionals.pdf" download style="display: inline-block; padding: 0.8rem 1.5rem; background-color: #0056b3; color: #fff; text-decoration: none; border-radius: 5px; font-weight: 500;">Download PDF</a>
+  </section>
+  
+</div>
+
+  <!-- AdSense Placement 3: Above Footer -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 10px auto 40px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <div class="footer__logo">
+        <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+        </div>
+        <p>
+          SkillBloom helps you prepare for success with access to interview questions, company hiring processes, downloadable PDFs, job alerts, and more.
+        </p>
+      </div>
+
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <ul class="footer__links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../interview.html">Interview Prep</a></li>
+          <li><a href="../../pdf.html">PDF Library</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer__col">
+        <h4>Community</h4>
+        <ul class="footer__links">
+          <li><a href="https://t.me/ytsmart1437" target="_blank">Telegram</a></li>
+          <li><a href="https://youtube.com/@ytsmart143?si=RArtu08pGPesGzmW" target="_blank">YouTube</a></li>
+          <li><a href="https://whatsapp.com/channel/0029VarQwSyLo4hciv8S3t04" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <ul class="footer__links">
+          <li>
+            <a href="mailto:ytsmart143@gmail.com">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+              </span>
+               ytsmart143@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5 14.5 7.6 14.5 9 13.4 11.5 12 11.5z"/>
+                </svg>
+              </span>
+               Andhra Pradesh, India
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bar">
+      © 2026 SkillBloom. Built for learners and job seekers. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Fixed relative path for the main.js script -->
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>

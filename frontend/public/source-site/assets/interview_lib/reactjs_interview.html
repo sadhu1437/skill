@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Prepare for your React.js programming interview with our comprehensive guide featuring top React.js interview questions and answers for freshers and experienced candidates.">
+  <meta name="keywords" content="React.js, React interview questions, React programming, React interview preparation, React coding, React for beginners, React for experienced">
+  <title>React.js Interview Questions - Styled Content</title>
+
+  <!-- Google AdSense Auto Ads Script -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8687126461256058" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/pdfs.css">
+</head>
+<body>
+
+    <nav style="position: relative;">
+        <div class="nav__header">
+          <div class="nav__logo">
+          <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+          </div>
+          <div class="nav__menu__btn" id="menu-btn">
+            <i>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/>
+              </svg>
+            </i>          
+          </div>
+        </div>
+        <ul class="nav__links" id="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../pdf.html">Learning PDFs</a></li>
+          <li><a href="../../interview.html">Interview Questions</a></li>
+          <li><a href="../../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- AdSense Placement 1: Below Header/Nav -->
+      <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto 10px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+          <ins class="adsbygoogle"
+               style="display:block; min-width:250px; min-height:90px;"
+               data-ad-client="ca-pub-8687126461256058"
+               data-ad-slot="3087513906"
+               data-ad-format="auto"
+               data-full-width-responsive="true"></ins>
+          <script>
+               (adsbygoogle = window.adsbygoogle || []).push({});
+          </script>
+      </div>
+
+      <div class="content-container">
+  <section>
+    <h2>Top React.js Interview Questions</h2>
+    <p>Preparing for a React.js programming interview? Here are some of the most common React.js interview questions along with their answers, suitable for both freshers and experienced candidates. Understanding these concepts will help you demonstrate your React.js skills effectively during interviews.</p>
+  </section>
+
+  <section>
+    <h3>1. What is React.js?</h3>
+    <p>React.js is an open-source JavaScript library developed by Facebook for building user interfaces, particularly for single-page applications. It allows developers to create reusable UI components and manage the state of applications efficiently.</p>
+
+    <h3>2. What are the key features of React.js?</h3>
+    <ul>
+      <li><strong>Component-Based:</strong> React.js is built around the concept of components, which are reusable pieces of UI that can manage their own state.</li>
+      <li><strong>Virtual DOM:</strong> React uses a virtual DOM to optimize rendering performance by minimizing direct manipulation of the actual DOM.</li>
+      <li><strong>Unidirectional Data Flow:</strong> Data flows in a single direction, making it easier to understand and debug applications.</li>
+      <li><strong>JSX:</strong> React allows developers to write HTML-like syntax (JSX) within JavaScript, making it easier to create and visualize UI components.</li>
+    </ul>
+
+    <h3>3. What is a component in React?</h3>
+    <p>A component is a self-contained piece of code that represents a part of the user interface. Components can be functional or class-based, and they can accept inputs (props) and manage their own state. Components can be reused throughout an application, promoting code reusability.</p>
+
+    <h3>4. What is the difference between state and props in React?</h3>
+    <p><strong>State:</strong> State is a local data storage that is managed within a component. It can be changed and updated, causing the component to re-render. <strong>Props:</strong> Props (short for properties) are read-only data passed from a parent component to a child component. Props cannot be modified by the child component.</p>
+
+    <h3>5. What are lifecycle methods in React?</h3>
+    <p>Lifecycle methods are special methods in class components that allow developers to hook into different stages of a component's lifecycle, such as mounting, updating, and unmounting. Common lifecycle methods include <code>componentDidMount</code>, <code>componentDidUpdate</code>, and <code>componentWillUnmount</code>.</p>
+
+    <h3>6. What is the purpose of the <code>useEffect</code> hook?</h3>
+    <p>The <code>useEffect</code> hook is a built-in hook in React that allows functional components to perform side effects, such as data fetching, subscriptions, or manually changing the DOM. It can be used to mimic lifecycle methods in functional components.</p>
+
+    <h3>7. What is Redux?</h3>
+    <p>Redux is a state management library often used with React to manage application state in a predictable way. It follows a unidirectional data flow and uses a central store to hold the application state, allowing components to access and update the state through actions and reducers.</p>
+
+    <!-- AdSense Placement 2: Mid-Content -->
+    <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 30px auto; padding: 0; text-align: center; clear: both; box-sizing: border-box;">
+        <ins class="adsbygoogle"
+             style="display:block; min-width:250px; min-height:90px;"
+             data-ad-client="ca-pub-8687126461256058"
+             data-ad-slot="3087513906"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <h3>8. What is the significance of keys in React?</h3>
+    <p>Keys are unique identifiers assigned to elements in a list to help React identify which items have changed, been added, or removed. Using keys improves performance by allowing React to optimize rendering and update only the necessary components.</p>
+
+    <h3>9. What is the difference between controlled and uncontrolled components?</h3>
+    <p><strong>Controlled Components:</strong> In controlled components, form data is handled by the component's state, and the input values are controlled by React. <strong>Uncontrolled Components:</strong> In uncontrolled components, form data is handled by the DOM itself, and React does not manage the input values.</p>
+
+    <h3>10. What are higher-order components (HOCs) in React?</h3>
+    <p>Higher-order components (HOCs) are functions that take a component as an argument and return a new component with enhanced functionality. HOCs are used for code reuse, logic abstraction, and cross-cutting concerns, such as authentication or data fetching.</p>
+
+    <h3>11. What are React Hooks?</h3>
+    <p>React Hooks are built-in functions introduced in React 16.8 that allow developers to use state and lifecycle features inside functional components, eliminating the need to write class components. Common hooks include <code>useState</code>, <code>useEffect</code>, <code>useContext</code>, and <code>useReducer</code>.</p>
+
+    <h3>12. What is the Context API?</h3>
+    <p>The Context API is a built-in React feature that allows you to share data (like user authentication, themes, or language settings) globally across the entire application without having to pass props down manually through every level of the component tree (a problem known as "prop drilling").</p>
+
+    <h3>13. What is the difference between Functional and Class components?</h3>
+    <p><strong>Class Components:</strong> Require you to extend from <code>React.Component</code> and have a <code>render()</code> method. They historically managed state and lifecycle methods. <strong>Functional Components:</strong> Are simple JavaScript functions that return JSX. With the introduction of Hooks, functional components can now handle state and side effects, making them the modern standard for writing React applications.</p>
+
+    <h3>14. What is React Router?</h3>
+    <p>React Router is a standard library for routing in React. It enables navigation between different views or components in a React application, allows the browser URL to be in sync with the current UI, and makes building Single Page Applications (SPAs) possible without page reloads.</p>
+
+    <h3>15. What is the <code>useMemo</code> hook used for?</h3>
+    <p>The <code>useMemo</code> hook is an optimization technique used to memoize (cache) expensive function calculations. It returns a memoized value that only recomputes when one of its dependencies has changed, preventing performance bottlenecks on every re-render of the component.</p>
+  </section>
+
+  <section class="download-section" style="margin-top: 2rem; margin-bottom: 2rem;">
+    <h2>Download React.js Interview Questions</h2>
+    <p>For a comprehensive list of React.js interview questions and answers, download the PDF guide below:</p>
+    <a class="download-button" href="../pdfs/React_Interview_Questions.pdf" download style="display: inline-block; padding: 0.8rem 1.5rem; background-color: #0056b3; color: #fff; text-decoration: none; border-radius: 5px; font-weight: 500;">Download PDF</a>
+  </section>
+  
+</div>
+
+  <!-- AdSense Placement 3: Above Footer -->
+  <div class="ad-container" style="display: block; width: 100%; min-width: 250px; min-height: 90px; margin: 10px auto 40px auto; padding: 0 1rem; text-align: center; clear: both; box-sizing: border-box;">
+      <ins class="adsbygoogle"
+           style="display:block; min-width:250px; min-height:90px;"
+           data-ad-client="ca-pub-8687126461256058"
+           data-ad-slot="3087513906"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+  </div>
+
+  <footer class="footer">
+    <div class="section__container footer__container">
+      <div class="footer__col">
+        <div class="footer__logo">
+        <a href="../../index.html" class="logo">Skill<span>Bloom</span></a>
+        </div>
+        <p>
+          SkillBloom helps you prepare for success with access to interview questions, company hiring processes, downloadable PDFs, job alerts, and more.
+        </p>
+      </div>
+
+      <div class="footer__col">
+        <h4>Explore</h4>
+        <ul class="footer__links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../jobs.html">Jobs</a></li>
+          <li><a href="../../interview.html">Interview Prep</a></li>
+          <li><a href="../../pdf.html">PDF Library</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../privacy-policy.html">Privacy Policy</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer__col">
+        <h4>Community</h4>
+        <ul class="footer__links">
+          <li><a href="https://t.me/ytsmart1437" target="_blank">Telegram</a></li>
+          <li><a href="https://youtube.com/@ytsmart143?si=RArtu08pGPesGzmW" target="_blank">YouTube</a></li>
+          <li><a href="https://whatsapp.com/channel/0029VarQwSyLo4hciv8S3t04" target="_blank">WhatsApp</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Support</h4>
+        <ul class="footer__links">
+          <li>
+            <a href="mailto:ytsmart143@gmail.com">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+              </span>
+               ytsmart143@gmail.com
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#00bcd4" viewBox="0 0 24 24">
+                  <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5 14.5 7.6 14.5 9 13.4 11.5 12 11.5z"/>
+                </svg>
+              </span>
+               Andhra Pradesh, India
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bar">
+      © 2026 SkillBloom. Built for learners and job seekers. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- Fixed relative path for the main.js script -->
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>
