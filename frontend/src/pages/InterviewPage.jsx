@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchJson } from '../api/client'
 import AdSlot from '../components/AdSlot'
+import { setSeo } from '../utils/seo'
 import './interview.css'
 
 export default function InterviewPage() {
@@ -9,6 +10,7 @@ export default function InterviewPage() {
   const [state, setState] = useState('loading')
 
   useEffect(() => {
+    setSeo({ title: 'Interview Questions and Answers | SkillBloom Education', description: 'Practice technical, HR, coding, and topic-wise interview questions with clear answers and preparation guidance.', keywords: 'interview questions, technical interview, HR interview, coding interview, interview answers, placement preparation', path: '/interview' })
     fetchJson('/interview/topics/')
       .then((data) => { setTopics(data.results || data); setState('ready') })
       .catch(() => setState('error'))

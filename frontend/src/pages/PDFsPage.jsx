@@ -3,12 +3,14 @@ import AdSlot from '../components/AdSlot'
 import { useEffect, useState } from 'react'
 import { fetchJson } from '../api/client'
 import { Link } from 'react-router-dom'
+import { setSeo } from '../utils/seo'
 
 export default function PDFsPage() {
   const [pdfs, setPdfs] = useState([])
   const [state, setState] = useState('loading')
 
   useEffect(() => {
+    setSeo({ title: 'Learning PDFs for Students and Placements | SkillBloom Education', description: 'Download learning PDFs for programming, aptitude, interviews, and placement preparation from SkillBloom Education.', keywords: 'learning PDFs, educational PDFs, aptitude PDF, programming PDF, placement preparation, interview PDF', path: '/pdfs' })
     fetchJson('/resources/')
       .then((data) => { setPdfs(Array.isArray(data) ? data : data.results || []); setState('ready') })
       .catch(() => setState('error'))
