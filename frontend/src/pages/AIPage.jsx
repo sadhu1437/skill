@@ -1,4 +1,6 @@
 import './ai.css'
+import { useEffect } from 'react'
+import { setSeo } from '../utils/seo'
 
 const aiPosts = [
   { title: 'Latest AI News', tag: 'news', summary: 'Stay updated on the newest AI developments and breakthrough research.' },
@@ -10,6 +12,10 @@ const aiPosts = [
 ]
 
 export default function AIPage() {
+  useEffect(() => {
+    setSeo({ title: 'AI and Technology News for Developers | SkillBloom Education', description: 'Read practical AI news, developer updates, tools, technology explainers, and career trends curated by SkillBloom Education.', keywords: 'AI news, technology news, developer tools, AI tools, career trends, technology explainers', path: '/ai-tech' })
+  }, [])
+
   return (
     <div className="section__container resource-page ai-page">
       <h2 className="section__header"><span>AI &amp; Tech</span> Updates</h2>

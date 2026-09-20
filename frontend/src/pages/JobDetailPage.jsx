@@ -35,7 +35,19 @@ export default function JobDetailPage() {
     setSeo({
       title: job.seo_title || `${job.title} at ${job.company?.name || 'SkillBloom'} | Job Details`,
       description: job.seo_description || job.short_description || job.description || `Explore ${job.title} at ${job.company?.name || 'SkillBloom'} with eligibility, location, and official application details.`,
+      keywords: `${job.title}, ${job.company?.name || ''}, jobs in India, fresher jobs, careers, SkillBloom`,
       path: `/jobs/${slug}`,
+      type: 'article',
+      structuredData: {
+        '@context': 'https://schema.org',
+        '@type': 'JobPosting',
+        title: job.title,
+        description: job.short_description || job.description,
+        url: `${window.location.origin}/jobs/${slug}`,
+        datePosted: job.published_at,
+        hiringOrganization: { '@type': 'Organization', name: job.company?.name || 'Company' },
+        jobLocation: { '@type': 'Place', address: { '@type': 'PostalAddress', addressLocality: job.location || 'India' } },
+      },
     })
   }, [job, slug])
 

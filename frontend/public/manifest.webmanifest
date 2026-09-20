@@ -1,0 +1,11 @@
+{
+  "name": "SkillBloom Education",
+  "short_name": "SkillBloom",
+  "description": "An education and career-learning platform for students and job seekers.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0f766e",
+  "lang": "en",
+  "categories": ["education", "productivity"]
+}

@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { fetchJson, requestJson } from '../api/client'
 import AdSlot from '../components/AdSlot'
 import { sanitizeHtml } from '../security/sanitizeHtml'
+import { setSeo } from '../utils/seo'
 import './explore.css'
 
 function getTokenUserId(token) {
@@ -35,6 +36,27 @@ export default function ArticleDetailPage() {
       .then((data) => setComments(data.results || data))
       .catch(() => {})
   }, [slug])
+
+  useEffect(() => {
+    if (!article) return
+    setSeo({
+      title: article.seo_title || `${article.title} | SkillBloom Education`,
+      description: article.seo_description || article.short_description || `Read ${article.title} on SkillBloom Education.`,
+      keywords: [article.title, article.category?.name, ...(article.tags || []).map((tag) => tag.name || tag)].filter(Boolean).join(', '),
+      path: `/explore/${slug}`,
+      type: 'article',
+      structuredData: {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        headline: article.title,
+        description: article.seo_description || article.short_description,
+        url: `${window.location.origin}/explore/${slug}`,
+        author: { '@type': 'Organization', name: 'SkillBloom Education' },
+        publisher: { '@type': 'Organization', name: 'SkillBloom Education' },
+        image: article.cover_image || undefined,
+      },
+    })
+  }, [article, slug])
 
   async function action(name) {
     try {

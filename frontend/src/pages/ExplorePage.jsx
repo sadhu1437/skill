@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchJson } from '../api/client'
 import AdSlot from '../components/AdSlot'
+import { setSeo } from '../utils/seo'
 import './explore.css'
 
 function listData(data) { return Array.isArray(data) ? data : data?.results || [] }
@@ -23,6 +24,10 @@ export default function ExplorePage() {
   const [ordering, setOrdering] = useState('latest')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+
+  useEffect(() => {
+    setSeo({ title: 'Explore AI, Technology and Career Articles | SkillBloom Education', description: 'Read practical articles about AI, technology, learning, careers, tools, and the future of work on SkillBloom Education.', keywords: 'AI articles, technology articles, career advice, learning resources, developer tools, future of work', path: '/explore' })
+  }, [])
 
   useEffect(() => {
     Promise.all([fetchJson('/explore/categories/'), fetchJson('/explore/featured/'), fetchJson('/explore/trending/')]).then(([categoryData, featuredData, trendingData]) => { setCategories(listData(categoryData)); setFeatured(listData(featuredData)); setTrending(listData(trendingData)) }).catch(() => setError('Explore content could not be loaded right now.')).finally(() => setLoading(false))

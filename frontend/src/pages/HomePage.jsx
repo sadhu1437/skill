@@ -22,7 +22,20 @@ export default function HomePage() {
   const [loadingJobs, setLoadingJobs] = useState(true)
 
   useEffect(() => {
-    setSeo({ title: 'SkillBloom | Jobs, Interview Questions & Learning PDFs', description: 'Find the latest jobs, interview questions, learning PDFs, and practical career preparation resources on SkillBloom.', path: '/' })
+    setSeo({
+      title: 'SkillBloom Education | Jobs, Interview Prep & Learning PDFs',
+      description: 'Learn with SkillBloom Education through interview questions, coding practice, learning PDFs, career roadmaps, and verified job resources for students and freshers.',
+      keywords: 'education, online learning, interview preparation, coding practice, learning PDFs, fresher jobs, career guidance, SkillBloom',
+      path: '/',
+      structuredData: {
+        '@context': 'https://schema.org',
+        '@type': 'EducationalOrganization',
+        name: 'SkillBloom Education',
+        url: window.location.origin,
+        description: 'Education and career-learning resources for students, freshers, and job seekers.',
+        sameAs: ['https://youtube.com/@ytsmart143'],
+      },
+    })
     fetchJson('/core/home/')
       .then((data) => setJobs(data.jobs || []))
       .catch(() => setJobs([]))

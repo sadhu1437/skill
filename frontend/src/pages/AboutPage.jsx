@@ -1,6 +1,12 @@
 import './about.css'
+import { useEffect } from 'react'
+import { setSeo } from '../utils/seo'
 
 export default function AboutPage() {
+  useEffect(() => {
+    setSeo({ title: 'About SkillBloom Education | Career Learning Platform', description: 'Learn about SkillBloom Education, a practical learning and career platform offering PDFs, interview preparation, coding practice, job opportunities, and career guidance.', keywords: 'about SkillBloom, education platform, career learning, student resources, placement preparation', path: '/about' })
+  }, [])
+
   return (
     <div className="section__container content-page about-page">
       <h2 className="section__header"><span>About</span> SkillBloom</h2>

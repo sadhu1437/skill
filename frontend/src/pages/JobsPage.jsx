@@ -11,7 +11,7 @@ export default function JobsPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    setSeo({ title: 'Latest Jobs in India | SkillBloom', description: 'Explore the latest fresher, internship, and experienced job opportunities with eligibility, location, salary, and official apply details.', path: '/jobs' })
+    setSeo({ title: 'Latest Jobs in India for Freshers | SkillBloom Education', description: 'Explore verified fresher jobs, internships, and entry-level opportunities in India with eligibility, location, salary, and official application details.', keywords: 'latest jobs India, fresher jobs, internships, off campus jobs, entry level jobs, graduate jobs', path: '/jobs' })
     fetchJson('/jobs/')
       .then((data) => setJobs(Array.isArray(data) ? data : data.results || []))
       .catch(() => setJobs([]))
