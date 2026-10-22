@@ -123,7 +123,6 @@ export default function HomePage() {
         <Link to="/jobs" className="btn">View All Jobs</Link>
       </div>
 
-      <AdSlot slot="home_slot" className="home-ad-slot" />
     </div>
   )
 }

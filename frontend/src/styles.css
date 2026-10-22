@@ -12,6 +12,13 @@ button, input, textarea, select { max-width: 100%; }
 button, input, textarea { font: inherit; }
 .container, .section__container { width: min(var(--max-width), calc(100% - 2rem)); margin-inline: auto; }
 .site-shell { min-height: 100vh; }
+.ad-slot { width: min(100%, 970px); min-height: 118px; margin: 2rem auto; padding: .65rem .75rem; overflow: hidden; text-align: center; background: rgba(15,33,56,.42); border: 1px solid rgba(49,81,112,.55); border-radius: 10px; }
+.ad-slot-label { display: block; margin-bottom: .35rem; color: var(--text-light); font-size: .65rem; font-weight: 700; letter-spacing: .12em; line-height: 1; text-transform: uppercase; }
+.ad-slot ins.adsbygoogle { display: block; width: 100%; min-height: 90px; }
+.ad-slot ins.adsbygoogle[data-ad-status='unfilled'] { min-height: 0; }
+.ad-slot:has(ins.adsbygoogle[data-ad-status='unfilled']) { display: none; }
+.home-ad-slot { width: min(100%, 970px); }
+.jobs-ad-slot, .interview-ad-slot, .pdfs-ad-slot, .pdf-detail-ad-slot, .job-ad-slot, .explore-ad-slot, .article-ad-slot, .layout-ad-slot { width: min(100%, 970px); }
 .topbar { position: sticky; top: 0; z-index: 10; background: rgba(5,11,20,.88); border-bottom: 1px solid #1d334f; box-shadow: 0 8px 28px rgba(0,0,0,.22); backdrop-filter: blur(18px); }
 .topbar-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
 .brand { display: inline-flex; align-items: center; gap: .65rem; color: var(--text-dark); font-size: 1.35rem; font-weight: 800; letter-spacing: -.03em; white-space: nowrap; }
@@ -62,4 +69,6 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 	.brand { font-size: 1.2rem; }
 	.footer-grid { grid-template-columns: 1fr; }
 	.primary-btn, .btn { min-height: 46px; }
+	.ad-slot { min-height: 78px; margin: 1.35rem auto; padding: .55rem; }
+	.ad-slot ins.adsbygoogle { min-height: 50px; }
 }

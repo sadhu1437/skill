@@ -1,3 +1,27 @@
 @import './content.css';
 .about-page .content-panel { border-left-color: var(--accent-color); }
 .about-page .content-panel h3 { color: var(--primary-color); }
+.about-page .about-intro { max-width: 680px; margin: -1.5rem auto 0; }
+.about-section + .about-section { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+.about-section h3 { margin-top: 0; }
+.about-card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 1.25rem; }
+.about-card { padding: 1.15rem; background: rgba(7,17,31,.55); border: 1px solid var(--line); border-radius: 10px; }
+.about-card h4, .about-faq h4 { margin: 0 0 .4rem; color: var(--text-dark); }
+.about-card h4 a, .about-faq a { color: var(--primary-color); }
+.about-card h4 a:hover, .about-faq a:hover { text-decoration: underline; }
+.about-card p, .about-faq p { margin: 0; color: var(--text-light); }
+.about-steps, .about-values { display: grid; gap: .85rem; padding-left: 1.35rem; }
+.about-steps li, .about-values li { padding-left: .25rem; }
+.about-note { padding: 1.25rem; background: rgba(250,204,21,.06); border: 1px solid rgba(250,204,21,.2) !important; border-radius: 10px; }
+.about-note h3 { margin-top: 0; }
+.about-note p { margin-bottom: 0; }
+.about-faq { display: grid; gap: 1.15rem; }
+.about-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.25rem; }
+.about-secondary-btn { color: var(--text-dark); background: #162b46; box-shadow: none; }
+.about-secondary-btn:hover { color: var(--text-dark); background: #203c5e; box-shadow: none; }
+@media (max-width: 640px) {
+  .about-page .about-intro { margin-top: -1rem; }
+  .about-card-grid { grid-template-columns: 1fr; }
+  .about-section + .about-section { margin-top: 2rem; padding-top: 1.5rem; }
+  .about-actions { flex-direction: column; align-items: stretch; }
+}

@@ -25,8 +25,6 @@ export default function JobsPage() {
         Discover exciting new opportunities and high-demand positions available now in top industries and companies.
       </p>
 
-      <AdSlot slot="content_slot" className="jobs-ad-slot" />
-
       <div className="job__grid">
         {loading && <p className="job-status">Loading published jobs...</p>}
         {!loading && jobs.length === 0 && <p className="job-status">No published jobs yet.</p>}
@@ -51,6 +49,7 @@ export default function JobsPage() {
           </div>
         ))}
       </div>
+      {!loading && jobs.length > 0 && <AdSlot slot="content_slot" className="jobs-ad-slot" />}
     </div>
   )
 }
