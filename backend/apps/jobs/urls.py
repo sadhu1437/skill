@@ -1,10 +1,11 @@
 from django.urls import path
 
-from .views import JobCreateView, JobDeleteView, JobDetailView, JobListView, JobManageDetailView, LatestJobsView
+from .views import JobCreateView, JobDeleteView, JobDetailView, JobListView, JobManageDetailView, JobManageListView, LatestJobsView
 
 urlpatterns = [
     path("latest/", LatestJobsView.as_view(), name="latest-jobs"),
     path("create/", JobCreateView.as_view(), name="job-create"),
+    path("manage/", JobManageListView.as_view(), name="job-manage-list"),
     path("manage/<slug:slug>/", JobManageDetailView.as_view(), name="job-manage-detail"),
     path("delete/<slug:slug>/", JobDeleteView.as_view(), name="job-delete"),
     path("", JobListView.as_view(), name="job-list"),

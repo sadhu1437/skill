@@ -71,6 +71,16 @@ class InterviewQuestionCreateView(generics.CreateAPIView):
     permission_classes = (permissions.IsAdminUser,)
 
 
+class InterviewQuestionManageListView(generics.ListAPIView):
+    queryset = InterviewQuestion.objects.all().select_related("topic").prefetch_related("code_examples")
+    serializer_class = InterviewQuestionSerializer
+    permission_classes = (permissions.IsAdminUser,)
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    search_fields = ("title", "question", "topic__name")
+    ordering_fields = ("created_at", "display_order", "title")
+    ordering = ("display_order", "-created_at")
+
+
 class InterviewTopicCreateView(generics.CreateAPIView):
     queryset = InterviewTopic.objects.all()
     serializer_class = InterviewTopicSerializer

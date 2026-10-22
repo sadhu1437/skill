@@ -93,7 +93,6 @@ export default function JobDetailPage() {
           </div>
         </div>
       </div>
-      <AdSlot className="job-ad-slot" />
       <div className="detail-card job-overview">
         <h3>Job Overview</h3>
         {job.short_description && <p style={{ whiteSpace: 'pre-wrap' }}>{job.short_description}</p>}
@@ -105,6 +104,7 @@ export default function JobDetailPage() {
           </div>
         ))}
       </div>
+      <AdSlot className="job-ad-slot" />
     </div>
   )
 }

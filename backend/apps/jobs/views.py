@@ -114,6 +114,15 @@ class JobCreateView(generics.CreateAPIView):
         return Response(response_serializer.data, status=status.HTTP_201_CREATED)
 
 
+class JobManageListView(generics.ListAPIView):
+    queryset = Job.objects.all().select_related("company").order_by("-created_at")
+    serializer_class = JobSerializer
+    permission_classes = (permissions.IsAdminUser,)
+    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    search_fields = ("title", "company__name", "location", "job_id")
+    ordering_fields = ("created_at", "published_at", "title")
+
+
 class JobManageDetailView(generics.RetrieveUpdateAPIView):
     queryset = Job.objects.all().select_related("company")
     serializer_class = JobCreateSerializer

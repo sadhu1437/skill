@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.core.security import safe_upload_filename, validate_file_upload
+from apps.core.security import safe_upload_filename, sanitize_html, validate_file_upload
 from .models import Company, Job
 
 
@@ -83,6 +83,23 @@ class JobSerializer(serializers.ModelSerializer):
             "seo_title": {"required": False, "allow_blank": True},
             "seo_description": {"required": False, "allow_blank": True},
         }
+
+    def validate(self, attrs):
+        rich_content_fields = (
+            "description",
+            "responsibilities",
+            "eligibility",
+            "required_skills",
+            "preferred_skills",
+            "selection_process",
+            "application_process",
+            "interview_preparation",
+            "fraud_alert",
+        )
+        for field in rich_content_fields:
+            if field in attrs:
+                attrs[field] = sanitize_html(attrs[field])
+        return attrs
 
     def create(self, validated_data):
         company_name = validated_data.pop("company_name", "").strip()

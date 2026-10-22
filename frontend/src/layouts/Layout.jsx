@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import AdSlot from '../components/AdSlot'
 
 const navigation = [
   ['/', 'Home'],
@@ -15,9 +16,16 @@ export default function Layout({ children }) {
   const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
   const signedIn = Boolean(localStorage.getItem('skillbloom_access_token'))
+  const isAdminArea = location.pathname.startsWith('/admin-panel')
+    || (location.pathname === '/login' && new URLSearchParams(location.search).get('next')?.startsWith('/admin-panel'))
+  const showInformationalPageAd = ['/about', '/ai-tech', '/contact', '/disclaimer', '/privacy-policy'].includes(location.pathname)
 
   useEffect(() => {
     setMenuOpen(false)
+  }, [location.pathname])
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0 })
   }, [location.pathname])
 
   useEffect(() => {
@@ -57,6 +65,7 @@ export default function Layout({ children }) {
         </nav>
       </header>
       <main>{children}</main>
+      {!isAdminArea && showInformationalPageAd && <AdSlot slot="content_slot" className="layout-ad-slot" />}
       <footer className="footer">
         <div className="container footer-grid">
           <div>

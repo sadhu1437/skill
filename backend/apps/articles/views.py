@@ -1,3 +1,4 @@
+from django.core.files.storage import default_storage
 from django.db.models import Exists, F, OuterRef, Q
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
@@ -7,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.core.permissions import IsAuthorOrAdmin
+from apps.core.security import safe_upload_filename, validate_file_upload
 from apps.core.throttles import ArticleActionThrottle, ArticleWriteThrottle, CommentThrottle, PublicReadThrottle
 from .models import Article, ArticleBookmark, ArticleComment, ArticleLike, ExploreCategory, ExploreTag
 from .serializers import ArticleSerializer, CategorySerializer, CommentSerializer, TagSerializer
@@ -117,6 +119,26 @@ class ArticleManageListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return super().get_queryset().order_by("-updated_at")
+
+
+class ArticleInlineImageUploadView(APIView):
+    permission_classes = (permissions.IsAdminUser,)
+    throttle_classes = (ArticleWriteThrottle,)
+    parser_classes = (MultiPartParser, FormParser)
+
+    def post(self, request):
+        image = request.FILES.get("image")
+        is_valid, error_message = validate_file_upload(
+            image,
+            allowed_extensions=["jpg", "jpeg", "png", "gif", "webp"],
+            max_size=5 * 1024 * 1024,
+        )
+        if not is_valid:
+            from rest_framework.exceptions import ValidationError
+            raise ValidationError({"image": error_message})
+
+        image_path = default_storage.save(f"explore/content/{safe_upload_filename(image.name)}", image)
+        return Response({"url": request.build_absolute_uri(default_storage.url(image_path))}, status=status.HTTP_201_CREATED)
 
 
 class ArticleManageDetailView(generics.RetrieveUpdateDestroyAPIView):

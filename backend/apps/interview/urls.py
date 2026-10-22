@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (
     InterviewQuestionCreateView, InterviewQuestionDeleteView, InterviewQuestionDetailView,
-    InterviewQuestionListView, InterviewQuestionManageDetailView, InterviewTopicCreateView,
+    InterviewQuestionListView, InterviewQuestionManageDetailView, InterviewQuestionManageListView, InterviewTopicCreateView,
     InterviewTopicDetailView, InterviewTopicListView, InterviewTopicManageDetailView,
 )
 
@@ -12,6 +12,7 @@ urlpatterns = [
     path("topics/manage/<slug:slug>/", InterviewTopicManageDetailView.as_view(), name="interview-topic-manage-detail"),
         path("topics/<slug:slug>/", InterviewTopicDetailView.as_view(), name="interview-topic-detail"),
     path("questions/", InterviewQuestionListView.as_view(), name="interview-question-list"),
+    path("questions/manage/", InterviewQuestionManageListView.as_view(), name="interview-question-manage-list"),
     path("questions/manage/<slug:slug>/", InterviewQuestionManageDetailView.as_view(), name="interview-question-manage-detail"),
         path("questions/<slug:slug>/", InterviewQuestionDetailView.as_view(), name="interview-question-detail"),
     path("create/", InterviewQuestionCreateView.as_view(), name="interview-question-create"),

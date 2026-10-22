@@ -65,10 +65,6 @@
 .explore-admin-success { color: #bbf7d0; background: #123522; }
 .explore-admin-error { color: #fecaca; background: #321522; }
 .explore-admin-empty { color: var(--text-light); }
-.ad-slot { margin: 1.5rem 0; text-align: center; }
-.ad-slot ins { display: block !important; }
-.explore-ad-slot { margin: 1.5rem auto; max-width: 100%; }
-.article-ad-slot { margin: 1.5rem 0; max-width: 100%; }
 .analytics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .75rem; margin-bottom: 1.25rem; }
 .analytics-card { display: grid; gap: .2rem; padding: 1rem; background: #102a48; border: 1px solid #315170; border-radius: 9px; }
 .analytics-card span { color: var(--text-light); font-size: .8rem; }

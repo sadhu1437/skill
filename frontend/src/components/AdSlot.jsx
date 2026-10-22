@@ -1,49 +1,92 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { fetchJson } from '../api/client'
+
+let cachedSettings
+let settingsRequest
+let adsenseScriptRequest
+
+function loadAdSettings() {
+  if (cachedSettings) return Promise.resolve(cachedSettings)
+  if (!settingsRequest) {
+    settingsRequest = fetchJson('/core/adsense/').then((settings) => {
+      cachedSettings = settings
+      return settings
+    }).finally(() => {
+      settingsRequest = null
+    })
+  }
+  return settingsRequest
+}
+
+function loadAdsenseScript(publisherId) {
+  if (window.adsbygoogle?.loaded) return Promise.resolve()
+  if (adsenseScriptRequest) return adsenseScriptRequest
+
+  adsenseScriptRequest = new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.async = true
+    script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(publisherId)}`
+    script.crossOrigin = 'anonymous'
+    script.dataset.skillbloomAdsense = 'true'
+    script.onload = resolve
+    script.onerror = () => reject(new Error('Google AdSense could not be loaded.'))
+    document.head.appendChild(script)
+  }).catch((error) => {
+    adsenseScriptRequest = null
+    throw error
+  })
+
+  return adsenseScriptRequest
+}
 
 export default function AdSlot({ slot = 'job_slot', className = '' }) {
   const [settings, setSettings] = useState(null)
+  const adRef = useRef(null)
+  const { pathname, search } = useLocation()
+  const isAdminRoute = pathname.startsWith('/admin-panel')
+    || (pathname === '/login' && new URLSearchParams(search).get('next')?.startsWith('/admin-panel'))
 
   useEffect(() => {
-    fetchJson('/core/adsense/').then(setSettings).catch(() => setSettings({ enabled: false }))
-  }, [])
+    if (isAdminRoute) return
+    let cancelled = false
+    loadAdSettings()
+      .then((data) => { if (!cancelled) setSettings(data) })
+      .catch((error) => console.error('Ad settings could not be loaded.', error))
+    return () => { cancelled = true }
+  }, [isAdminRoute])
 
   useEffect(() => {
-    if (!settings?.enabled || !settings.publisher_id) return
-    if (!document.querySelector('script[data-skillbloom-adsense]')) {
-      const script = document.createElement('script')
-      script.async = true
-      script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${settings.publisher_id}`
-      script.crossOrigin = 'anonymous'
-      script.dataset.skillbloomAdsense = 'true'
-      script.onload = () => {
+    if (isAdminRoute || !settings?.enabled || !settings.publisher_id || !settings[slot] || !adRef.current) return
+    let cancelled = false
+    loadAdsenseScript(settings.publisher_id)
+      .then(() => {
+        const ad = adRef.current
+        if (cancelled || !ad || ad.dataset.adRequested) return
         window.adsbygoogle = window.adsbygoogle || []
         window.adsbygoogle.push({})
-      }
-      document.head.appendChild(script)
-    } else if (window.adsbygoogle) {
-      try {
-        window.adsbygoogle.push({})
-      } catch {
-        // AdSense may be unavailable during local development.
-      }
-    }
-  }, [settings])
+        ad.dataset.adRequested = 'true'
+      })
+      .catch((error) => console.error('Ad could not be initialized.', error))
+    return () => { cancelled = true }
+  }, [isAdminRoute, settings, slot])
 
-  if (!settings?.enabled || !settings.publisher_id || !settings[slot]) return null
+  if (isAdminRoute || !settings?.enabled || !settings.publisher_id || !settings[slot]) return null
 
   const slotId = settings[slot]
 
   return (
-    <div className={`ad-slot ${className}`} aria-label="Advertisement">
+    <aside className={`ad-slot ${className}`.trim()} aria-label="Advertisement">
+      <span className="ad-slot-label">Advertisement</span>
       <ins
+        ref={adRef}
         className="adsbygoogle"
-        style={{ display: 'block', minHeight: '90px' }}
+        style={{ display: 'block' }}
         data-ad-client={settings.publisher_id}
         data-ad-slot={slotId}
         data-ad-format="auto"
         data-full-width-responsive="true"
       />
-    </div>
+    </aside>
   )
 }
