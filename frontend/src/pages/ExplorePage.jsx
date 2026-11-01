@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchJson } from '../api/client'
-import AdSlot from '../components/AdSlot'
+import GoogleAdUnit from '../components/GoogleAdUnit'
 import { setSeo } from '../utils/seo'
 import './explore.css'
 
@@ -59,6 +59,9 @@ export default function ExplorePage() {
         </form>
       </section>
       <section className="explore-content">
+        {!loading && !error && !search.trim() && !activeCategory && articles.length > 0 && (
+          <GoogleAdUnit surface="explore_listing" position="page_top" />
+        )}
         <div className="explore-toolbar">
           <div className="category-scroller" aria-label="Explore categories">
             <button className={!activeCategory ? 'active' : ''} type="button" onClick={() => setActiveCategory('')}>All</button>
@@ -77,7 +80,6 @@ export default function ExplorePage() {
             <span>{articles.length} articles</span>
           </div>
           <div className="explore-grid">{articles.map((article) => <ArticleCard article={article} key={article.id} />)}</div>
-          <AdSlot slot="content_slot" className="explore-ad-slot" />
         </>}
         {!activeCategory && !search && featured.length > 0 && <section className="explore-secondary">
           <div className="explore-section-heading"><div><p className="explore-kicker">Editor picks</p><h2>Featured articles</h2></div></div>
@@ -88,6 +90,9 @@ export default function ExplorePage() {
           <div className="explore-grid">{trending.slice(0, 3).map((article) => <ArticleCard article={article} key={article.id} />)}</div>
         </section>}
       </section>
+      {!loading && !error && !search.trim() && !activeCategory && articles.length > 0 && <>
+        <GoogleAdUnit surface="explore_listing" position="page_bottom" />
+      </>}
     </main>
   )
 }

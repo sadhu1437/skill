@@ -49,11 +49,14 @@
 .article-actions button:hover { color: #07111f; background: var(--primary-color); }
 .article-notice { color: var(--primary-color); }
 .article-content { color: #d5deea; font-size: 1.08rem; line-height: 1.9; overflow-wrap: anywhere; }
-.article-content h1, .article-content h2, .article-content h3 { margin: 2rem 0 .7rem; color: var(--text-dark); line-height: 1.2; }
+.article-content h1, .article-content h2, .article-content h3, .article-content h4, .article-content h5, .article-content h6 { margin: 2rem 0 .7rem; color: var(--text-dark); line-height: 1.2; }
+.article-content h1 { font-size: 2rem; }
+.article-content h2 { font-size: 1.7rem; }
+.article-content h3 { font-size: 1.4rem; }
+.article-content strong { font-weight: 800; }
 .article-content img { width: 100%; height: auto; margin: 1.5rem 0; border-radius: 10px; }
 .article-content a { color: var(--secondary-color); text-decoration: underline; }
 .article-content-segment { display: block; }
-.article-inline-ad-slot { width: min(100%, 970px); margin: 2.5rem auto; }
 .article-content blockquote { margin: 1.5rem 0; padding: 1rem 1.25rem; color: #e7eef7; background: #0d2037; border-left: 4px solid var(--primary-color); }
 .article-content pre, .article-content code { max-width: 100%; overflow-x: auto; }
 .article-content pre { padding: 1rem; background: #030812; border: 1px solid #243a55; border-radius: 8px; }

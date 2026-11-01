@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { fetchJson } from '../api/client'
-import AdSlot from '../components/AdSlot'
 import { sanitizeHtml } from '../security/sanitizeHtml'
 import './pdfs.css'
 
@@ -30,6 +29,5 @@ export default function PDFDetailPage() {
       <div className="pdf-preview"><iframe src={resource.pdf} title={`${resource.title} preview`} /></div>
       <div className="pdf-download-area"><p>Finished reviewing the content?</p><a className="primary-btn pdf-download-button" href={resource.pdf} target="_blank" rel="noreferrer" download>Download PDF</a></div>
     </article>
-    <AdSlot slot="content_slot" className="pdf-detail-ad-slot" />
   </main>
 }

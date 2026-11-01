@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { requestJson, uploadFile } from '../api/client'
+import AdSenseSettingsForm from '../components/AdSenseSettingsForm'
 import RichContentEditor from '../components/RichContentEditor'
 import './admin.css'
 
@@ -9,8 +10,6 @@ const jobFields = [['company_name', 'Company name'], ['title', 'Job title'], ['l
 const emptyPdf = { title: '', description: '', content: '', category: 'Programming', tags: '', author: '', is_published: true, is_featured: false, pdf: null, thumbnail: null }
 const emptyTopic = { name: '', description: '', icon: 'code', display_order: 0, is_published: true, seo_title: '', seo_description: '' }
 const emptyQuestion = { topic_id: '', title: '', question: '', answer: '', explanation: '', example: '', key_points: '', problem_statement: '', input_format: '', output_format: '', constraints: '', tags: '', question_type: 'conceptual', difficulty: 'medium', display_order: 0, is_published: true, code_examples: [] }
-const emptyAdsense = { enabled: false, publisher_id: '', home_slot: '', job_slot: '', content_slot: '', interview_slot: '' }
-
 export default function AdminPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -33,7 +32,6 @@ export default function AdminPage() {
   const [adminQuestions, setAdminQuestions] = useState([])
   const [questionTotal, setQuestionTotal] = useState(0)
   const [adminListsRefresh, setAdminListsRefresh] = useState(0)
-  const [adsense, setAdsense] = useState(emptyAdsense)
   const [jobs, setJobs] = useState([])
   const [pdfResources, setPdfResources] = useState([])
   const [interviewTopics, setInterviewTopics] = useState([])
@@ -49,7 +47,6 @@ export default function AdminPage() {
     if (!authorized) return
     requestJson('/resources/').then((data) => setPdfResources(data.results || data)).catch(() => setPdfResources([]))
     requestJson('/interview/topics/').then((data) => setInterviewTopics(data.results || data)).catch(() => setInterviewTopics([]))
-    requestJson('/core/adsense/').then(setAdsense).catch(() => {})
   }, [authorized, message])
 
   useEffect(() => {
@@ -104,7 +101,6 @@ export default function AdminPage() {
   async function publishTopic(event) { event.preventDefault(); try { const created = await requestJson('/interview/topics/create/', { method: 'POST', body: JSON.stringify(topic) }); setInterviewTopics((current) => [...current, created]); setTopic(emptyTopic); setMessage('Interview topic published successfully.') } catch (saveError) { setError(saveError.message || 'Could not publish this topic.') } }
   async function saveQuestion(event) { event.preventDefault(); try { const wasEditing = Boolean(editingQuestionSlug); const endpoint = wasEditing ? `/interview/questions/manage/${editingQuestionSlug}/` : '/interview/create/'; const saved = await requestJson(endpoint, { method: wasEditing ? 'PATCH' : 'POST', body: JSON.stringify(question) }); resetQuestion(); setAdminListsRefresh((value) => value + 1); setMessage(`Interview question “${saved.title}” ${wasEditing ? 'updated' : 'published'} successfully.`) } catch (saveError) { setError(saveError.message || 'Could not save this question.') } }
   async function deleteQuestion(slug) { if (!window.confirm('Delete this interview question permanently?')) return; try { await requestJson(`/interview/questions/manage/${slug}/`, { method: 'DELETE' }); if (adminQuestions.length === 1 && questionListPage > 1) setQuestionListPage((page) => page - 1); setAdminListsRefresh((value) => value + 1); setMessage('Interview question deleted successfully.') } catch (deleteError) { setError(deleteError.message || 'Could not delete this question.') } }
-  async function saveAdsense(event) { event.preventDefault(); try { await requestJson('/core/adsense/', { method: 'PATCH', body: JSON.stringify(adsense) }); setMessage('AdSense settings saved.') } catch (saveError) { setError(saveError.message || 'Could not save AdSense settings.') } }
 
   if (!authChecked) return <div className="admin-page admin-login"><div className="admin-login-card"><p>Checking admin access...</p></div></div>
   if (!loggedIn) return <div className="admin-page admin-login"><div className="admin-login-card"><p className="admin-kicker">SkillBloom workspace</p><h1>Admin sign in</h1><p>Use your Django staff account to publish from mobile or laptop.</p><form onSubmit={login}><label>Email<input type="email" value={email} onChange={(event) => setEmail(event.target.value)} required /></label><label>Password<input type="password" value={password} onChange={(event) => setPassword(event.target.value)} required /></label><button className="admin-submit" type="submit">Sign in</button></form>{error && <p className="admin-error">{error}</p>}</div></div>
@@ -118,6 +114,6 @@ export default function AdminPage() {
     <section className="admin-form admin-section"><h2>Manage learning PDFs</h2><div className="jobs-list-table">{pdfResources.map((item) => <div className="job-row" key={item.id}><div><strong>{item.title}</strong><p>{item.category}</p></div><button className="admin-delete" type="button" onClick={() => deletePdf(item.slug)}>Delete PDF</button></div>)}</div></section>
     <form className="admin-form" onSubmit={publishTopic}><section className="admin-section"><h2>Interview topic</h2><div className="admin-grid"><label>Topic name<input name="name" value={topic.name} onChange={update(setTopic)} required /></label><label>Display order<input name="display_order" type="number" value={topic.display_order} onChange={update(setTopic)} /></label></div><label>Description<textarea name="description" value={topic.description} onChange={update(setTopic)} rows="3" /></label><label><input type="checkbox" name="is_published" checked={topic.is_published} onChange={update(setTopic)} /> Publish topic</label><button className="admin-submit" type="submit">Publish topic</button></section></form>
     <form className="admin-form" onSubmit={saveQuestion}><section className="admin-section"><div className="admin-section-heading"><h2>{editingQuestionSlug ? 'Edit interview question' : 'Interview question'}</h2>{editingQuestionSlug && <button className="admin-logout" type="button" onClick={resetQuestion}>Cancel edit</button>}</div><div className="admin-grid"><label>Topic<select name="topic_id" value={question.topic_id} onChange={update(setQuestion)} required><option value="">Select topic</option>{interviewTopics.map((item) => <option value={item.id} key={item.id}>{item.name}</option>)}</select></label><label>Question type<select name="question_type" value={question.question_type} onChange={update(setQuestion)}><option value="conceptual">Conceptual</option><option value="coding">Coding</option><option value="technical">Technical</option></select></label></div><label>Title<input name="title" value={question.title} onChange={update(setQuestion)} required /></label><label>Question<textarea name="question" value={question.question} onChange={update(setQuestion)} rows="4" required /></label><label>Answer<textarea name="answer" value={question.answer} onChange={update(setQuestion)} rows="5" /></label><label>Explanation<textarea name="explanation" value={question.explanation} onChange={update(setQuestion)} rows="4" /></label><label><input type="checkbox" name="is_published" checked={question.is_published} onChange={update(setQuestion)} /> Publish question</label><button className="admin-submit" type="submit">{editingQuestionSlug ? 'Update question' : 'Publish question'}</button></section></form>
-    <form className="admin-form" onSubmit={saveAdsense}><section className="admin-section"><h2>AdSense</h2><label><input type="checkbox" name="enabled" checked={adsense.enabled} onChange={update(setAdsense)} /> Enable AdSense</label><div className="admin-grid"><label>Publisher ID<input name="publisher_id" value={adsense.publisher_id} onChange={update(setAdsense)} /></label><label>Home slot<input name="home_slot" value={adsense.home_slot} onChange={update(setAdsense)} /></label><label>Job slot<input name="job_slot" value={adsense.job_slot} onChange={update(setAdsense)} /></label><label>Content slot<input name="content_slot" value={adsense.content_slot} onChange={update(setAdsense)} /></label><label>Interview slot<input name="interview_slot" value={adsense.interview_slot} onChange={update(setAdsense)} /></label></div><button className="admin-submit" type="submit">Save AdSense</button></section></form>
+    <AdSenseSettingsForm section="main" />
   </div></main>
 }

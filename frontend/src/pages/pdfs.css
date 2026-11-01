@@ -15,7 +15,8 @@
 .pdf-content-panel h2 { margin-top: 0; color: var(--text-dark); }
 .pdf-description, .pdf-tags { color: var(--text-light); line-height: 1.8; white-space: pre-wrap; }
 .pdf-course-content { margin: 1.5rem 0; color: var(--text-light); line-height: 1.85; }
-.pdf-course-content h1, .pdf-course-content h2, .pdf-course-content h3, .pdf-course-content h4 { margin: 1.5rem 0 .6rem; color: var(--text-dark); }
+.pdf-course-content h1, .pdf-course-content h2, .pdf-course-content h3, .pdf-course-content h4, .pdf-course-content h5, .pdf-course-content h6 { margin: 1.5rem 0 .6rem; color: var(--text-dark); }
+.pdf-course-content strong { font-weight: 800; }
 .pdf-course-content p { margin: .75rem 0; }
 .pdf-course-content ul, .pdf-course-content ol { padding-left: 1.4rem; }
 .pdf-course-content a { color: var(--secondary-color); text-decoration: underline; }

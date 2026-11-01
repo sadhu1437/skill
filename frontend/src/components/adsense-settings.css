@@ -1,0 +1,161 @@
+.adsense-settings-form {
+  min-width: 0;
+  padding: 1.25rem;
+  color: var(--text-dark, #f8fafc);
+  background: rgba(15, 33, 56, .94);
+  border: 1px solid var(--line, #243a55);
+  border-radius: 14px;
+}
+
+.adsense-settings-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.adsense-settings-heading h2 {
+  margin: 0;
+}
+
+.adsense-settings-kicker {
+  margin: 0 0 .25rem;
+  color: var(--accent-color, #facc15);
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.adsense-enabled-control {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  flex: 0 0 auto;
+}
+
+.adsense-settings-form .adsense-publisher-field,
+.adsense-placement label {
+  display: grid;
+  gap: .4rem;
+  min-width: 0;
+  font-weight: 700;
+}
+
+.adsense-settings-form input:not([type="checkbox"]),
+.adsense-settings-form select {
+  width: 100%;
+  min-width: 0;
+  padding: .7rem .75rem;
+  color: inherit;
+  background: #07111f;
+  border: 1px solid #315170;
+  border-radius: 8px;
+}
+
+.adsense-placement-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: .75rem;
+  margin: 1rem 0;
+}
+
+.adsense-placement {
+  display: grid;
+  align-content: start;
+  gap: .75rem;
+  min-width: 0;
+  margin: 0;
+  padding: .9rem;
+  border: 1px solid #315170;
+  border-radius: 10px;
+}
+
+.adsense-placement legend {
+  padding-inline: .35rem;
+  color: var(--accent-color, #facc15);
+  font-weight: 800;
+}
+
+.adsense-placement-remove,
+.adsense-placement-add {
+  min-height: 40px;
+  padding: .55rem .8rem;
+  color: inherit;
+  background: transparent;
+  border: 1px solid #315170;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.adsense-placement-add {
+  margin-bottom: 1rem;
+  color: #07111f;
+  background: var(--accent-color, #facc15);
+  border-color: var(--accent-color, #facc15);
+}
+
+.adsense-placement-add:disabled {
+  cursor: not-allowed;
+  opacity: .6;
+}
+
+.adsense-settings-submit {
+  min-height: 44px;
+  padding: .7rem 1rem;
+  color: #07111f;
+  background: var(--accent-color, #facc15);
+  border: 0;
+  border-radius: 8px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.adsense-settings-submit:disabled {
+  cursor: wait;
+  opacity: .7;
+}
+
+.adsense-settings-error,
+.adsense-settings-success {
+  overflow-wrap: anywhere;
+}
+
+.adsense-settings-error { color: #fca5a5; }
+.adsense-settings-success { color: #86efac; }
+
+.adsense-settings-form.adsense-settings-main {
+  color: #172b4d;
+  background: #fff;
+  border-color: #dbe4ef;
+}
+
+.adsense-settings-form.adsense-settings-main .adsense-settings-kicker,
+.adsense-settings-form.adsense-settings-main .adsense-placement legend {
+  color: #0b7a75;
+}
+
+.adsense-settings-form.adsense-settings-main input:not([type="checkbox"]),
+.adsense-settings-form.adsense-settings-main select {
+  color: #172b4d;
+  background: #fbfcfe;
+  border-color: #cdd8e6;
+}
+
+.adsense-settings-form.adsense-settings-main .adsense-placement {
+  border-color: #dbe4ef;
+}
+
+.adsense-settings-form.adsense-settings-main .adsense-settings-submit {
+  color: #fff;
+  background: #0b7a75;
+}
+
+.adsense-settings-form.adsense-settings-main .adsense-settings-error { color: #b91c1c; }
+.adsense-settings-form.adsense-settings-main .adsense-settings-success { color: #15803d; }
+
+@media (max-width: 560px) {
+  .adsense-settings-heading { align-items: flex-start; flex-direction: column; }
+}
