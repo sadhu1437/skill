@@ -1,4 +1,4 @@
-.auth-page { min-height: 72vh; display: grid; place-items: center; padding: 4rem 1rem; }
+.auth-page { display: grid; place-items: center; padding: 4rem 1rem; }
 .auth-card { width: min(100%, 480px); padding: clamp(1.5rem, 5vw, 2.75rem); color: var(--text-dark); background: var(--surface); border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); }
 .auth-kicker { margin: 0 0 .5rem; color: var(--primary-color); font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .auth-card h1 { margin: 0; font-size: clamp(1.8rem, 5vw, 2.6rem); line-height: 1.15; }

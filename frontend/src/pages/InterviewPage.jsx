@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { fetchJson } from '../api/client'
-import AdSlot from '../components/AdSlot'
+import GoogleAdUnit from '../components/GoogleAdUnit'
 import { setSeo } from '../utils/seo'
 import './interview.css'
 
@@ -21,7 +21,8 @@ export default function InterviewPage() {
     {state === 'loading' && <p className="interview-state">Loading interview topics...</p>}
     {state === 'error' && <p className="interview-state interview-error">Interview topics could not be loaded.</p>}
     {state === 'ready' && !topics.length && <p className="interview-state">No published topics yet.</p>}
+    {state === 'ready' && topics.length > 0 && <GoogleAdUnit surface="interview_index" position="page_top" />}
     <div className="explore__grid interview-topic-grid">{topics.map((topic) => <Link to={`/interview/${topic.slug}`} className="explore__card interview-topic-card" key={topic.id}><span className="interview-topic-icon">{topic.icon === 'database' ? '◈' : '✦'}</span><h2>{topic.name}</h2><p>{topic.description || `Explore ${topic.name} interview questions and answers.`}</p><span className="interview-topic-count">{topic.question_count || 0} questions →</span></Link>)}</div>
-    {state === 'ready' && topics.length > 0 && <AdSlot slot="interview_slot" className="interview-ad-slot" />}
+    {state === 'ready' && topics.length > 0 && <GoogleAdUnit surface="interview_index" position="page_bottom" />}
   </div>
 }

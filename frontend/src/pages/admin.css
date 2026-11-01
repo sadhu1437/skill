@@ -1,4 +1,4 @@
-.admin-page { min-height: 78vh; padding: 3rem 1rem; color: #172b4d; background: #f4f7fb; }
+.admin-page { padding: 3rem 1rem; color: #172b4d; background: #f4f7fb; }
 .admin-shell, .admin-login-card { width: min(100%, 980px); margin: 0 auto; }
 .admin-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 2rem; }
 .admin-header-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: .6rem; }

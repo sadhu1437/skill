@@ -1,118 +1,74 @@
-# AdSense Settings Data Flow Verification
+# SkillBloom AdSense Configuration and Placement
 
-## ✅ VERIFIED: Settings WILL Correctly Reflect from Admin to Ad Slots
+## Shared configuration
 
-### Complete Data Flow Path:
+Both existing admin panels edit the same Django `AdSenseSettings` record through `PATCH /api/core/adsense/`. The public `GET` response contains only ad-serving configuration; changing settings remains staff-only. The Main Admin form manages Home, Jobs, and Interview placements; the Explore Admin form manages Explore placements. Dynamic placement PATCHes merge submitted IDs with the current registry, and deletion uses explicit `remove_placement_ids`, so submitting one panel's subset does not clear the other panel's placements.
 
-```
-Admin Panel Input (ExploreAdminPage)
-    ↓
-User enters: Publisher ID, Content Slot ID, Toggle Enabled
-User clicks: "Save AdSense" button
-    ↓
-saveAdsense() function executes:
-    - event.preventDefault() (prevent form submission)
-    - requestJson('/core/adsense/', { 
-        method: 'PATCH', 
-        body: { 
-          enabled: adsenseEnabled, 
-          publisher_id: adsensePublisherId, 
-          content_slot: adsenseContentSlot 
-        }
-      })
-    ↓
-Backend /core/adsense/ PATCH Endpoint:
-    - Checks: request.user.is_authenticated && request.user.is_staff
-    - Gets or creates: AdSenseSettings object (pk=1)
-    - Updates database fields:
-      * enabled
-      * publisher_id
-      * content_slot
-    - Saves to database
-    - Returns Response with all updated fields
-    ↓
-saveAdsense() receives response, then calls:
-    - setMessage('AdSense settings saved.')
-    - loadAll() ← This reloads all settings from backend
-    ↓
-loadAll() function:
-    - Fetches: /core/adsense/
-    - Updates React state:
-      * setAdsenseEnabled(adsenseData.enabled)
-      * setAdsensePublisherId(adsenseData.publisher_id)
-      * setAdsenseContentSlot(adsenseData.content_slot)
-    ↓
-Admin Panel UI Updates:
-    - Input fields show saved values
-    - Confirmation message displays
-```
+Each placement stores only an internal ID, display name, allowlisted public page surface, approved position, numeric slot ID, and supported unit type. Publisher ID and the enable switch are global. No scripts, HTML, or arbitrary route patterns are accepted.
 
-### When User Visits Explore Page or Article Detail Page:
+| Page surface | Eligible route | Allowed positions |
+|---|---|---|
+| Home page | `/` | After page introduction; after page content |
+| Jobs listing | `/jobs` | After page introduction; after page content |
+| Job article | `/jobs/:slug` | Between qualifying article paragraphs |
+| Explore listing | `/explore` | After page introduction; after page content |
+| Explore article | `/explore/:slug` | Between qualifying article paragraphs |
+| Interview questions index | `/interview` | After page introduction; after page content |
+| Interview answer | `/interview/:topicSlug/:questionSlug` | Between qualifying answer paragraphs |
 
-```
-Page Loads (ExplorePage or ArticleDetailPage)
-    ↓
-AdSlot component mounts with:
-    <AdSlot slot="content_slot" />
-    ↓
-AdSlot useEffect triggers:
-    - fetchJson('/core/adsense/')
-    - Gets: { enabled, publisher_id, content_slot }
-    ↓
-Checks conditions:
-    if (!settings?.enabled || !settings.publisher_id || !settings[slot])
-      return null
-    ↓
-If enabled AND publisher_id exists AND content_slot exists:
-    - Creates Google AdSense script tag:
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={publisher_id}"
-    - Renders <ins> tag with:
-      data-ad-client={publisher_id}
-      data-ad-slot={content_slot}
-    ↓
-Google AdSense Script:
-    - Loads ad with your publisher ID
-    - Displays ad in the content_slot
-    ↓
-✅ AD DISPLAYS CORRECTLY
+These are supported insertion targets, not arbitrary URL matching. A new placement can be added without source changes when it uses one of these existing page surfaces and positions. Supporting a new route family or a new insertion position requires a code change so the route and safe rendering location can be explicitly allowlisted.
+
+Publisher IDs must be `ca-pub-` followed by 16 digits. Slot IDs must be numeric. The server validates the unit type (`display` or `in_article`), position/surface combination, unique placement IDs, and no duplicate position on the same surface. It caps the registry at 30 placements. The old fixed slot columns are migrated into the placement registry without losing IDs, and the API continues accepting/returning the legacy fixed fields for compatibility.
+
+The async AdSense loader is included once in the shared public HTML head for `ca-pub-8687126461256058`. It supports Auto Ads independently of manual placement configuration. Manual unit initialization does not add another loader; it queues a unit once through the head-loaded `adsbygoogle` script and only when its placement is eligible, enabled, and valid. The configured Publisher ID must match the Publisher ID in the HTML head. If the Publisher ID changes, update the head script as well. Placement renderers are selected from a dedicated allowlisted renderer map; Display emits `data-ad-format="auto"` and `data-full-width-responsive="true"`, while In-article emits `data-ad-layout="in-article"` and `data-ad-format="fluid"`. Adding a future AdSense format requires an explicit validated backend type and a dedicated renderer; it cannot be enabled by entering markup or a script.
+
+Display units use the responsive AdSense markup (`data-ad-format="auto"` and `data-full-width-responsive="true"`). In-article units use `data-ad-layout="in-article"` and `data-ad-format="fluid"`. The implementation does not set fixed ad dimensions or create slot IDs.
+
+## Route and content eligibility
+
+Eligibility is an allowlist in `frontend/src/utils/adEligibility.js`, not a denylist. It maps each page surface to its designated public route and strips query strings/fragments before exact matching. Admin panels (including descendants), admin sign-in, user authentication/account pages, PDFs, informational/legal pages, search/filter result states, unknown routes, and error/empty content cannot render a React manual ad. This route check does not depend on CSS. The shared HTML head loader still loads on every route; exclusions for Auto Ads must be set in the AdSense account, and a separate server-rendered HTML shell is required if the loader request itself must be blocked on private routes.
+
+The Jobs and Explore in-article renderer sanitizes rich HTML/Markdown before calculating placements. The article page must be published (Jobs `is_published`, Explore `status === "published"`, Interview `is_published`) before ad insertion is considered. It inserts at most one unit after a complete paragraph boundary, never inside a heading, paragraph, list, blockquote, link, or interactive element. It requires at least 700 words overall, 350 paragraph words before the placement, 250 paragraph words after it, and at least five substantial paragraphs. Short, empty, unpublished, loading, and error content gets no unit. The interview answer renderer uses the same content and placement safeguards. Stored API/database content is not changed.
+
+The “Advertisements” label is intentionally used to clearly distinguish ads from editorial content. Ads must not be placed next to apply/download/navigation controls or otherwise invite accidental clicks. Do not click live ads for testing.
+
+## Google account setup and Auto Ads exclusions
+
+The React route allowlist prevents manual units in excluded sections, but it cannot control Auto Ads. Because the same `frontend/index.html` shell serves public and client-side routes, its head script is fetched on admin/private routes too; React route checks cannot prevent a static head script from loading. In the AdSense account, add Page Exclusions using the exact routes/prefixes supported by the account UI so Auto Ads do not serve on excluded pages:
+
+- `/admin-panel` and every nested admin route, including `/admin-panel/explore`.
+- `/login`, `/register`, and `/account` (include descendants if the account UI supports prefix exclusions).
+- `/pdfs` and its descendants.
+- Informational/private pages without sufficient original content: `/about`, `/ai-tech`, `/contact`, `/privacy-policy`, and `/disclaimer`.
+
+The script being present does not itself create manual ad units on these routes. If the requirement changes to prevent the AdSense script request itself on admin/private routes, the server must serve a distinct HTML shell without the loader for those routes; a client-side route check cannot provide that guarantee.
+
+Do not exclude `/`, `/jobs`, `/jobs/:slug`, `/explore`, `/explore/:slug`, or the eligible interview routes if you intend to use their configured manual units. Review Auto Ads placements on those pages to avoid excessive density or overlap. If Auto Ads conflict with manually placed units, use the account’s page exclusions for the affected public URL; React will continue to render the configured manual placement. Keep account-wide Auto Ads formats and page exclusions consistent with current Google controls.
+
+The legacy static HTML files under `frontend/public/source-site` were restored unchanged and are outside the React route gate. They may retain their original ad markup; inspect those pages and exclude their path from Auto Ads if they are not eligible or if ads should not appear there. This implementation does not edit those HTML files.
+
+## Validation and release checks
+
+Run the backend tests from `backend` and frontend checks from `frontend`:
+
+```text
+python manage.py test apps.core.test_adsense
+npm test -- adEligibility.test.js
+npm run build
 ```
 
-## Data Checkpoint Summary
+In a non-production/test setup, verify:
 
-| Step | Location | Data Stored | Verified |
-|------|----------|------------|----------|
-| 1 | Admin Panel State | adsenseEnabled, adsensePublisherId, adsenseContentSlot | ✅ |
-| 2 | Admin Form Submission | PATCH request to /core/adsense/ | ✅ |
-| 3 | Backend Database | AdSenseSettings.objects (pk=1) | ✅ |
-| 4 | Backend Response | JSON with all fields | ✅ |
-| 5 | Admin Panel Reload | loadAll() updates React state | ✅ |
-| 6 | Frontend Ad Component | AdSlot fetches /core/adsense/ | ✅ |
-| 7 | Ad Rendering | Google AdSense renders with your IDs | ✅ |
+1. Save a Publisher ID, enable switch, and multiple placements in either admin panel. Confirm the shared placement list appears in the other panel.
+2. Add placements only to available public page/position choices; verify invalid slot IDs, types, routes, duplicate positions, and arbitrary HTML/script fields are rejected.
+3. Confirm IDs, names, targets, positions, types, and the migrated legacy slot data persist after refresh.
+4. Confirm configured units render only at the routes listed above. Empty, loading, error, short, or non-qualifying article content must not create an in-article request.
+5. Confirm disabled or unconfigured placements add no manual ad unit. The global library remains in the shared HTML head for Auto Ads. When enabled with a valid configuration, there must be only one AdSense script and each actual manual unit element must be initialized at most once. A successful `adsbygoogle.push({})` only queues/requests initialization; it does not prove Google served an ad or produced an impression.
+6. Test at mobile and desktop widths; verify units remain responsive, stay within content width, and do not overlap content, navigation, or interactive controls.
+7. Confirm `/admin-panel`, `/admin-panel/explore`, `/login`, `/register`, and `/account` render no manual ad and are excluded from Auto Ads in the AdSense account.
 
-## Answer to Your Question
+## Policy and approval limits
 
-**Q: If I enter in admin panel, will it reflect to correct source or not?**
+The placement approach is intended to follow Google's published [AdSense Program policies](https://support.google.com/adsense/answer/48182?hl=en), [ad placement policies](https://support.google.com/adsense/answer/1346295?hl=en), [Publisher Policies](https://support.google.com/publisherpolicies/answer/10502938?hl=en), [Publisher Restrictions](https://support.google.com/publisherpolicies/answer/10437795?hl=en), and [Auto ads guidance](https://support.google.com/adsense/answer/9261805?hl=en). Re-check the current Google guidance and account UI before deployment.
 
-**A: YES ✅ It will reflect correctly because:**
-
-1. **Admin Input → Backend**: saveAdsense() sends PATCH with your settings
-2. **Backend Persists**: AdSenseSettings model saves to database
-3. **Verification Loop**: loadAll() confirms the save worked
-4. **Frontend Fetches**: AdSlot component fetches latest settings on page load
-5. **Ads Render**: Google AdSense uses your publisher_id and content_slot
-
-**No additional steps needed** - just save settings in admin panel, then visit the Explore page or read an article. Ads will display with your configuration.
-
-## How to Test
-
-1. Open Explore CMS admin panel
-2. Go to "Monetization" section
-3. Enter your Publisher ID: `ca-pub-xxxxxxxxxxxxxxxx`
-4. Enter your Content Slot ID: `1234567890`
-5. Toggle "Enabled" checkbox
-6. Click "Save AdSense"
-7. See success message
-8. Visit Explore page or article detail page
-9. AdSense ads should appear with your configuration
-
-**Status**: Production Ready ✅
+Technical controls do not establish policy approval. The publisher remains responsible for current account settings, page exclusions, consent and privacy obligations, traffic quality, content originality/value, placement review, and all other Google policies and restrictions. No AdSense approval or continued ad serving is guaranteed.

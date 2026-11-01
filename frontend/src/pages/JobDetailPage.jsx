@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchJson } from '../api/client'
-import AdSlot from '../components/AdSlot'
+import ArticleContentWithAds from '../components/ArticleContentWithAds'
 import { sanitizeHtml } from '../security/sanitizeHtml'
 import { setSeo } from '../utils/seo'
 import './detail.css'
@@ -15,6 +15,12 @@ const fallbackJobs = {
   wipro: { title: 'Trainee', company: { name: 'WIPRO' }, location: 'India', work_mode: 'Full Time', job_type: 'Full Time', experience: 'Fresher', qualification: 'Relevant technical qualification', salary: 'Not disclosed', job_id: 'WIPRO-TR', published_at: 'Source listing', deadline: 'Check official listing', official_url: 'https://careers.wipro.com/', short_description: 'Join Wipro, a leading technology services and consulting company.', description: 'Wipro builds innovative solutions that address clients’ most complex digital transformation needs.' },
   amdocs: { title: 'System Analyst', company: { name: 'Amdocs' }, location: 'India', work_mode: 'Full Time', job_type: 'Full Time', experience: 'Entry level', qualification: 'Relevant technical qualification', salary: 'Not disclosed', job_id: 'AMD-SYS', published_at: 'Source listing', deadline: 'Check official listing', official_url: 'https://www.amdocs.com/careers', short_description: 'Amdocs helps those who build the future to make it amazing.', description: 'With a market-leading portfolio of software products and services, Amdocs unlocks customers’ innovative potential.' },
   payu: { title: 'Associate Software Engineer', company: { name: 'PayU' }, location: 'India', work_mode: 'Full Time', job_type: 'Full Time', experience: 'Entry level', qualification: 'Relevant technical qualification', salary: 'Not disclosed', job_id: 'PAYU-ASE', published_at: 'Source listing', deadline: 'Check official listing', official_url: 'https://payu.in/careers', short_description: 'Join a dynamic engineering team working in the cutting-edge world of technology.', description: 'We are seeking a talented and curious Associate Software Engineer eager to join our engineering team.' },
+}
+
+function escapeHtml(value) {
+  return String(value).replace(/[&<>"']/g, (character) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+  }[character]))
 }
 
 export default function JobDetailPage() {
@@ -64,6 +70,11 @@ export default function JobDetailPage() {
     ['interview_preparation', 'Interview Preparation'],
     ['fraud_alert', 'Fraud Alert'],
   ].filter(([key]) => job?.[key])
+  const articleContent = [
+    job.short_description && `<p>${escapeHtml(job.short_description).replace(/\r?\n/g, '<br>')}</p>`,
+    job.description && sanitizeHtml(job.description),
+    ...detailSections.map(([key, label]) => `<h3>${label}</h3>${sanitizeHtml(job[key])}`),
+  ].filter(Boolean).join('')
 
   return (
     <div className="container detail-page">
@@ -95,16 +106,15 @@ export default function JobDetailPage() {
       </div>
       <div className="detail-card job-overview">
         <h3>Job Overview</h3>
-        {job.short_description && <p style={{ whiteSpace: 'pre-wrap' }}>{job.short_description}</p>}
-        {job.description && <div className="job-rich-description" dangerouslySetInnerHTML={{ __html: sanitizeHtml(job.description) }} />}
-        {detailSections.map(([key, label]) => (
-          <div key={key} style={{ marginTop: '1.25rem' }}>
-            <h3>{label}</h3>
-            <div className="job-rich-description" dangerouslySetInnerHTML={{ __html: sanitizeHtml(job[key]) }} />
-          </div>
-        ))}
+        {articleContent && (
+          <ArticleContentWithAds
+            className="job-rich-description"
+            content={articleContent}
+            surface="job_article"
+            contentEligible={job.is_published === true}
+          />
+        )}
       </div>
-      <AdSlot className="job-ad-slot" />
     </div>
   )
 }

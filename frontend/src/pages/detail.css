@@ -1,5 +1,9 @@
 .job-rich-description { line-height: 1.7; white-space: normal; overflow-wrap: anywhere; }
-.job-rich-description h1, .job-rich-description h2, .job-rich-description h3 { margin: 1rem 0 .5rem; color: var(--text-dark); }
+.job-rich-description h1, .job-rich-description h2, .job-rich-description h3, .job-rich-description h4, .job-rich-description h5, .job-rich-description h6 { margin: 1rem 0 .5rem; color: var(--text-dark); line-height: 1.25; }
+.job-rich-description h1 { font-size: 1.8rem; }
+.job-rich-description h2 { font-size: 1.55rem; }
+.job-rich-description h3 { font-size: 1.3rem; }
+.job-rich-description strong { font-weight: 800; }
 .job-rich-description ul, .job-rich-description ol { padding-left: 1.5rem; }
 .job-rich-description p { margin: .65rem 0; }
 .job-rich-description img { max-width: 100%; height: auto; margin: 1rem 0; border-radius: 8px; }

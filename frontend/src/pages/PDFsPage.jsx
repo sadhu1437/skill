@@ -1,5 +1,4 @@
 import './pdfs.css'
-import AdSlot from '../components/AdSlot'
 import { useEffect, useState } from 'react'
 import { fetchJson } from '../api/client'
 import { Link } from 'react-router-dom'
@@ -36,7 +35,6 @@ export default function PDFsPage() {
           </div>
         ))}
       </div>
-      {state === 'ready' && pdfs.length > 0 && <AdSlot slot="content_slot" className="pdfs-ad-slot" />}
     </div>
   )
 }

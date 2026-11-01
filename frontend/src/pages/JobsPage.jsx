@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { sanitizeHtml } from '../security/sanitizeHtml'
 import { fetchJson } from '../api/client'
-import AdSlot from '../components/AdSlot'
+import GoogleAdUnit from '../components/GoogleAdUnit'
 import { setSeo } from '../utils/seo'
 import './jobs.css'
 
@@ -24,6 +24,8 @@ export default function JobsPage() {
       <p className="section__description">
         Discover exciting new opportunities and high-demand positions available now in top industries and companies.
       </p>
+
+      {!loading && jobs.length > 0 && <GoogleAdUnit surface="jobs_listing" position="page_top" />}
 
       <div className="job__grid">
         {loading && <p className="job-status">Loading published jobs...</p>}
@@ -49,7 +51,7 @@ export default function JobsPage() {
           </div>
         ))}
       </div>
-      {!loading && jobs.length > 0 && <AdSlot slot="content_slot" className="jobs-ad-slot" />}
+      {!loading && jobs.length > 0 && <GoogleAdUnit surface="jobs_listing" position="page_bottom" />}
     </div>
   )
 }

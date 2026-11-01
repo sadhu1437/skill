@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { sanitizeHtml } from '../security/sanitizeHtml'
 import { fetchJson } from '../api/client'
-import AdSlot from '../components/AdSlot'
+import GoogleAdUnit from '../components/GoogleAdUnit'
 import { setSeo } from '../utils/seo'
 import './home.css'
 
@@ -64,7 +64,7 @@ export default function HomePage() {
         </div>
       </header>
 
-      <AdSlot slot="home_slot" className="home-ad-slot" />
+      <GoogleAdUnit surface="home" position="page_top" />
 
       <section className="section__container explore__container" id="about">
         <h2 className="section__header">
@@ -84,8 +84,6 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-
-      <AdSlot slot="home_slot" className="home-ad-slot" />
 
       <section className="section__container job__container" id="job">
         <h2 className="section__header"><span>Latest &amp; Top</span> Job Openings</h2>
@@ -122,6 +120,7 @@ export default function HomePage() {
       <div className="explore__btn1" style={{ textAlign: 'center', marginBottom: '20px' }}>
         <Link to="/jobs" className="btn">View All Jobs</Link>
       </div>
+      <GoogleAdUnit surface="home" position="page_bottom" />
 
     </div>
   )

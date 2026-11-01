@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { fetchJson, requestJson } from '../api/client'
-import AdSlot from '../components/AdSlot'
 import ArticleContentWithAds from '../components/ArticleContentWithAds'
 import { sanitizeHtml } from '../security/sanitizeHtml'
 import { setSeo } from '../utils/seo'
@@ -142,7 +141,11 @@ export default function ArticleDetailPage() {
         <div className="article-actions"><button type="button" onClick={() => action('like')}>♥ {article.likes || 0}</button><button type="button" onClick={() => action('bookmark')}>{article.is_bookmarked ? '★ Saved' : '☆ Save'}</button><button type="button" onClick={share}>↗ Share</button></div>
         {notice && <p className="article-notice">{notice}</p>}
         <div className="article-content">
-          <ArticleContentWithAds content={sanitizeHtml(article.content)} />
+          <ArticleContentWithAds
+            content={article.content}
+            surface="explore_article"
+            contentEligible={article.status === 'published'}
+          />
         </div>
         {article.video_url && <div className="article-video"><a href={article.video_url} target="_blank" rel="noreferrer">Watch the related video</a></div>}
         <div className="article-tags">{article.tags?.map((tag) => <span key={tag.id}>#{tag.name}</span>)}</div>

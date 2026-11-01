@@ -3,19 +3,31 @@
 .rich-editor-toolbar button { min-height: 38px; padding: .45rem .65rem; color: var(--text-dark); background: #173451; border: 1px solid #315170; border-radius: 6px; cursor: pointer; font-weight: 700; }
 .rich-editor-toolbar button:hover, .rich-editor-toolbar button.rich-editor-active { color: #07111f; background: var(--primary-color); }
 .rich-editor-help { margin-left: auto; color: var(--text-light); font-size: .82rem; font-weight: 400; }
-.rich-editor-content { min-height: 17rem; padding: 1rem; color: var(--text-dark); background: #091a2f; line-height: 1.7; }
-.rich-editor-content .ProseMirror { min-height: 15rem; outline: none; }
-.rich-editor-content .ProseMirror p { margin: .6rem 0; }
-.rich-editor-content .ProseMirror h1, .rich-editor-content .ProseMirror h2, .rich-editor-content .ProseMirror h3 { margin: 1.2rem 0 .6rem; color: var(--text-dark); }
-.rich-editor-content .ProseMirror ul, .rich-editor-content .ProseMirror ol { padding-left: 1.5rem; }
-.rich-editor-content .ProseMirror blockquote { margin: 1rem 0; padding: .7rem 1rem; background: #102a48; border-left: 4px solid var(--primary-color); }
-.rich-editor-content .ProseMirror img { max-width: 100%; height: auto; margin: 1rem 0; border-radius: 7px; }
-.rich-editor-content .ProseMirror a { color: var(--secondary-color); text-decoration: underline; }
+.rich-editor-content, .rich-editor-preview { min-height: 17rem; padding: 1rem; color: var(--text-dark); background: #091a2f; font-family: inherit; font-size: 1.08rem; font-weight: 400; line-height: 1.9; overflow-wrap: anywhere; }
+.rich-editor-content .ProseMirror { min-height: 15rem; outline: none; font: inherit; }
+.rich-editor-content .ProseMirror p, .rich-editor-preview p { margin: .75rem 0; }
+.rich-editor-content .ProseMirror strong, .rich-editor-content .ProseMirror b, .rich-editor-preview strong, .rich-editor-preview b { font-weight: 800 !important; }
+.rich-editor-content .ProseMirror em, .rich-editor-content .ProseMirror i, .rich-editor-preview em, .rich-editor-preview i { font-style: italic !important; }
+.rich-editor-content .ProseMirror u, .rich-editor-preview u { text-decoration: underline !important; }
+.rich-editor-content .ProseMirror h1, .rich-editor-content .ProseMirror h2, .rich-editor-content .ProseMirror h3,
+.rich-editor-preview h1, .rich-editor-preview h2, .rich-editor-preview h3,
+.rich-editor-preview h4, .rich-editor-preview h5, .rich-editor-preview h6 { margin: 1.2rem 0 .6rem; color: var(--text-dark); font-weight: 700 !important; line-height: 1.25; }
+.rich-editor-content .ProseMirror h1, .rich-editor-preview h1 { font-size: 2rem !important; }
+.rich-editor-content .ProseMirror h2, .rich-editor-preview h2 { font-size: 1.6rem !important; }
+.rich-editor-content .ProseMirror h3, .rich-editor-preview h3 { font-size: 1.3rem !important; }
+.rich-editor-content .ProseMirror ul, .rich-editor-content .ProseMirror ol, .rich-editor-preview ul, .rich-editor-preview ol { padding-left: 1.5rem; }
+.rich-editor-content .ProseMirror blockquote, .rich-editor-preview blockquote { margin: 1rem 0; padding: .7rem 1rem; background: #102a48; border-left: 4px solid var(--primary-color); }
+.rich-editor-content .ProseMirror img, .rich-editor-preview img { max-width: 100%; height: auto; margin: 1rem 0; border-radius: 7px; }
+.rich-editor-content .ProseMirror a, .rich-editor-preview a { color: var(--secondary-color); text-decoration: underline; }
 .rich-editor-content .ProseMirror:focus-visible { outline: 2px solid var(--primary-color); outline-offset: 2px; }
+.rich-editor-preview { overflow-wrap: anywhere; }
+.rich-editor-preview code { font-family: Consolas, 'Courier New', monospace; }
+.rich-editor-preview pre { max-width: 100%; padding: 1rem; overflow-x: auto; background: #030812; border: 1px solid #243a55; border-radius: 8px; }
+.rich-editor-preview hr { margin: 1.25rem 0; border: 0; border-top: 1px solid #315170; }
 .rich-editor-file-input { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; clip-path: inset(50%); }
 .rich-editor-message { margin: 0; padding: .6rem .8rem; color: #fecaca; background: #321522; border-top: 1px solid #7f3043; }
 .rich-editor-loading { min-height: 10rem; padding: 1rem; color: var(--text-light); background: #091a2f; border: 1px solid #315170; border-radius: 9px; }
 @media (max-width: 560px) {
   .rich-editor-help { flex-basis: 100%; margin-left: 0; }
-  .rich-editor-content { min-height: 14rem; padding: .75rem; }
+  .rich-editor-content, .rich-editor-preview { min-height: 14rem; padding: .75rem; }
 }

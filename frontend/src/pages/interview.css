@@ -20,7 +20,6 @@
 .interview-topic-icon { color: var(--accent-color); font-size: 2rem; }
 .interview-topic-card h2 { margin: .6rem 0 .4rem; color: var(--text-dark); }
 .interview-topic-count { color: var(--accent-color); font-size: .85rem; font-weight: 800; }
-.interview-shell { min-height: 70vh; }
 .interview-breadcrumbs { min-width: 0; margin-bottom: 1.5rem; color: var(--text-light); font-size: .85rem; line-height: 1.5; }
 .interview-breadcrumbs ol { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .45rem; margin: 0; padding: 0; list-style: none; }
 .interview-breadcrumbs li { min-width: 0; display: inline-flex; align-items: center; gap: .45rem; }

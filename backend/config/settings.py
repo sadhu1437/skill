@@ -168,8 +168,8 @@ LOGGING = {
     },
 }
 
-ALLOWED_HTML_TAGS = ["p", "br", "strong", "em", "u", "a", "ul", "ol", "li", "h1", "h2", "h3", "h4", "h5", "h6", "blockquote", "code", "pre", "img", "table", "thead", "tbody", "tr", "th", "td", "hr"]
-ALLOWED_HTML_ATTRIBUTES = {"a": ["href", "title"], "img": ["src", "alt", "title", "width", "height"]}
+ALLOWED_HTML_TAGS = ["p", "br", "strong", "em", "u", "s", "del", "strike", "a", "ul", "ol", "li", "h1", "h2", "h3", "h4", "h5", "h6", "blockquote", "code", "pre", "img", "table", "thead", "tbody", "tr", "th", "td", "hr"]
+ALLOWED_HTML_ATTRIBUTES = {"a": ["href", "title", "target", "rel"], "img": ["src", "alt", "title", "width", "height"]}
 ALLOWED_URL_PROTOCOLS = ["http", "https"]
 ALLOWED_FILE_EXTENSIONS = ["jpg", "jpeg", "png", "gif", "webp", "pdf", "doc", "docx", "xls", "xlsx"]
 MAX_FILE_SIZE = 10 * 1024 * 1024

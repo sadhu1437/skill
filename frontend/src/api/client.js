@@ -1,5 +1,5 @@
 const isLocalDevelopment = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-const API_BASE = import.meta.env.VITE_API_BASE_URL || (isLocalDevelopment ? 'http://127.0.0.1:8001/api' : 'https://skillbloom.ashokworld.in/api')
+const API_BASE = import.meta.env.VITE_API_BASE_URL || (isLocalDevelopment ? 'http://127.0.0.1:8000/api' : 'https://skillbloom.ashokworld.in/api')
 
 function clearAuth() {
   localStorage.removeItem('skillbloom_access_token')

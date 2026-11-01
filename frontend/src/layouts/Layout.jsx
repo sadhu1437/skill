@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import AdSlot from '../components/AdSlot'
 
 const navigation = [
   ['/', 'Home'],
@@ -16,9 +16,6 @@ export default function Layout({ children }) {
   const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
   const signedIn = Boolean(localStorage.getItem('skillbloom_access_token'))
-  const isAdminArea = location.pathname.startsWith('/admin-panel')
-    || (location.pathname === '/login' && new URLSearchParams(location.search).get('next')?.startsWith('/admin-panel'))
-  const showInformationalPageAd = ['/about', '/ai-tech', '/contact', '/disclaimer', '/privacy-policy'].includes(location.pathname)
 
   useEffect(() => {
     setMenuOpen(false)
@@ -32,9 +29,11 @@ export default function Layout({ children }) {
     if (!menuOpen) return undefined
     const closeOnEscape = (event) => { if (event.key === 'Escape') setMenuOpen(false) }
     document.addEventListener('keydown', closeOnEscape)
+    document.documentElement.classList.add('menu-open')
     document.body.classList.add('menu-open')
     return () => {
       document.removeEventListener('keydown', closeOnEscape)
+      document.documentElement.classList.remove('menu-open')
       document.body.classList.remove('menu-open')
     }
   }, [menuOpen])
@@ -56,16 +55,28 @@ export default function Layout({ children }) {
           <Link to="/jobs" className="primary-btn topbar-cta">Explore Jobs</Link>
           <button className={`menu-toggle${menuOpen ? ' is-open' : ''}`} type="button" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen((open) => !open)}><span /><span /><span /></button>
         </div>
-        <div className={`mobile-backdrop${menuOpen ? ' is-visible' : ''}`} aria-hidden="true" onClick={() => setMenuOpen(false)} />
-        <nav id="mobile-navigation" className={`mobile-drawer${menuOpen ? ' is-open' : ''}`} aria-label="Mobile navigation" aria-hidden={!menuOpen}>
-          <div className="mobile-drawer-header"><span>Explore SkillBloom</span><button type="button" aria-label="Close navigation menu" onClick={() => setMenuOpen(false)}>×</button></div>
-          {navigation.map(([path, label]) => <NavLink key={path} to={path} end={path === '/'} className={({ isActive }) => isActive ? 'active' : ''}>{label}</NavLink>)}
-          <NavLink to={authPath} className={({ isActive }) => `mobile-auth-link${isActive ? ' active' : ''}`}>{signedIn ? 'Account' : 'Sign in'}</NavLink>
-          <Link to="/jobs" className="primary-btn mobile-drawer-cta">Explore Jobs</Link>
-        </nav>
       </header>
-      <main>{children}</main>
-      {!isAdminArea && showInformationalPageAd && <AdSlot slot="content_slot" className="layout-ad-slot" />}
+      {createPortal(
+        <>
+          <div className={`mobile-backdrop${menuOpen ? ' is-visible' : ''}`} aria-hidden="true" onClick={() => setMenuOpen(false)} />
+          <nav id="mobile-navigation" className={`mobile-drawer${menuOpen ? ' is-open' : ''}`} aria-label="Mobile navigation" aria-hidden={!menuOpen}>
+            <div className="mobile-drawer-header">
+              <Link to="/" className="brand" aria-label="SkillBloom home" onClick={() => setMenuOpen(false)}>
+                <span className="brand-mark" aria-hidden="true" />
+                <span>Skill<span className="brand-accent">Bloom</span></span>
+              </Link>
+              <button type="button" aria-label="Close navigation menu" onClick={() => setMenuOpen(false)}>×</button>
+            </div>
+            <div className="mobile-drawer-links">
+              {navigation.map(([path, label]) => <NavLink key={path} to={path} end={path === '/'} className={({ isActive }) => isActive ? 'active' : ''} onClick={() => setMenuOpen(false)}>{label}</NavLink>)}
+              <NavLink to={authPath} className={({ isActive }) => `mobile-auth-link${isActive ? ' active' : ''}`} onClick={() => setMenuOpen(false)}>{signedIn ? 'Account' : 'Sign in'}</NavLink>
+            </div>
+            <Link to="/jobs" className="primary-btn mobile-drawer-cta" onClick={() => setMenuOpen(false)}>Explore Jobs</Link>
+          </nav>
+        </>,
+        document.body,
+      )}
+      <main className="site-main">{children}</main>
       <footer className="footer">
         <div className="container footer-grid">
           <div>
