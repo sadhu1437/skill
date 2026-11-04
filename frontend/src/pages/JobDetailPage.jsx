@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchJson } from '../api/client'
 import ArticleContentWithAds from '../components/ArticleContentWithAds'
+import GoogleAdUnit from '../components/GoogleAdUnit'
 import { sanitizeHtml } from '../security/sanitizeHtml'
 import { setSeo } from '../utils/seo'
+import { startJobApplyRedirect } from '../utils/jobApplyRedirect'
 import './detail.css'
 
 const fallbackJobs = {
@@ -28,6 +30,26 @@ export default function JobDetailPage() {
   const [job, setJob] = useState(fallbackJobs[slug] || null)
   const [loading, setLoading] = useState(true)
   const [notFound, setNotFound] = useState(false)
+  const [applyCountdown, setApplyCountdown] = useState(null)
+  const applyRedirectCleanup = useRef(null)
+
+  useEffect(() => {
+    setApplyCountdown(null)
+    return () => applyRedirectCleanup.current?.()
+  }, [slug, job?.official_url])
+
+  function beginApplyRedirect() {
+    applyRedirectCleanup.current?.()
+    setApplyCountdown(10)
+    applyRedirectCleanup.current = startJobApplyRedirect(
+      () => {
+        applyRedirectCleanup.current = null
+        setApplyCountdown(null)
+        window.location.assign(job.official_url)
+      },
+      setApplyCountdown,
+    )
+  }
 
   useEffect(() => {
     fetchJson(`/jobs/${slug}/`)
@@ -89,7 +111,6 @@ export default function JobDetailPage() {
             <span className="meta-pill">{job.job_type}</span>
             <span className="meta-pill">{job.experience}</span>
           </div>
-          {job.official_url && <a href={job.official_url} target="_blank" rel="noopener noreferrer" className="primary-btn job-apply-button">Apply on Official Company Website</a>}
         </div>
         <div className="card detail-card">
           <div className="detail-list">
@@ -115,6 +136,27 @@ export default function JobDetailPage() {
           />
         )}
       </div>
+      {job.is_published === true && (
+        <GoogleAdUnit surface="job_article" position="page_bottom" />
+      )}
+      {job.official_url && (
+        <div className="job-apply-footer">
+          <button
+            type="button"
+            className={`primary-btn job-apply-button${applyCountdown !== null ? ' is-counting-down' : ''}`}
+            onClick={beginApplyRedirect}
+            disabled={applyCountdown !== null}
+          >
+            {applyCountdown === null ? 'Apply on Official Company Website' : `Redirecting in ${applyCountdown}s`}
+          </button>
+          {applyCountdown !== null && (
+            <div className="job-apply-redirect" role="status" aria-live="polite">
+              <span className="job-apply-spinner" aria-hidden="true" />
+              <p>You’ll be redirected to the employer’s official application page.</p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }

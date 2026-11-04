@@ -144,6 +144,12 @@ class AdSenseSettingsTests(APITestCase):
             {"placements": [{**self.home_placement, "ad_type": "responsive"}]},
             {"placements": [{**self.home_placement, "surface": "/admin-panel"}]},
             {"placements": [{**self.home_placement, "surface": "home", "position": "in_article"}]},
+            {"placements": [{
+                **self.home_placement,
+                "surface": "job_article",
+                "position": "page_bottom",
+                "ad_type": "in_article",
+            }]},
             {"placements": [], "remove_placement_ids": ["bad id"]},
         )
 
@@ -192,6 +198,29 @@ class AdSenseSettingsTests(APITestCase):
             "id": "job-side",
             "name": "Jobs sidebar",
             "surface": "jobs_listing",
+            "position": "page_bottom",
+            "slot_id": "8098220433",
+            "ad_type": "display",
+        }
+
+        response = self.client.patch(
+            self.endpoint,
+            {
+                "enabled": True,
+                "publisher_id": "ca-pub-8687126461256058",
+                "placements": [placement],
+            },
+            format="json",
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["placements"], [placement])
+
+    def test_patch_accepts_display_placement_on_each_job_detail_page(self):
+        placement = {
+            "id": "job-detail-display",
+            "name": "Job detail display",
+            "surface": "job_article",
             "position": "page_bottom",
             "slot_id": "8098220433",
             "ad_type": "display",

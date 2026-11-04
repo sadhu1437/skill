@@ -39,10 +39,22 @@ class AdPlacementSerializer(serializers.Serializer):
         return super().to_internal_value(data)
 
     def validate(self, attrs):
-        is_article_surface = attrs["surface"] in ARTICLE_SURFACES
-        if (attrs["position"] == "in_article") != is_article_surface:
+        surface = attrs["surface"]
+        position = attrs["position"]
+        ad_type = attrs["ad_type"]
+        if surface == "job_article":
+            is_supported = (
+                position == "in_article"
+                or (position == "page_bottom" and ad_type == "display")
+            )
+        elif surface in ARTICLE_SURFACES:
+            is_supported = position == "in_article"
+        else:
+            is_supported = position in ("page_top", "page_bottom")
+
+        if not is_supported:
             raise serializers.ValidationError(
-                {"position": "Choose a position supported by the selected public page."}
+                {"position": "Choose a supported position and ad type for the selected public page."}
             )
         return attrs
 

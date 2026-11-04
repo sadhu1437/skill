@@ -10,13 +10,13 @@ Each placement stores only an internal ID, display name, allowlisted public page
 |---|---|---|
 | Home page | `/` | After page introduction; after page content |
 | Jobs listing | `/jobs` | After page introduction; after page content |
-| Job article | `/jobs/:slug` | Between qualifying article paragraphs |
+| Job article | `/jobs/:slug` | Between qualifying article paragraphs; responsive Display after job content |
 | Explore listing | `/explore` | After page introduction; after page content |
 | Explore article | `/explore/:slug` | Between qualifying article paragraphs |
 | Interview questions index | `/interview` | After page introduction; after page content |
 | Interview answer | `/interview/:topicSlug/:questionSlug` | Between qualifying answer paragraphs |
 
-These are supported insertion targets, not arbitrary URL matching. A new placement can be added without source changes when it uses one of these existing page surfaces and positions. Supporting a new route family or a new insertion position requires a code change so the route and safe rendering location can be explicitly allowlisted.
+These are supported insertion targets, not arbitrary URL matching. Job article supports In-article only between qualifying paragraphs and Display after the job content. A new placement can be added without source changes when it uses one of these existing page surfaces and positions. Supporting a new route family or a new insertion position requires a code change so the route and safe rendering location can be explicitly allowlisted.
 
 Publisher IDs must be `ca-pub-` followed by 16 digits. Slot IDs must be numeric. The server validates the unit type (`display` or `in_article`), position/surface combination, unique placement IDs, and no duplicate position on the same surface. It caps the registry at 30 placements. The old fixed slot columns are migrated into the placement registry without losing IDs, and the API continues accepting/returning the legacy fixed fields for compatibility.
 
@@ -28,7 +28,7 @@ Display units use the responsive AdSense markup (`data-ad-format="auto"` and `da
 
 Eligibility is an allowlist in `frontend/src/utils/adEligibility.js`, not a denylist. It maps each page surface to its designated public route and strips query strings/fragments before exact matching. Admin panels (including descendants), admin sign-in, user authentication/account pages, PDFs, informational/legal pages, search/filter result states, unknown routes, and error/empty content cannot render a React manual ad. This route check does not depend on CSS. The shared HTML head loader still loads on every route; exclusions for Auto Ads must be set in the AdSense account, and a separate server-rendered HTML shell is required if the loader request itself must be blocked on private routes.
 
-The Jobs and Explore in-article renderer sanitizes rich HTML/Markdown before calculating placements. The article page must be published (Jobs `is_published`, Explore `status === "published"`, Interview `is_published`) before ad insertion is considered. It inserts at most one unit after a complete paragraph boundary, never inside a heading, paragraph, list, blockquote, link, or interactive element. It requires at least 700 words overall, 350 paragraph words before the placement, 250 paragraph words after it, and at least five substantial paragraphs. Short, empty, unpublished, loading, and error content gets no unit. The interview answer renderer uses the same content and placement safeguards. Stored API/database content is not changed.
+The Jobs and Explore in-article renderer sanitizes rich HTML/Markdown before calculating placements. The article page must be published (Jobs `is_published`, Explore `status === "published"`, Interview `is_published`) before ad insertion is considered. It inserts at most one unit after a complete paragraph boundary, never inside a heading, paragraph, list, blockquote, link, or interactive element. It requires at least 700 words overall, 350 paragraph words before the placement, 250 paragraph words after it, and at least five substantial paragraphs. Short, empty, unpublished, loading, and error content gets no In-article unit. A configured Job article Display placement appears after each published job's overview content. The interview answer renderer uses the same content and placement safeguards. Stored API/database content is not changed.
 
 The “Advertisements” label is intentionally used to clearly distinguish ads from editorial content. Ads must not be placed next to apply/download/navigation controls or otherwise invite accidental clicks. Do not click live ads for testing.
 
