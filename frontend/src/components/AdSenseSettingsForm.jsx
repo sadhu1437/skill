@@ -12,7 +12,7 @@ const EMPTY_SETTINGS = {
 const SURFACES = [
   { value: 'home', label: 'Home page', positions: ['page_top', 'page_bottom'] },
   { value: 'jobs_listing', label: 'Jobs listing', positions: ['page_top', 'page_bottom'] },
-  { value: 'job_article', label: 'Job article', positions: ['in_article'] },
+  { value: 'job_article', label: 'Job article', positions: ['in_article', 'page_bottom'] },
   { value: 'explore_listing', label: 'Explore listing', positions: ['page_top', 'page_bottom'] },
   { value: 'explore_article', label: 'Explore article', positions: ['in_article'] },
   { value: 'interview_index', label: 'Interview questions index', positions: ['page_top', 'page_bottom'] },
@@ -43,13 +43,14 @@ function newPlacement(placements, availableSurfaces) {
   ))
   if (!surface) return null
   const id = `placement-${crypto.randomUUID()}`
+  const position = nextAvailablePosition(placements, surface.value, availableSurfaces)
   return {
     id,
     name: `New placement ${placements.length + 1}`,
     surface: surface.value,
-    position: nextAvailablePosition(placements, surface.value),
+    position,
     slot_id: '',
-    ad_type: 'display',
+    ad_type: position === 'in_article' ? 'in_article' : 'display',
   }
 }
 
@@ -89,19 +90,27 @@ export default function AdSenseSettingsForm({ section = 'main', onSaved }) {
   function updatePlacement(placementId, field, value) {
     setSettings((current) => ({
       ...current,
-      placements: current.placements.map((placement) => (
-        placement.id === placementId
-          ? {
-            ...placement,
-            [field]: value,
-            ...(field === 'surface' ? { position: nextAvailablePosition(
-              current.placements.filter((item) => item.id !== placementId),
-              value,
-              availableSurfaces,
-            ) || availableSurfaces.find((item) => item.value === value).positions[0] } : {}),
-          }
-          : placement
-      )),
+      placements: current.placements.map((placement) => {
+        if (placement.id !== placementId) return placement
+        const otherPlacements = current.placements.filter((item) => item.id !== placementId)
+        const nextPosition = field === 'surface'
+          ? nextAvailablePosition(otherPlacements, value, availableSurfaces)
+            || availableSurfaces.find((item) => item.value === value).positions[0]
+          : field === 'position' ? value : placement.position
+        const jobArticleTarget = (
+          field === 'position' && placement.surface === 'job_article'
+        ) || (
+          field === 'surface' && value === 'job_article'
+        )
+        return {
+          ...placement,
+          [field]: value,
+          ...(field === 'surface' ? { position: nextPosition } : {}),
+          ...(jobArticleTarget
+            ? { ad_type: nextPosition === 'in_article' ? 'in_article' : 'display' }
+            : {}),
+        }
+      }),
     }))
   }
 
@@ -233,7 +242,11 @@ export default function AdSenseSettingsForm({ section = 'main', onSaved }) {
             </label>
             <label>
               Ad unit type
-              <select value={placement.ad_type} onChange={(event) => updatePlacement(placement.id, 'ad_type', event.target.value)}>
+              <select
+                value={placement.ad_type}
+                onChange={(event) => updatePlacement(placement.id, 'ad_type', event.target.value)}
+                disabled={placement.surface === 'job_article'}
+              >
                 <option value="display">Display</option>
                 <option value="in_article">In-article</option>
               </select>

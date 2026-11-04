@@ -6,7 +6,6 @@ const navigation = [
   ['/', 'Home'],
   ['/about', 'About'],
   ['/jobs', 'Jobs'],
-  ['/pdfs', 'Learning PDFs'],
   ['/interview', 'Interview Questions'],
   ['/explore', 'Explore'],
   ['/contact', 'Contact'],
@@ -22,7 +21,7 @@ export default function Layout({ children }) {
   }, [location.pathname])
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0 })
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }, [location.pathname])
 
   useEffect(() => {
